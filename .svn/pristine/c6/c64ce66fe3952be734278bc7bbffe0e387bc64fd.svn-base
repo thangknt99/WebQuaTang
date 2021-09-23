@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Web.BaseSecurity;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Controllers
+{
+    public class LinkWebsiteController : BaseController
+    {
+        //
+        // GET: /LinkWebsite/
+        readonly ILinkWebsiteRepository _linkWebsiteRepository = new LinkWebsiteRepository();
+        public ActionResult Index(string type)
+        {
+            var pageElementId = GetPageElementId();
+            var lstLinkWebsite = _linkWebsiteRepository.GetAll().Where(g => g.PageElementId == pageElementId && g.Status);
+            if (type == "slide")
+            {
+                lstLinkWebsite = lstLinkWebsite.Where(g => g.Type == 1);
+            }
+            else
+            {
+                lstLinkWebsite = lstLinkWebsite.Where(g => g.Type == 2);
+            }
+            ViewBag.TypeLink = type;
+            return View(lstLinkWebsite.ToList());
+        }
+        public ActionResult HomeLinkWebSite()
+        {
+            var lstLinkWebSite = _linkWebsiteRepository.GetAll().Where(g => g.Status).OrderByDescending(g => g.ID).ToList();
+            TempData["lstLinkWebSite"] = lstLinkWebSite;
+            return View();
+        }
+    }
+}

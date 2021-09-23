@@ -1,0 +1,171 @@
+﻿@using BotDetect.Web.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Web.Model
+@model Web.Model.tbl_TiepNhanPAKN
+@{ MvcCaptcha paknCaptcha = new MvcCaptcha("paknCaptcha"); }
+ <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+      rel="stylesheet" type="text/css" />    
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<link href="~/assets/css/components.css" rel="stylesheet" />
+<script src="~/Content/Site/js/jquery.twbsPagination.min.js"></script>
+<script src="~/AppJs/tiepNhanPhanAnhKienNghi.js"></script>
+@{
+
+    var getCodePAKN = TempData["Code"];
+}
+
+@if (getCodePAKN != null)
+{
+    <p style="color:red;font-size:16px;margin:5px 0px 0px 15px">Mã phản ánh kiến nghị của bạn là <strong>@getCodePAKN</strong> bạn có thể dùng mã này để tra cứu kết quả trả lời</p>
+}
+
+<h4 style="text-align:center">TIẾP NHẬN PHẢN ÁNH, KIẾN NGHỊ</h4>
+<p style="text-align:center">Kiến nghị của bạn sẽ được biên tập và gửi đến cơ quan có thẩm quyền để trả lời.Xin vui lòng gõ tiếng Việt có dấu</p>
+
+@using (Ajax.BeginForm("Add", "TiepNhanPhanAnh", null,
+                             new AjaxOptions
+                             {
+                                 HttpMethod = "POST",
+                                 OnSuccess = "tiepNhanPhanAnhKienNghi.onAddSuccess"
+                             },
+                                  new { @id = "basicForm", @class = "form-horizontal" }))
+{
+    <div class="control-group">
+        <label class="style-col-left control-label col-md-4">Tên <span class="asterisk">(*)</span></label>
+        <div class="input-icon right col-md-8">
+            <i class="style-fa fa"></i>
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", pattern = "[^!~@#-%&*0-9]{5,100}", placeholder = "Nhập họ tên", required = "" })
+            <p id=""></p>
+        </div>
+    </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Email <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8">
+                        <i class="style-fa fa"></i>
+                        @Html.TextBoxFor(g => g.Email, new { @class = "form-control", placeholder = "Nhập địa chỉ thư điện tử", required = "", name = "email", type = "email" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Số điện thoại</label>
+                    <div class="input-icon right col-md-5 ">
+                        @Html.TextBoxFor(g => g.Phone, new { @class = "form-control", minlength = 9, maxlength = 15, placeholder = "Nhập số điện thoại" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Địa chỉ <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8 ">
+                        <i class="style-fa fa"></i>
+                        @Html.TextBoxFor(g => g.Address, new { @class = "form-control", placeholder = "Nhập địa chỉ", required = "" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Phản ánh,kiến nghị về việc <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8 ">
+                        <i class="style-fa fa"></i>
+                        @Html.TextBoxFor(g => g.Title, new { @class = "form-control", placeholder = "Nhập tiêu đề phản ánh kiến nghị", required = "" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Nội dung <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8 ">
+                        <i class="style-fa fa"></i>
+                        @Html.TextAreaFor(x => x.Content, new { @class = "form-control", placeholder = "Nhập nội dung phản ánh kiến nghị", required = "" })
+                        <p></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">File đính kèm</label>
+                    <div style="margin-bottom:20px" class="input-icon right col-md-8 ">
+                        @{ Html.RenderAction("Index", "UploadPhanAnh", new { id = 0, Multiple = false, type = "document", area = "" }); }
+                        <input style="background-color:#f2dede;float:left;width:67%;margin-left:60px" readonly class="form-control col-md-2" value="Chỉ nhận file jpg,png,pdf,doc,docx,xls,xlsx" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Mã bảo mật <span class="asterisk">(*)</span></label>
+                  
+                    <div style="margin-bottom:20px" class="input-icon right col-md-8 ">
+                        <i class="style-fa fa"></i>
+                        <div style="float:left;width:30%;margin-top:4px">
+                      <input type="text" class ="form-control" name="submit-captcha" required />
+                        @*@Html.TextBox("CaptchaCode",new { @class ="form-control" })*@
+                        </div>
+                        <div style="float:left;margin-left:5px">
+                            @Html.Captcha(paknCaptcha)
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4"> </label>
+                    <div class="input-icon right col-md-8 ">
+                        <input type="submit" class="btn btn-danger waves-effect waves-light" value="Gửi phản ánh,kiến nghị" />
+                        <input type="reset" class="btn btn-default waves-effect waves-light" value="Nhập lại" />
+                        <p id=""></p>
+                    </div>
+                </div>
+                            }
+<div class="form-group" style="background-color:#eeeeee;height:40px;width:100%;padding-left:15px">
+    <h3 style="color:red;font-size:18px;margin-top:11px; text-transform: uppercase"><i style="color:red" class="MR5 fa fa-comments-o" aria-hidden="true"></i> Phản ánh,kiến nghị đã trả lời</h3>
+</div>
+<div style="clear:both"></div>
+<div class="form-group">
+    <div class="col-md-7" style="float:left">
+        <input type="text" id="keyWord" class="form-control keyEnter" placeholder="Nhập họ tên hoặc tiêu đề phản ánh" />
+    </div>
+    <div style="float:left">
+        <input class="btn btn-primary waves-effect waves-light" type="button" name="buttom" id="searchBox" value="Tìm kiếm" />
+    </div>
+</div>
+<div style="clear:both"></div>
+<div id="gridDataHome">
+
+</div>
+<div style="margin-right:15px" class="pull-right" id="paginationholder"></div>
+
+<style>
+    .control-group {
+        width: 100%;
+    }
+
+    #codeProtec {
+        width: 39%;
+    }
+
+    .asterisk {
+        color: red;
+    }
+</style>
+<script>
+
+        $(document).ready(function () {
+            $("#basicForm").validate({
+                errorElement: "span",
+                errorClass: "help-block help-block-error",
+                focusInvalid: false,
+                ignore: "",
+                errorPlacement: function (error, element) {
+                    var icon = $(element).parent(".input-icon").children("i");
+                    icon.removeClass("fa-check").addClass("fa-warning");
+                    icon.attr("data-original-title", error.text()).tooltip({ 'container': ".modal-content" });
+                },
+                highlight: function (element) {
+                    $(element)
+                        .closest(".control-group").removeClass("has-success").addClass("has-error");
+                },
+                unhighlight: function () {
+                },
+                success: function (label, element) {
+                    var icon = $(element).parent(".input-icon").children("i");
+                    $(element).closest(".control-group").removeClass("has-error").addClass("has-success");
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                }
+            });
+        })
+
+</script>

@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+    var ImgRightOne = (List<tbl_SlideImages>)ViewBag.ImgRightOne;
+    var dothtml = ".html";
+}
+
+@using Web.Core
+@using Web.Model
+<div class="image-left">
+    @foreach (var item in ImgRightOne)
+    {
+        var linkimg = "#";
+        var target = "";
+        if (item.Url != null)
+        {
+            linkimg = item.Url;
+            target = "_blank";
+        }
+        <a href="@linkimg" title="" target="@target">
+            <img class="img-responsive" src="@item.Images" alt="">
+        </a>
+    }
+</div>

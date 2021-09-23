@@ -1,0 +1,1531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="vesportalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GroupCusUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameGroup" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MediaFile">
+    <Key>
+      <PropertyRef Name="FileID" />
+    </Key>
+    <Property Name="FileID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Ext" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Size" Type="int" Nullable="false" />
+    <Property Name="UploadTime" Type="datetime" Nullable="false" />
+    <Property Name="Path" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="200" />
+    <Property Name="ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Newsvz">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Slug" Type="nvarchar" MaxLength="250" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Details" Type="nvarchar(max)" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="CropImage" Type="nvarchar(max)" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="250" />
+    <Property Name="KeyWords" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifyBy" Type="int" />
+    <Property Name="DisplayZone" Type="varchar" MaxLength="100" />
+    <Property Name="PageElementId" Type="int" />
+    <Property Name="MorePageId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreCategoryId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreDisplayZone" Type="nvarchar" MaxLength="250" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="IsSlide" Type="tinyint" />
+    <Property Name="IsHot" Type="tinyint" />
+    <Property Name="IsNew" Type="tinyint" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="AllowComment" Type="tinyint" />
+    <Property Name="IsGetNewsvz" Type="tinyint" />
+    <Property Name="IsRightSlide" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="tbl_About">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="CreateBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_AccessOnline">
+    <Key>
+      <PropertyRef Name="Session" />
+    </Key>
+    <Property Name="Session" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_AccessView">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TongCong" Type="int" />
+    <Property Name="NgayThongKe" Type="datetime" Nullable="false" />
+    <Property Name="HomNay" Type="int" />
+    <Property Name="HomTruoc" Type="int" />
+    <Property Name="TuanNay" Type="int" />
+    <Property Name="TuanTruoc" Type="int" />
+    <Property Name="ThangNay" Type="int" />
+    <Property Name="ThangTruoc" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_AdminMenu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Url" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Icon" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tbl_ApproveNews">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ordering" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_BoxNewsConfig">
+    <Key>
+      <PropertyRef Name="Code" />
+      <PropertyRef Name="PageElementId" />
+      <PropertyRef Name="LangCode" />
+    </Key>
+    <Property Name="Code" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Calendar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="LangName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="Logo" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Details" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Slug" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="Icon" Type="nvarchar(max)" />
+    <Property Name="Color" Type="varchar" MaxLength="50" />
+    <Property Name="Background" Type="varchar" MaxLength="50" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="isShowHome" Type="bit" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="500" />
+    <Property Name="isNewsTab" Type="bit" />
+    <Property Name="isMenu" Type="bit" />
+    <Property Name="isHome" Type="bit" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="isHome2" Type="bit" />
+  </EntityType>
+  <EntityType Name="tbl_configLuuY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="LuuYHoiDap" Type="nvarchar(max)" />
+    <Property Name="LuuYToGiac" Type="nvarchar(max)" />
+    <Property Name="EmailNhanYKien" Type="nvarchar(max)" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_ConfigText">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Contents" Type="xml" Nullable="false" />
+    <Property Name="CreatedDate" Type="date" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="LastModifieDate" Type="date" />
+    <Property Name="LastModifieBy" Type="int" />
+    <Property Name="LangCode" Type="nchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Contact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullNameOfQuestion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="AnswerBy" Type="int" />
+    <Property Name="AnswerDate" Type="datetime" />
+    <Property Name="UserNameOfAnswer" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="150" />
+    <Property Name="DiaChi" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_ContactInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CoQuanBanHanh">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Level" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CoQuanBanHanh_ZZZ">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Level" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CountAccess">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_ChucVu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="isPublish" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_DanhMucTaiLieu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_DMChung">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="250" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Level" Type="int" Nullable="false" />
+    <Property Name="BCH" Type="nvarchar" MaxLength="500" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiDong" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="FeatureImage" Type="nvarchar" MaxLength="250" />
+    <Property Name="Details" Type="nvarchar(max)" />
+    <Property Name="IsHome" Type="bit" Nullable="false" />
+    <Property Name="CatID" Type="int" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsBanChapHanh" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_DMNhom">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_DonVi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDonVi" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_DonViTTHC">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tbl_FeedBack">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullNameOfQuestion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="AnswerBy" Type="int" />
+    <Property Name="AnswerDate" Type="datetime" />
+    <Property Name="UserNameOfAnswer" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Footer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="LangName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Footer" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_Gallery">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="Images" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="250" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="IsHome" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_GalleryCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="LangCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Icon" Type="nvarchar(max)" />
+    <Property Name="IsHome" Type="bit" />
+    <Property Name="Ordering" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_GroupUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="ExpandNews" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Permission" Type="varchar(max)" />
+    <Property Name="PermissionCatNews" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_HistoryNews">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NewsID" Type="int" Nullable="false" />
+    <Property Name="Contents" Type="xml" />
+  </EntityType>
+  <EntityType Name="tbl_HomeMenu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Url" Type="varchar" MaxLength="500" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="isNewsTab" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="LinkType" Type="int" Nullable="false" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="IsHome" Type="smallint" Nullable="false" />
+    <Property Name="IsMenu" Type="bit" Nullable="false" />
+    <Property Name="IsPermAdd" Type="bit" Nullable="false" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="IsHome2" Type="bit" Nullable="false" />
+    <Property Name="IsHome3" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_HomeMenu_OLD">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Url" Type="varchar" MaxLength="500" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="isNewsTab" Type="bit" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="LinkType" Type="int" Nullable="false" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="isHome" Type="smallint" Nullable="false" />
+    <Property Name="isMenu" Type="bit" Nullable="false" />
+    <Property Name="IsPermAdd" Type="bit" Nullable="false" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="IsHome2" Type="bit" Nullable="false" />
+    <Property Name="IsHome3" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Languages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Icon" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="tbl_LichCongTac">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ngaybatdau" Type="datetime" Nullable="false" />
+    <Property Name="giobatdau" Type="nvarchar" MaxLength="50" />
+    <Property Name="ngayketthuc" Type="datetime" />
+    <Property Name="noidung" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="allDay" Type="tinyint" Nullable="false" />
+    <Property Name="LVTCQ" Type="tinyint" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_LinkWebsite">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="LangName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="Logo" Type="nvarchar" MaxLength="250" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_LinhVucTTHC">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_LinhVucVanBan">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_LoaiVanBan">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Logs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDate" Type="date" Nullable="false" />
+    <Property Name="Contents" Type="xml" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Magazine">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Images" Type="varchar(max)" Nullable="false" />
+    <Property Name="FileAttack" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Contents" Type="xml" />
+  </EntityType>
+  <EntityType Name="tbl_News">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Slug" Type="nvarchar" MaxLength="250" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Details" Type="nvarchar(max)" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="CropImage" Type="nvarchar(max)" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="250" />
+    <Property Name="KeyWords" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifyBy" Type="int" />
+    <Property Name="DisplayZone" Type="varchar" MaxLength="100" />
+    <Property Name="PageElementId" Type="int" />
+    <Property Name="MorePageId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreCategoryId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreDisplayZone" Type="nvarchar" MaxLength="250" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="IsSlide" Type="tinyint" />
+    <Property Name="IsHot" Type="tinyint" />
+    <Property Name="IsNew" Type="tinyint" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="AllowComment" Type="tinyint" />
+    <Property Name="IsGetNews" Type="tinyint" />
+    <Property Name="IsRightSlide" Type="tinyint" />
+    <Property Name="NewMoney" Type="int" />
+    <Property Name="TinSanPham" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_News_ZZZ">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Slug" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Details" Type="nvarchar(max)" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="CropImage" Type="nvarchar(max)" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="250" />
+    <Property Name="KeyWords" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifyBy" Type="int" />
+    <Property Name="DisplayZone" Type="varchar" MaxLength="100" />
+    <Property Name="PageElementId" Type="int" />
+    <Property Name="MorePageId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreCategoryId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreDisplayZone" Type="nvarchar" MaxLength="250" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="IsSlide" Type="tinyint" />
+    <Property Name="IsHot" Type="tinyint" />
+    <Property Name="IsNew" Type="tinyint" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="AllowComment" Type="tinyint" />
+    <Property Name="IsGetNews" Type="tinyint" />
+    <Property Name="IsRightSlide" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="tbl_NewsComment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NewsID" Type="int" Nullable="false" />
+    <Property Name="CommentID" Type="int" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="IsNews" Type="bit" Nullable="false" />
+    <Property Name="IsView" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_NewsPaper">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="CreateBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_NewsPaperComment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NewsPaperID" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="Phone" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Online">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ip" Type="nvarchar" MaxLength="500" />
+    <Property Name="Session" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_PageElement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Banner" Type="nvarchar" MaxLength="250" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="LangName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Subdomain" Type="nvarchar" MaxLength="50" />
+    <Property Name="Area" Type="varchar" MaxLength="50" />
+    <Property Name="Footer" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Images" Type="varchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Content" Type="ntext" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_ProductCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_ProductOverView">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Images" Type="varchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_QALinhVuc">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="isPublish" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_QuestionAndAnswer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullNameOfQuestion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="AnswerBy" Type="int" />
+    <Property Name="AnswerDate" Type="datetime" />
+    <Property Name="UserNameOfAnswer" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="150" />
+    <Property Name="DiaChi" Type="nvarchar(max)" />
+    <Property Name="LinhVucID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_QuyTrinhXuatban">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="isPublish" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_SlideImages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="Images" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="PageElementId" Type="nvarchar" MaxLength="500" />
+    <Property Name="Url" Type="nvarchar" MaxLength="250" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Ordering" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_TaiLieu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CatID" Type="int" Nullable="false" />
+    <Property Name="NameFile" Type="nvarchar(max)" />
+    <Property Name="LinkFile" Type="nvarchar(max)" />
+    <Property Name="ReplaceName" Type="nvarchar(max)" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_TiepNhanPAKN">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="250" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="NameFile" Type="nvarchar" MaxLength="500" />
+    <Property Name="LinkFile" Type="nvarchar" MaxLength="500" />
+    <Property Name="ReplaceName" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Attachment" Type="nvarchar" MaxLength="500" />
+    <Property Name="AnswerContent" Type="nvarchar(max)" />
+    <Property Name="CodePAKN" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Ordering" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_ToGiac">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ToiPhamID" Type="int" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Email" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DiaChi" Type="nvarchar(max)" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="Phone" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_TTHC">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="DonViId" Type="int" />
+    <Property Name="LinhVucId" Type="int" />
+    <Property Name="ThuTuc" Type="nvarchar" MaxLength="500" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="Attachment" Type="nvarchar(max)" />
+    <Property Name="Tieude" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrinhTuThucHien" Type="nvarchar(max)" />
+    <Property Name="CachThucThucHien" Type="nvarchar(max)" />
+    <Property Name="ThanhPhanHoSo" Type="nvarchar(max)" />
+    <Property Name="ThoiHan" Type="nvarchar(max)" />
+    <Property Name="DoiTuong" Type="nvarchar(max)" />
+    <Property Name="CoQuanThucHien" Type="nvarchar(max)" />
+    <Property Name="KetQua" Type="nvarchar(max)" />
+    <Property Name="LePhi" Type="nvarchar(max)" />
+    <Property Name="TenMauDon" Type="nvarchar(max)" />
+    <Property Name="YeuCauDieuKien" Type="nvarchar(max)" />
+    <Property Name="CoSoPhapLy" Type="nvarchar(max)" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="AllowComment" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="tbl_TTHCComment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TTHCID" Type="int" Nullable="false" />
+    <Property Name="CommentID" Type="int" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="IsView" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_ThamDoYKien">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Poll" Type="int" Nullable="false" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="IpMay" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_ThamDoYKien_Ip">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PollId" Type="int" Nullable="false" />
+    <Property Name="SessionID" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tbl_truyna">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="TenKhac" Type="nvarchar" MaxLength="255" />
+    <Property Name="GioiTinh" Type="smallint" Nullable="false" />
+    <Property Name="NamSinh" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoiSinh" Type="nvarchar" MaxLength="255" />
+    <Property Name="HoKhauTT" Type="nvarchar" MaxLength="255" />
+    <Property Name="NoiDKTT" Type="nvarchar" MaxLength="255" />
+    <Property Name="QuocTich" Type="nvarchar" MaxLength="255" />
+    <Property Name="DanToc" Type="nvarchar" MaxLength="255" />
+    <Property Name="TenCha" Type="nvarchar" MaxLength="255" />
+    <Property Name="TenMe" Type="nvarchar" MaxLength="255" />
+    <Property Name="ChieuCao" Type="nvarchar" MaxLength="255" />
+    <Property Name="MauDa" Type="nvarchar" MaxLength="255" />
+    <Property Name="MaiToc" Type="nvarchar" MaxLength="255" />
+    <Property Name="LongMay" Type="nvarchar" MaxLength="255" />
+    <Property Name="DacDiemMui" Type="nvarchar" MaxLength="255" />
+    <Property Name="DacDiemMat" Type="nvarchar" MaxLength="255" />
+    <Property Name="DacDiemTai" Type="nvarchar" MaxLength="255" />
+    <Property Name="DacDiemKhac" Type="nvarchar" MaxLength="255" />
+    <Property Name="ToiDanh" Type="nvarchar" MaxLength="255" />
+    <Property Name="HeLoaiToiDanh" Type="nvarchar" MaxLength="255" />
+    <Property Name="LoaiTruyNa" Type="nvarchar" MaxLength="255" />
+    <Property Name="PhamViTruyNa" Type="nvarchar" MaxLength="255" />
+    <Property Name="QuyetDinhTruyNa" Type="nvarchar" MaxLength="255" />
+    <Property Name="DonViRaQD" Type="nvarchar" MaxLength="255" />
+    <Property Name="NgayTruyNaQT" Type="nvarchar" MaxLength="255" />
+    <Property Name="HoSoTruyNaQT" Type="nvarchar" MaxLength="255" />
+    <Property Name="QuocGiaNghiTron" Type="nvarchar" MaxLength="255" />
+    <Property Name="BaoChoDonVi" Type="nvarchar" MaxLength="255" />
+    <Property Name="DienThoai" Type="nvarchar" MaxLength="255" />
+    <Property Name="Photo" Type="nvarchar" MaxLength="255" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="IsHome" Type="bit" Nullable="false" />
+    <Property Name="IsDinhNa" Type="bit" Nullable="false" />
+    <Property Name="Attachment" Type="nvarchar(max)" />
+    <Property Name="AttachmentTN" Type="nvarchar(max)" />
+    <Property Name="SmallPhoto" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="250" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Gender" Type="tinyint" />
+    <Property Name="Photo" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="City" Type="nvarchar" MaxLength="250" />
+    <Property Name="District" Type="nvarchar" MaxLength="250" />
+    <Property Name="Country" Type="nvarchar" MaxLength="150" />
+    <Property Name="zip" Type="int" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="500" />
+    <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="500" />
+    <Property Name="Telephone" Type="varchar" MaxLength="20" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="DonviId" Type="int" Nullable="false" />
+    <Property Name="ChucVuId" Type="int" Nullable="false" />
+    <Property Name="UserType" Type="int" Nullable="false" />
+    <Property Name="TimeLogin" Type="datetime" />
+    <Property Name="IPLogin" Type="nvarchar" MaxLength="500" />
+    <Property Name="GroupUserID" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="PageNoiBo" Type="nvarchar" MaxLength="250" />
+    <Property Name="isAdmin" Type="bit" Nullable="false" />
+    <Property Name="IsBanChapHanh" Type="bit" Nullable="false" />
+    <Property Name="IsShow" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_UserAdmin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Gender" Type="tinyint" />
+    <Property Name="Photo" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="City" Type="nvarchar" MaxLength="250" />
+    <Property Name="District" Type="nvarchar" MaxLength="250" />
+    <Property Name="Country" Type="nvarchar" MaxLength="150" />
+    <Property Name="zip" Type="int" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="500" />
+    <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="500" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="UserType" Type="int" Nullable="false" />
+    <Property Name="TimeLogin" Type="datetime" />
+    <Property Name="IPLogin" Type="nvarchar" MaxLength="500" />
+    <Property Name="GroupUserID" Type="nvarchar" MaxLength="250" />
+    <Property Name="PageElementID" Type="varchar" MaxLength="250" />
+    <Property Name="QuyTrinhXuatBanID" Type="varchar" MaxLength="250" />
+    <Property Name="isAdmin" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_VanBan">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="SoHieu" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgayHieuLuc" Type="datetime" />
+    <Property Name="NgayHieuLucVARCHAR" Type="nvarchar" MaxLength="50" />
+    <Property Name="NguoiKy" Type="nvarchar" MaxLength="150" />
+    <Property Name="CoQuanBanHanhId" Type="int" Nullable="false" />
+    <Property Name="LoaiVanBanId" Type="int" Nullable="false" />
+    <Property Name="LinhVucVanBanId" Type="int" Nullable="false" />
+    <Property Name="TrichYeu" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Attachment" Type="nvarchar(max)" />
+    <Property Name="isNoiBo" Type="int" />
+    <Property Name="IsHome" Type="bit" />
+    <Property Name="NgayBanHanh" Type="datetime" />
+    <Property Name="HetHieuLuc" Type="bit" />
+    <Property Name="IsRight" Type="bit" />
+    <Property Name="IsSendMail" Type="bit" />
+    <Property Name="IsSendSMS" Type="bit" />
+    <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+    <Property Name="CateID" Type="int" />
+    <Property Name="FileID" Type="int" Nullable="false" />
+    <Property Name="ExpiryDate" Type="nvarchar" MaxLength="50" />
+    <Property Name="Agencies" Type="nvarchar" MaxLength="200" />
+    <Property Name="ManCreate" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_VanBan_ZZZ">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="SoHieu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NgayHieuLuc" Type="datetime" Nullable="false" />
+    <Property Name="NguoiKy" Type="nvarchar" MaxLength="150" />
+    <Property Name="CoQuanBanHanhId" Type="int" Nullable="false" />
+    <Property Name="LoaiVanBanId" Type="int" Nullable="false" />
+    <Property Name="LinhVucVanBanId" Type="int" Nullable="false" />
+    <Property Name="TrichYeu" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Attachment" Type="nvarchar(max)" />
+    <Property Name="isNoiBo" Type="int" Nullable="false" />
+    <Property Name="IsHome" Type="bit" Nullable="false" />
+    <Property Name="NgayBanHanh" Type="datetime" />
+    <Property Name="HetHieuLuc" Type="bit" Nullable="false" />
+    <Property Name="IsRight" Type="bit" Nullable="false" />
+    <Property Name="IsSendMail" Type="bit" />
+    <Property Name="IsSendSMS" Type="bit" />
+  </EntityType>
+  <EntityType Name="tbl_Video">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Images" Type="nvarchar" MaxLength="250" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="IsHome" Type="bit" Nullable="false" />
+    <Property Name="Ordering" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'nguoidan.dbo.view_Category_Languages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_Category_Languages">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ParentID" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Ordering" />
+      <PropertyRef Name="Active" />
+      <PropertyRef Name="LangName" />
+      <PropertyRef Name="Code" />
+      <PropertyRef Name="PageElementId" />
+      <PropertyRef Name="Slug" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ParentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="Icon" Type="nvarchar(max)" />
+    <Property Name="Color" Type="varchar" MaxLength="50" />
+    <Property Name="Background" Type="varchar" MaxLength="50" />
+    <Property Name="Ordering" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="LangName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="LangIcon" Type="nvarchar" MaxLength="250" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="Slug" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'nguoidan.dbo.View_Gallery_Category' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Gallery_Category">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Images" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="CreatedDate" />
+      <PropertyRef Name="PageElementId" />
+      <PropertyRef Name="Type" />
+      <PropertyRef Name="CatName" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="Images" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="PageElementId" Type="int" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="250" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Ordering" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'nguoidan.dbo.view_News' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_News">
+    <Key>
+      <PropertyRef Name="Title" />
+      <PropertyRef Name="CreatedDate" />
+      <PropertyRef Name="CreatedBy" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="250" />
+    <Property Name="KeyWords" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="DisplayZone" Type="varchar" MaxLength="100" />
+    <Property Name="PageElementId" Type="int" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="MorePageId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreCategoryId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreDisplayZone" Type="nvarchar" MaxLength="250" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="IsSlide" Type="tinyint" />
+    <Property Name="IsHot" Type="tinyint" />
+    <Property Name="IsNew" Type="tinyint" />
+    <Property Name="CropImage" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'nguoidan.dbo.view_NEWS_LISTDATA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_NEWS_LISTDATA">
+    <Key>
+      <PropertyRef Name="CreatedBy" />
+      <PropertyRef Name="CategoryId" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Title" />
+      <PropertyRef Name="CreatedDate" />
+      <PropertyRef Name="ViewCount" />
+    </Key>
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="NguoiTao" Type="varchar" MaxLength="250" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Status" Type="int" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="DisplayZone" Type="varchar" MaxLength="100" />
+    <Property Name="PageElementId" Type="int" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="IsHot" Type="tinyint" />
+    <Property Name="IsSlide" Type="tinyint" />
+    <Property Name="IsNew" Type="tinyint" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CatImage" Type="nvarchar(max)" />
+    <Property Name="CatImage2" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CropImage" Type="nvarchar(max)" />
+    <Property Name="MorePageId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreCategoryId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreDisplayZone" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsGetNews" Type="tinyint" />
+    <Property Name="AllowComment" Type="tinyint" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="ModifyBy" Type="int" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="250" />
+    <Property Name="KeyWords" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsRightSlide" Type="tinyint" />
+    <Property Name="TinSanPham" Type="nvarchar(max)" />
+    <Property Name="NewMoney" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'nguoidan.dbo.view_NEWS_LISTDETAIL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_NEWS_LISTDETAIL">
+    <Key>
+      <PropertyRef Name="CreatedBy" />
+      <PropertyRef Name="CategoryId" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Title" />
+      <PropertyRef Name="CreatedDate" />
+      <PropertyRef Name="ViewCount" />
+    </Key>
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="NguoiTao" Type="varchar" MaxLength="250" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Status" Type="int" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="LangCode" Type="varchar" MaxLength="5" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="DisplayZone" Type="varchar" MaxLength="100" />
+    <Property Name="PageElementId" Type="int" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="IsHot" Type="tinyint" />
+    <Property Name="IsSlide" Type="tinyint" />
+    <Property Name="IsNew" Type="tinyint" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CatImage" Type="nvarchar(max)" />
+    <Property Name="CatImage2" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CropImage" Type="nvarchar(max)" />
+    <Property Name="MorePageId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreCategoryId" Type="nvarchar" MaxLength="250" />
+    <Property Name="MoreDisplayZone" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsGetNews" Type="tinyint" />
+    <Property Name="AllowComment" Type="tinyint" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="ModifyBy" Type="int" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="250" />
+    <Property Name="KeyWords" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsRightSlide" Type="tinyint" />
+    <Property Name="Details" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'nguoidan.dbo.view_news_search' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_news_search">
+    <Key>
+      <PropertyRef Name="Title" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="CategoryId" />
+      <PropertyRef Name="CreatedDate" />
+    </Key>
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="KeyWords" Type="nvarchar" MaxLength="250" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="250" />
+    <Property Name="PageElementId" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="FeautureImage" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="NoiBo" Type="tinyint" />
+    <Property Name="Status" Type="int" />
+    <Property Name="IsSlide" Type="tinyint" />
+    <Property Name="IsHot" Type="tinyint" />
+    <Property Name="IsNew" Type="tinyint" />
+    <Property Name="CropImage" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_tbl_LichCongTac_tbl_UserAdmin1">
+    <End Role="tbl_UserAdmin" Type="Self.tbl_UserAdmin" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_LichCongTac" Type="Self.tbl_LichCongTac" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_UserAdmin">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_LichCongTac">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_NewsPaperComment_tbl_NewsPaper">
+    <End Role="tbl_NewsPaper" Type="Self.tbl_NewsPaper" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_NewsPaperComment" Type="Self.tbl_NewsPaperComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_NewsPaper">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_NewsPaperComment">
+        <PropertyRef Name="NewsPaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="vesportalModelStoreContainer">
+    <EntitySet Name="GroupCusUser" EntityType="Self.GroupCusUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MediaFile" EntityType="Self.MediaFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Newsvz" EntityType="Self.Newsvz" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_About" EntityType="Self.tbl_About" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AccessOnline" EntityType="Self.tbl_AccessOnline" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AccessView" EntityType="Self.tbl_AccessView" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AdminMenu" EntityType="Self.tbl_AdminMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ApproveNews" EntityType="Self.tbl_ApproveNews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_BoxNewsConfig" EntityType="Self.tbl_BoxNewsConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Calendar" EntityType="Self.tbl_Calendar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_configLuuY" EntityType="Self.tbl_configLuuY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ConfigText" EntityType="Self.tbl_ConfigText" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Contact" EntityType="Self.tbl_Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ContactInfo" EntityType="Self.tbl_ContactInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CoQuanBanHanh" EntityType="Self.tbl_CoQuanBanHanh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CoQuanBanHanh_ZZZ" EntityType="Self.tbl_CoQuanBanHanh_ZZZ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CountAccess" EntityType="Self.tbl_CountAccess" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ChucVu" EntityType="Self.tbl_ChucVu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_DanhMucTaiLieu" EntityType="Self.tbl_DanhMucTaiLieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_DMChung" EntityType="Self.tbl_DMChung" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_DMNhom" EntityType="Self.tbl_DMNhom" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_DonVi" EntityType="Self.tbl_DonVi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_DonViTTHC" EntityType="Self.tbl_DonViTTHC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_FeedBack" EntityType="Self.tbl_FeedBack" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Footer" EntityType="Self.tbl_Footer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Gallery" EntityType="Self.tbl_Gallery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_GalleryCategory" EntityType="Self.tbl_GalleryCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_GroupUser" EntityType="Self.tbl_GroupUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_HistoryNews" EntityType="Self.tbl_HistoryNews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_HomeMenu" EntityType="Self.tbl_HomeMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_HomeMenu_OLD" EntityType="Self.tbl_HomeMenu_OLD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Languages" EntityType="Self.tbl_Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_LichCongTac" EntityType="Self.tbl_LichCongTac" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_LinkWebsite" EntityType="Self.tbl_LinkWebsite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_LinhVucTTHC" EntityType="Self.tbl_LinhVucTTHC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_LinhVucVanBan" EntityType="Self.tbl_LinhVucVanBan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_LoaiVanBan" EntityType="Self.tbl_LoaiVanBan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Logs" EntityType="Self.tbl_Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Magazine" EntityType="Self.tbl_Magazine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_News" EntityType="Self.tbl_News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_News_ZZZ" EntityType="Self.tbl_News_ZZZ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_NewsComment" EntityType="Self.tbl_NewsComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_NewsPaper" EntityType="Self.tbl_NewsPaper" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_NewsPaperComment" EntityType="Self.tbl_NewsPaperComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Online" EntityType="Self.tbl_Online" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_PageElement" EntityType="Self.tbl_PageElement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Product" EntityType="Self.tbl_Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ProductCategory" EntityType="Self.tbl_ProductCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ProductOverView" EntityType="Self.tbl_ProductOverView" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_QALinhVuc" EntityType="Self.tbl_QALinhVuc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_QuestionAndAnswer" EntityType="Self.tbl_QuestionAndAnswer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_QuyTrinhXuatban" EntityType="Self.tbl_QuyTrinhXuatban" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_SlideImages" EntityType="Self.tbl_SlideImages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TaiLieu" EntityType="Self.tbl_TaiLieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TiepNhanPAKN" EntityType="Self.tbl_TiepNhanPAKN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ToGiac" EntityType="Self.tbl_ToGiac" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TTHC" EntityType="Self.tbl_TTHC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TTHCComment" EntityType="Self.tbl_TTHCComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ThamDoYKien" EntityType="Self.tbl_ThamDoYKien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ThamDoYKien_Ip" EntityType="Self.tbl_ThamDoYKien_Ip" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_truyna" EntityType="Self.tbl_truyna" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_User" EntityType="Self.tbl_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_UserAdmin" EntityType="Self.tbl_UserAdmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_VanBan" EntityType="Self.tbl_VanBan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_VanBan_ZZZ" EntityType="Self.tbl_VanBan_ZZZ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Video" EntityType="Self.tbl_Video" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="view_Category_Languages" EntityType="Self.view_Category_Languages" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_Category_Languages].[ID] AS [ID], 
+    [view_Category_Languages].[ParentID] AS [ParentID], 
+    [view_Category_Languages].[Name] AS [Name], 
+    [view_Category_Languages].[Description] AS [Description], 
+    [view_Category_Languages].[Icon] AS [Icon], 
+    [view_Category_Languages].[Color] AS [Color], 
+    [view_Category_Languages].[Background] AS [Background], 
+    [view_Category_Languages].[Ordering] AS [Ordering], 
+    [view_Category_Languages].[Active] AS [Active], 
+    [view_Category_Languages].[CreatedDate] AS [CreatedDate], 
+    [view_Category_Languages].[LangCode] AS [LangCode], 
+    [view_Category_Languages].[LangName] AS [LangName], 
+    [view_Category_Languages].[Code] AS [Code], 
+    [view_Category_Languages].[LangIcon] AS [LangIcon], 
+    [view_Category_Languages].[PageElementId] AS [PageElementId], 
+    [view_Category_Languages].[Slug] AS [Slug], 
+    [view_Category_Languages].[FeautureImage] AS [FeautureImage]
+    FROM [dbo].[view_Category_Languages] AS [view_Category_Languages]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Gallery_Category" EntityType="Self.View_Gallery_Category" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_Gallery_Category].[ID] AS [ID], 
+    [View_Gallery_Category].[Name] AS [Name], 
+    [View_Gallery_Category].[Images] AS [Images], 
+    [View_Gallery_Category].[Status] AS [Status], 
+    [View_Gallery_Category].[CreatedDate] AS [CreatedDate], 
+    [View_Gallery_Category].[ModifiedDate] AS [ModifiedDate], 
+    [View_Gallery_Category].[CreatedBy] AS [CreatedBy], 
+    [View_Gallery_Category].[ModifiedBy] AS [ModifiedBy], 
+    [View_Gallery_Category].[PageElementId] AS [PageElementId], 
+    [View_Gallery_Category].[Url] AS [Url], 
+    [View_Gallery_Category].[Type] AS [Type], 
+    [View_Gallery_Category].[Ordering] AS [Ordering], 
+    [View_Gallery_Category].[CategoryId] AS [CategoryId], 
+    [View_Gallery_Category].[CatName] AS [CatName]
+    FROM [dbo].[View_Gallery_Category] AS [View_Gallery_Category]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_News" EntityType="Self.view_News" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_News].[Title] AS [Title], 
+    [view_News].[Description] AS [Description], 
+    [view_News].[CreatedDate] AS [CreatedDate], 
+    [view_News].[Author] AS [Author], 
+    [view_News].[FeautureImage] AS [FeautureImage], 
+    [view_News].[Tags] AS [Tags], 
+    [view_News].[KeyWords] AS [KeyWords], 
+    [view_News].[CreatedBy] AS [CreatedBy], 
+    [view_News].[DisplayZone] AS [DisplayZone], 
+    [view_News].[PageElementId] AS [PageElementId], 
+    [view_News].[LangCode] AS [LangCode], 
+    [view_News].[ID] AS [ID], 
+    [view_News].[CategoryId] AS [CategoryId], 
+    [view_News].[Status] AS [Status], 
+    [view_News].[ModifyDate] AS [ModifyDate], 
+    [view_News].[MorePageId] AS [MorePageId], 
+    [view_News].[MoreCategoryId] AS [MoreCategoryId], 
+    [view_News].[MoreDisplayZone] AS [MoreDisplayZone], 
+    [view_News].[NoiBo] AS [NoiBo], 
+    [view_News].[IsSlide] AS [IsSlide], 
+    [view_News].[IsHot] AS [IsHot], 
+    [view_News].[IsNew] AS [IsNew], 
+    [view_News].[CropImage] AS [CropImage]
+    FROM [dbo].[view_News] AS [view_News]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_NEWS_LISTDATA" EntityType="Self.view_NEWS_LISTDATA" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_NEWS_LISTDATA].[CreatedBy] AS [CreatedBy], 
+    [view_NEWS_LISTDATA].[CategoryId] AS [CategoryId], 
+    [view_NEWS_LISTDATA].[NguoiTao] AS [NguoiTao], 
+    [view_NEWS_LISTDATA].[ID] AS [ID], 
+    [view_NEWS_LISTDATA].[Title] AS [Title], 
+    [view_NEWS_LISTDATA].[Status] AS [Status], 
+    [view_NEWS_LISTDATA].[FeautureImage] AS [FeautureImage], 
+    [view_NEWS_LISTDATA].[LangCode] AS [LangCode], 
+    [view_NEWS_LISTDATA].[CreatedDate] AS [CreatedDate], 
+    [view_NEWS_LISTDATA].[DisplayZone] AS [DisplayZone], 
+    [view_NEWS_LISTDATA].[PageElementId] AS [PageElementId], 
+    [view_NEWS_LISTDATA].[ModifyDate] AS [ModifyDate], 
+    [view_NEWS_LISTDATA].[Author] AS [Author], 
+    [view_NEWS_LISTDATA].[NoiBo] AS [NoiBo], 
+    [view_NEWS_LISTDATA].[IsHot] AS [IsHot], 
+    [view_NEWS_LISTDATA].[IsSlide] AS [IsSlide], 
+    [view_NEWS_LISTDATA].[IsNew] AS [IsNew], 
+    [view_NEWS_LISTDATA].[CatName] AS [CatName], 
+    [view_NEWS_LISTDATA].[CatImage] AS [CatImage], 
+    [view_NEWS_LISTDATA].[CatImage2] AS [CatImage2], 
+    [view_NEWS_LISTDATA].[Description] AS [Description], 
+    [view_NEWS_LISTDATA].[CropImage] AS [CropImage], 
+    [view_NEWS_LISTDATA].[MorePageId] AS [MorePageId], 
+    [view_NEWS_LISTDATA].[MoreCategoryId] AS [MoreCategoryId], 
+    [view_NEWS_LISTDATA].[MoreDisplayZone] AS [MoreDisplayZone], 
+    [view_NEWS_LISTDATA].[IsGetNews] AS [IsGetNews], 
+    [view_NEWS_LISTDATA].[AllowComment] AS [AllowComment], 
+    [view_NEWS_LISTDATA].[ViewCount] AS [ViewCount], 
+    [view_NEWS_LISTDATA].[ModifyBy] AS [ModifyBy], 
+    [view_NEWS_LISTDATA].[Tags] AS [Tags], 
+    [view_NEWS_LISTDATA].[KeyWords] AS [KeyWords], 
+    [view_NEWS_LISTDATA].[IsRightSlide] AS [IsRightSlide], 
+    [view_NEWS_LISTDATA].[TinSanPham] AS [TinSanPham], 
+    [view_NEWS_LISTDATA].[NewMoney] AS [NewMoney]
+    FROM [dbo].[view_NEWS_LISTDATA] AS [view_NEWS_LISTDATA]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_NEWS_LISTDETAIL" EntityType="Self.view_NEWS_LISTDETAIL" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_NEWS_LISTDETAIL].[CreatedBy] AS [CreatedBy], 
+    [view_NEWS_LISTDETAIL].[CategoryId] AS [CategoryId], 
+    [view_NEWS_LISTDETAIL].[NguoiTao] AS [NguoiTao], 
+    [view_NEWS_LISTDETAIL].[ID] AS [ID], 
+    [view_NEWS_LISTDETAIL].[Title] AS [Title], 
+    [view_NEWS_LISTDETAIL].[Status] AS [Status], 
+    [view_NEWS_LISTDETAIL].[FeautureImage] AS [FeautureImage], 
+    [view_NEWS_LISTDETAIL].[LangCode] AS [LangCode], 
+    [view_NEWS_LISTDETAIL].[CreatedDate] AS [CreatedDate], 
+    [view_NEWS_LISTDETAIL].[DisplayZone] AS [DisplayZone], 
+    [view_NEWS_LISTDETAIL].[PageElementId] AS [PageElementId], 
+    [view_NEWS_LISTDETAIL].[ModifyDate] AS [ModifyDate], 
+    [view_NEWS_LISTDETAIL].[Author] AS [Author], 
+    [view_NEWS_LISTDETAIL].[NoiBo] AS [NoiBo], 
+    [view_NEWS_LISTDETAIL].[IsHot] AS [IsHot], 
+    [view_NEWS_LISTDETAIL].[IsSlide] AS [IsSlide], 
+    [view_NEWS_LISTDETAIL].[IsNew] AS [IsNew], 
+    [view_NEWS_LISTDETAIL].[CatName] AS [CatName], 
+    [view_NEWS_LISTDETAIL].[CatImage] AS [CatImage], 
+    [view_NEWS_LISTDETAIL].[CatImage2] AS [CatImage2], 
+    [view_NEWS_LISTDETAIL].[Description] AS [Description], 
+    [view_NEWS_LISTDETAIL].[CropImage] AS [CropImage], 
+    [view_NEWS_LISTDETAIL].[MorePageId] AS [MorePageId], 
+    [view_NEWS_LISTDETAIL].[MoreCategoryId] AS [MoreCategoryId], 
+    [view_NEWS_LISTDETAIL].[MoreDisplayZone] AS [MoreDisplayZone], 
+    [view_NEWS_LISTDETAIL].[IsGetNews] AS [IsGetNews], 
+    [view_NEWS_LISTDETAIL].[AllowComment] AS [AllowComment], 
+    [view_NEWS_LISTDETAIL].[ViewCount] AS [ViewCount], 
+    [view_NEWS_LISTDETAIL].[ModifyBy] AS [ModifyBy], 
+    [view_NEWS_LISTDETAIL].[Tags] AS [Tags], 
+    [view_NEWS_LISTDETAIL].[KeyWords] AS [KeyWords], 
+    [view_NEWS_LISTDETAIL].[IsRightSlide] AS [IsRightSlide], 
+    [view_NEWS_LISTDETAIL].[Details] AS [Details]
+    FROM [dbo].[view_NEWS_LISTDETAIL] AS [view_NEWS_LISTDETAIL]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_news_search" EntityType="Self.view_news_search" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_news_search].[Title] AS [Title], 
+    [view_news_search].[ID] AS [ID], 
+    [view_news_search].[CategoryId] AS [CategoryId], 
+    [view_news_search].[KeyWords] AS [KeyWords], 
+    [view_news_search].[Tags] AS [Tags], 
+    [view_news_search].[PageElementId] AS [PageElementId], 
+    [view_news_search].[CreatedDate] AS [CreatedDate], 
+    [view_news_search].[FeautureImage] AS [FeautureImage], 
+    [view_news_search].[Description] AS [Description], 
+    [view_news_search].[NoiBo] AS [NoiBo], 
+    [view_news_search].[Status] AS [Status], 
+    [view_news_search].[IsSlide] AS [IsSlide], 
+    [view_news_search].[IsHot] AS [IsHot], 
+    [view_news_search].[IsNew] AS [IsNew], 
+    [view_news_search].[CropImage] AS [CropImage]
+    FROM [dbo].[view_news_search] AS [view_news_search]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_tbl_LichCongTac_tbl_UserAdmin1" Association="Self.FK_tbl_LichCongTac_tbl_UserAdmin1">
+      <End Role="tbl_UserAdmin" EntitySet="tbl_UserAdmin" />
+      <End Role="tbl_LichCongTac" EntitySet="tbl_LichCongTac" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_NewsPaperComment_tbl_NewsPaper" Association="Self.FK_tbl_NewsPaperComment_tbl_NewsPaper">
+      <End Role="tbl_NewsPaper" EntitySet="tbl_NewsPaper" />
+      <End Role="tbl_NewsPaperComment" EntitySet="tbl_NewsPaperComment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

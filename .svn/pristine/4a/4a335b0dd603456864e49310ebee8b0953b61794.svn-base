@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="PortalNewsEntities-Web.config Connection String" description="PortalNewsEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=118.70.117.165;initial catalog=nguoidan;user id=sa;password=vhts2017!@;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Asp\ Net\\code\\nguoidan_236\\Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='PortalNewsEntities']/@connectionString" />
+  </parameter>
+  <parameter name="SITE_URL-Web.config Connection String" description="SITE_URL Connection String used in web.config by the application to access the database." defaultValue="http://lienminhquangtri.vietesoft.com/" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Asp\ Net\\code\\nguoidan_236\\Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SITE_URL']/@connectionString" />
+  </parameter>
+  <parameter name="DOMAIN_NAME-Web.config Connection String" description="DOMAIN_NAME Connection String used in web.config by the application to access the database." defaultValue="lienminhquangtri.vietesoft.com" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Asp\ Net\\code\\nguoidan_236\\Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DOMAIN_NAME']/@connectionString" />
+  </parameter>
+</parameters>

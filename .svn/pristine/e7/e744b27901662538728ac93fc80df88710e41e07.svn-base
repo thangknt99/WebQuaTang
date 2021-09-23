@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Core;
+using Web.Model;
+
+namespace Web.Repository.Entity
+{
+    public class QuyTrinhXuatBanRepository : IQuyTrinhXuatBanRepository
+    {
+        readonly PortalNewsEntities _entities = new PortalNewsEntities();
+        private const string KeyCache = "CacheQuyTrinhXuatBan";
+        public void Add(Model.tbl_QuyTrinhXuatban obj)
+        {
+            HelperCache.RemoveCache(KeyCache);
+            _entities.tbl_QuyTrinhXuatban.Add(obj);
+            _entities.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            HelperCache.RemoveCache(KeyCache);
+            var obj = Find(id);
+            _entities.tbl_QuyTrinhXuatban.Remove(obj);
+            _entities.SaveChanges();
+        }
+
+        public void Edit(Model.tbl_QuyTrinhXuatban obj)
+        {
+            HelperCache.RemoveCache(KeyCache);
+            _entities.Entry(obj).State = EntityState.Modified;
+            _entities.SaveChanges();
+        }
+
+        public Model.tbl_QuyTrinhXuatban Find(int id)
+        {
+            return _entities.tbl_QuyTrinhXuatban.Find(id);
+        }
+
+        public List<Model.tbl_QuyTrinhXuatban> GetAll()
+        {
+            var lstData = HelperCache.GetCache<List<tbl_QuyTrinhXuatban>>(KeyCache);
+            if (lstData == null)
+            {
+                lstData = _entities.tbl_QuyTrinhXuatban.ToList();
+                HelperCache.AddCache(lstData, KeyCache);
+            }
+            return lstData;
+        }
+    }
+}

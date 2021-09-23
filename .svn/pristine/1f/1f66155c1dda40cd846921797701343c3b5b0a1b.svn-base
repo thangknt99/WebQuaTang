@@ -1,0 +1,416 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.Xml;
+using AttributeRouting.Helpers;
+using AttributeRouting.Web.Mvc;
+using Newtonsoft.Json;
+using Web.BaseSecurity;
+using Web.Model;
+using Web.Repository;
+using Web.Repository.Entity;
+using Web.Core;
+using Web.Areas.Admin.Controllers;
+using System.Net.Http;
+using System.Net.NetworkInformation;
+
+using Excel.Log;
+
+namespace Web.Controllers
+{
+    public class HomeController : BaseController
+    {
+        readonly ITiepNhanPAKNRepository _tiepnhanRepository = new TiepNhanPAKNRepository();
+        readonly IHomeMenuRepository _categoryRepository = new HomeMenuRepository();
+        readonly INewsRepository _newsRepository = new NewsRepository();
+        readonly IFooterRepository _footerRepository = new FooterRepository();
+        readonly ISlideImagesRepository _slideImagesRepository = new SlideImagesRepository();
+        readonly IVideoRepository _videoRepository = new VideoRepository();
+        readonly IGalleryRepository _galleryRepository = new GalleryRepository();
+        readonly IGalleryCategoryRepository _galleryCategoryRepository = new GalleryCategoryRepository();
+        readonly IHomeMenuRepository _menuhomecategory = new HomeMenuRepository();
+        readonly IQuyTrinhXuatBanRepository _quyTrinhXuatBanRepository = new QuyTrinhXuatBanRepository();
+        readonly IAccessViewRespository _accessViewRespository = new AccessViewRepository();
+        readonly IAccessOnlineRespository _accessOnlineRespository = new AccessOnlineRepository();
+        public ActionResult Index()
+        {
+
+            InitPageElementId();
+            DateTime day = DateTime.Now;
+            string dayS = day.DayOfWeek.ToString();
+            int dayI = ((int)day.DayOfWeek); // Do DayOfWeek là kiểu enum => Chỉ số index: đếm từ 0
+            // Để lấy giá trị kiểu int thì cậu phải ép kiểu về int
+            string daynow = "";
+            switch (dayI)
+            {
+                case 0:
+                    daynow = "Chủ nhật";
+                    break;
+                case 1:
+                    daynow = "Thứ hai";
+                    break;
+                case 2:
+                    daynow = "Thứ ba";
+                    break;
+                case 3:
+                    daynow = "Thứ tư";
+                    break;
+                case 4:
+                    daynow = "Thứ năm";
+                    break;
+                case 5:
+                    daynow = "Thứ sáu";
+                    break;
+                case 6:
+                    daynow = "Thứ bảy";
+                    break;
+            }
+            daynow = daynow + ", " + day.ToString("d/M/yyyy");
+            ViewBag.daynow = daynow;
+            // lay trang thai xuat ban
+            var tblQuyTrinhXuatban = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            var ttXuatBan = 0;
+            if (tblQuyTrinhXuatban != null)
+            {
+                ttXuatBan = tblQuyTrinhXuatban.ID;
+            }
+            //
+            var menu_bottom = _menuhomecategory.GetAll().Where(s => s.IsHome == 1 && s.Status).OrderBy(g => g.Ordering).ToList();
+            TempData["MenuHome"] = menu_bottom;
+            var newsinmenu = _newsRepository.GetAll().Where(g => g.Status == ttXuatBan).OrderByDescending(g => g.CreatedDate).ToList();
+            TempData["New"] = newsinmenu;
+            return View();
+        }
+        public ActionResult HomeBanner()
+        {
+            var objPageElement = GetPageElementInSub();
+            if (objPageElement == null)
+            {
+                objPageElement = new tbl_PageElement();
+            }
+            // banner
+            var firstOrDefault = _slideImagesRepository.GetAll().FirstOrDefault(g => g.Status && g.Type == (int)Webconfig.SlideImages.Banner);
+            if (firstOrDefault != null)
+            {
+                var images = firstOrDefault.Images;
+                if (images != null)
+                    ViewBag.banner = images;
+            }
+            // banner mobile
+            var firstOrDefaultM = _slideImagesRepository.GetAll().FirstOrDefault(g => g.Status && g.Type == (int)Webconfig.SlideImages.BannerMobile);
+            if (firstOrDefaultM != null)
+            {
+                var images = firstOrDefaultM.Images;
+                if (images != null)
+                    ViewBag.BannerMobile = images;
+            }
+            return View(objPageElement);
+        }
+        public ActionResult HomeFooter()
+        {
+            
+           var lstFooter= _footerRepository.GetAll().Where(x=>x.Status==true).ToList();
+
+            return View(lstFooter);
+        }
+
+        public List<PathWay> getPathWay()
+        {
+            int id = 0;
+            var uri = HttpContext.Request.Url.AbsoluteUri;
+            var objHomeMenu = _menuhomecategory.GetAll().FirstOrDefault(g => g.Url != null && uri.Contains(g.Url));
+            if (objHomeMenu != null)
+            {
+                id = objHomeMenu.ID;
+            }
+            var lstPathWay = new List<PathWay>();
+            var lstResult = FindParentMenu(lstPathWay, id);
+            return lstResult;
+
+        }
+        public List<PathWay> FindParentMenu(List<PathWay> lstPathWay, int catid = 0)
+        {
+            if (catid == 0)
+            {
+                return lstPathWay;
+            }
+            else
+            {
+                var objMenu = _menuhomecategory.Find(catid);
+                if (objMenu != null)
+                {
+                    var obj = new PathWay();
+                    obj.Name = objMenu.Name;
+                    obj.Link = objMenu.Url;
+                    lstPathWay.Insert(0, obj);
+
+                    lstPathWay = FindParent(lstPathWay, objMenu.ParentID);
+
+                }
+                return lstPathWay;
+            }
+        }
+
+
+        public ActionResult PathWay()
+        {
+            var Module = Request.RequestContext.RouteData.Values["controller"].ToString();
+            var listPathWay = new List<PathWay>();
+            var obj = new PathWay();
+            var uri = HttpContext.Request.Url.AbsoluteUri;
+            var objHomeMenu = _menuhomecategory.GetAll().FirstOrDefault(g => g.Url != null && g.Url.Trim() == uri.Trim());
+            if (objHomeMenu != null)
+            {
+                listPathWay = getPathWay();
+            }
+            else
+            {
+                switch (Module.ToLower())
+                {
+                    case "qa":
+                        obj.Name = @ConfigTextController.GetValueCFT("guicauhoi");
+                        obj.Link = "/pages/gui-cau-hoi.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "noibo":
+                        obj.Name = @ConfigTextController.GetValueCFT("hmenu_trangnoibo");
+                        listPathWay.Add(obj);
+                        break;
+                    case "tthc":
+                        obj.Name = "Thủ tục hành chính";
+                        obj.Link = "/pages/services/thu-tuc-hanh-chinh.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "news":
+                        if (!string.IsNullOrEmpty(Request["keyword"]))
+                        {
+                            obj.Name = @ConfigTextController.GetValueCFT("kq_timkiem");
+                            listPathWay.Add(obj);
+                            break;
+                        }
+                        else
+                        {
+                            listPathWay = getAllPathWayNews();
+                            break;
+                        }
+
+                    case "gallery":
+                        obj.Name = @ConfigTextController.GetValueCFT("thuvienanh");
+                        obj.Link = "/pages/gallery/thu-vien-anh.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "video":
+                        obj.Name = @ConfigTextController.GetValueCFT("video");
+                        obj.Link = "/pages/video.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "contact":
+                        obj.Name = "Liên hệ";
+                        obj.Link = "/pages/lien-he.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "sitemap":
+                        obj.Name = @ConfigTextController.GetValueCFT("sodowebsite");
+                        obj.Link = "/pages/so-do-cong.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "truyna":
+                        obj.Name = "Đối tượng truy nã";
+                        obj.Link = "/pages/doi-tuong-truy-na.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "vanbanfe":
+                        obj.Name = @ConfigTextController.GetValueCFT("vanban");
+                        obj.Link = "/pages/vanban.html";
+                        listPathWay.Add(obj);
+                        break;
+                    case "donvife":
+                        obj.Name = @ConfigTextController.GetValueCFT("gioithieu");
+                        obj.Link = "/pages/category/1/Gioi-thieu.html";
+                        listPathWay.Add(obj);
+                        var obj2 = new PathWay();
+                        if (Request["code"] == Convert.ToString("tructhuoc"))
+                        {
+                            obj2.Name = @ConfigTextController.GetValueCFT("congdoancstt");
+                            obj2.Link = "/DonViFE?code=tructhuoc";
+                        }
+                        else
+                        {
+                            obj2.Name = @ConfigTextController.GetValueCFT("congdoanyttt");
+                            obj2.Link = "/DonViFE?code=tinhthanh";
+                        }
+                        listPathWay.Add(obj2);
+                        break;
+                }
+            }
+            return View(listPathWay);
+        }
+        public ActionResult Hotnewrights()
+        {
+            var lstNew = _tiepnhanRepository.GetAll().OrderByDescending(x => x.CreatedDate).Take(6).ToList();
+            TempData["NewPAKN"] = lstNew;
+            return PartialView(lstNew);
+        }
+
+        public List<PathWay> getAllPathWayNews()
+        {
+            var Action = Request.RequestContext.RouteData.Values["action"].ToString();
+            int cid = 0;
+            if (Action == "GetAllNewsByCat")
+            {
+                if (Request.RequestContext.RouteData.Values["catid"] != null)
+                    cid = Convert.ToInt32(Request.RequestContext.RouteData.Values["catid"].ToString());
+                if (!string.IsNullOrEmpty(Request["catid"]))
+                    cid = Convert.ToInt32(Request["catid"]);
+            }
+            if (Action == "Details")
+            {
+                int id = Convert.ToInt32(Request["id"]);
+                if (Request.RequestContext.RouteData.Values["id"] != null)
+                    id = Convert.ToInt32(Request.RequestContext.RouteData.Values["id"].ToString());
+                var objNews = _newsRepository.Find(id);
+                if (objNews != null)
+                {
+                    cid = objNews.CategoryId;
+                }
+            }
+
+            var lstPathWay = new List<PathWay>();
+            var lstResult = FindParent(lstPathWay, cid);
+
+            return lstResult;
+
+        }
+
+        public List<PathWay> FindParent(List<PathWay> lstPathWay, int catid = 0)
+        {
+            if (catid == 0)
+            {
+                return lstPathWay;
+            }
+            else
+            {
+                var objCategory = _categoryRepository.Find(catid);
+                if (objCategory != null)
+                {
+                    var obj = new PathWay();
+                    obj.Name = objCategory.Name;
+                    obj.Link = "/pages/category/" + objCategory.ID + "/" + HelperString.RemoveMark(objCategory.Name) + ".html";
+                    lstPathWay.Insert(0, obj);
+
+                    lstPathWay = FindParent(lstPathWay, objCategory.ParentID);
+
+                }
+                return lstPathWay;
+            }
+        }
+        protected void Application_Access()
+        {
+            var Nowday = DateTime.Now;
+            var SessionID = HttpContext.Session.SessionID;
+            try
+            {
+                var modelsession = _accessOnlineRespository.Find(SessionID);
+                var modelaccess = _accessViewRespository.GetAll().FirstOrDefault();
+                if (modelaccess != null)
+                {
+                    if (modelsession == null)
+                    {
+                        var objsession = new tbl_AccessOnline();
+                        objsession.Session = SessionID;
+                        objsession.Time = Nowday;
+                        _accessOnlineRespository.Add(objsession);
+                        modelaccess.TongCong = modelaccess.TongCong + 1;
+                        // kiem tra thang
+                        if (Nowday.Month == modelaccess.NgayThongKe.Month)
+                        {
+                            modelaccess.ThangNay = modelaccess.ThangNay + 1;
+                        }
+                        else
+                        {
+                            modelaccess.ThangTruoc = modelaccess.ThangNay;
+                            modelaccess.ThangNay = 1;
+                        }
+                        // kiem tra tuan
+                        var startOfWeek = DateTime.Today.AddDays(-1 * (int)(Nowday.DayOfWeek));
+                        var startDBWeek = modelaccess.NgayThongKe.AddDays(-1 * (int)(modelaccess.NgayThongKe.DayOfWeek));
+                        if (startOfWeek.Date == startDBWeek.Date)
+                        {
+                            modelaccess.TuanNay = modelaccess.TuanNay + 1;
+                        }
+                        else
+                        {
+                            modelaccess.TuanTruoc = modelaccess.TuanNay;
+                            modelaccess.TuanNay = 1;
+                        }
+                        // kiem tra ngay
+                        if (Nowday.Date == modelaccess.NgayThongKe.Date)
+                        {
+                            modelaccess.HomNay = modelaccess.HomNay + 1;
+                        }
+                        if (Nowday.Date != modelaccess.NgayThongKe.Date)
+                        {
+                            modelaccess.HomTruoc = modelaccess.HomNay;
+                            modelaccess.HomNay = 1;
+                        }
+                        modelaccess.NgayThongKe = Nowday;
+                        _accessViewRespository.Edit(modelaccess);
+                    }
+                }
+                else
+                {
+                    if (modelsession == null)
+                    {
+                        var objsession = new tbl_AccessOnline();
+                        objsession.Session = SessionID;
+                        objsession.Time = Nowday;
+                        _accessOnlineRespository.Add(objsession);
+                    }
+                    var modelaccess1 = new tbl_AccessView();
+                    modelaccess1.TongCong = 1;
+                    modelaccess1.TuanTruoc = 1;
+                    modelaccess1.TuanNay = 1;
+                    modelaccess1.NgayThongKe = DateTime.Now;
+                    modelaccess1.ThangNay = 1;
+                    modelaccess1.ThangTruoc = 1;
+                    modelaccess1.HomNay = 1;
+                    modelaccess1.HomTruoc = 1;
+                    _accessViewRespository.Add(modelaccess1);
+                }
+                var lstmodelseesion = _accessOnlineRespository.GetAll().Where(s => (s.Time.Minute < Nowday.Minute - 10 && s.Time.Hour == Nowday.Hour)|| (s.Time.Hour < Nowday.Hour && Nowday.Minute>=10) || s.Time.Month<Nowday.Month || s.Time.Date < Nowday.Date||s.Time.Year<Nowday.Year);
+                foreach (var model in lstmodelseesion)
+                {
+                    _accessOnlineRespository.Delete(model);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        internal static string GetLocalIPv4()
+        {
+            string output = "";
+
+            var HostEntry = System.Net.Dns.GetHostEntry((Dns.GetHostName()));
+            if (HostEntry.AddressList.Length > 0)
+            {
+                foreach (var ip in HostEntry.AddressList)
+                {
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        output = ip.ToString();
+                    }
+                }
+            }
+
+            return output;
+        }
+
+    }
+}

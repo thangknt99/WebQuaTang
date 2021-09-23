@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+@model List<Web.Model.tbl_VanBan>
+<div class="row content-space">
+    <!-- start right content news -->
+    <table class="table table-bordered">
+        <thead style="background: #efefef;">
+            <tr>
+                <th style="width: 60%; vertical-align: middle;">Trích yếu</th>
+                <th style="vertical-align: middle;">Ngày hiệu lực</th>
+                <th style="vertical-align: middle;">Tình trạng</th>
+                <th style="vertical-align: middle;text-align: center;">Tải xuống</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 60%; vertical-align: middle;">
+                        <a href="/VanBan/Details/@item.ID" style="font-size: 13px;color: #000;text-decoration: none;">
+                            @item.TrichYeu
+                        </a>
+                        <p><small style="color: #8c8c8c; font-style: italic; font-weight: bold;">(@(item.SoHieu))</small></p>
+                    </td>
+                    <td style="vertical-align: middle;">@string.Format("{0:dd/MM/yyyy}", item.NgayHieuLuc)</td>
+                    <td style="vertical-align: middle;">@Html.Raw((item.Status ? "<span style='color:blue'>Còn hiệu lực</span>" : "<span style='color:red'>Hết hiệu lực</span>"))</td>
+                    <td style="vertical-align: middle;text-align: center;">
+                        <a href="@item.Attachment"><img src="~/Content/Site/images/download.ico" width="20" title="Tải xuống" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,296 @@
+﻿@{
+    ViewBag.Title = "Sửa bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="~/Content/Admin/assets/ckeditor/ckeditor.js"></script>
+<script src="~/Content/Admin/assets/ckfinder/ckfinder.js"></script>
+<script src="~/Content/Admin/assets/ckeditor/config.js"></script>
+<script src="~/AppJs/news.js"></script>
+@using OfficeOpenXml.FormulaParsing.Excel.Functions.Math
+@using Web.Core
+@using Web.Model
+@using Web.Areas.Admin.Controllers
+@model tbl_News
+@using (Html.BeginForm("Edit", "News", FormMethod.Post, new { id = "frmpost", @class = "form-horizontal", role = "form" }))
+{
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@ConfigTextController.GetValueCFT("ThemMoiBaiViet")</h3>
+                </div>
+                <div class="panel-body">
+                    @Html.HiddenFor(g => g.ID)
+                    @Html.HiddenFor(g => g.CreatedDate)
+                    @Html.HiddenFor(g => g.CreatedBy)
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@ConfigTextController.GetValueCFT("TieuDe")</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.Title, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@ConfigTextController.GetValueCFT("MoTa")</label>
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(g => g.Description, new { @class = "form-control", @rows = 5 })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-12 col-xs-12 control-label">@ConfigTextController.GetValueCFT("NoiDung")</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(g => g.Details, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@ConfigTextController.GetValueCFT("TacGia")</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.Author, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@ConfigTextController.GetValueCFT("Tags")</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.Tags, new { @class = "form-control", PlaceHolder = "Ngăn cách bởi dấu ;" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">@ConfigTextController.GetValueCFT("TuKhoa")</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.KeyWords, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-pencil"></i>@ConfigTextController.GetValueCFT("CapNhat")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@ConfigTextController.GetValueCFT("DanhMuc")</h3>
+                </div>
+                <div class="panel-body">
+                    @*<div class="form-group">
+                            <label class="col-md-12">Ngôn ngữ</label>
+                            @{
+                                var languages = (List<tbl_Languages>)TempData["Languages"];
+                            }
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(x => x.LangCode, new SelectList(languages, "Code", "Name", Model.LangCode), new { @class = "form-control" })
+                            </div>
+                        </div>*@
+                    <input type="hidden" id="PageElementIdVz" name="PageElementId" value="1" />
+                    @*<div class="form-group">
+                            <label class="col-md-12">Trang quản lý</label>
+                            <div class="col-md-12">
+                                @{ var pageElements = (List<tbl_PageElement>)ViewBag.PageElements;}
+                                <select name="PageElementId" id="PageElementId" class="form-control">
+                                    <option value="">-- Chọn trang --</option>
+                                    @foreach (var item in pageElements)
+                                    {
+                                        <option value="@item.ID">@item.Name</option>
+                                    }
+                                </select>
+                                <script>
+                                    $("#PageElementId").val(@Model.PageElementId);
+                                </script>
+                            </div>
+                        </div>*@
+                    <div class="form-group">
+                        <label class="col-md-12">@ConfigTextController.GetValueCFT("DanhMucBaiViet")</label>
+                        <div class="col-md-12">
+                            @{
+    var categories = (List<tbl_HomeMenu>)ViewBag.categories;
+    categories.ForEach(g => g.Name = g.Name.Replace("--", ""));
+    categories.ForEach(g => g.Name = string.Concat(Enumerable.Repeat("--", g.Level)) + g.Name.Replace("--", ""));
+
+                            }
+                            @*<select name="CategoryId" id="CategoryId" class="form-control">
+                                    <option value="">-- Chọn danh mục --</option>
+                                    @foreach (var item in categories)
+                                    {
+                                        <option value="@item.ID">
+                                            @Html.Raw(string.Concat(Enumerable.Repeat("--", item.Level)) + "&nbsp" + item.Name)
+                                        </option>
+                                    }
+                                </select>*@
+                            @*<script>
+                                    $("#CategoryId").val(@Model.CategoryId);
+                                </script>*@
+                            @Html.DropDownListFor(g => g.CategoryId, new SelectList(categories, "ID", "Name"), "-- Chọn danh mục --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    @if (User.UserType == 1)
+                    {
+                        <div class="form-group mb0 mt10">
+                            <label class="col-md-12">@ConfigTextController.GetValueCFT("TrangThai")</label>
+                            @{ var Status = (List<tbl_QuyTrinhXuatban>)TempData["Status"]; }
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(x => x.Status, new SelectList(Status, "Id", "Name"), "-- Chọn trạng thái --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group mb0 mt10">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" id="IsSlide" name="IsSlide" value="1" @if (Model.IsSlide == 1) { @Html.Raw("checked")     ; }>
+                                <label for="IsSlide">@ConfigTextController.GetValueCFT("TinSlide")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb0">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" id="IsNew" name="IsNew" value="1" @if (Model.IsNew == 1) { @Html.Raw("checked")      ; }>
+                                <label for="IsNew">@ConfigTextController.GetValueCFT("TinPhaiSlide")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb0">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" id="IsHot" name="IsHot" value="1" @if (Model.IsHot == 1) { @Html.Raw("checked")       ; }>
+                                <label for="IsHot">@ConfigTextController.GetValueCFT("tinnoibat")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@ConfigTextController.GetValueCFT("AnhMinhHoa")</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @*@Html.Partial("_AttachmentPhotoAndCrop", new { Name = "FeautureImage", Multiple = false, Value = Model.FeautureImage })*@
+                            @Html.HiddenFor(g => g.FeautureImage)
+                            <a id="Browser" class="btn btn-primary btn-custom waves-effect waves-light m-b-5"><span class="glyphicon glyphicon-paperclip"></span>@ConfigTextController.GetValueCFT("ChonAnhMinhHoa")</a>
+                            <div class="mt10" id="previewthumbnail">
+                                @if (!string.IsNullOrEmpty(Model.CropImage))
+                                {
+                                    <img src="@Common.Replace2Thumb(Model.CropImage)" style="max-width: 150px" />
+                                }
+                                else if (!string.IsNullOrEmpty(Model.FeautureImage))
+                                {
+                                    <img src="@Common.Replace2Thumb(Model.FeautureImage)" style="max-width: 150px" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@ConfigTextController.GetValueCFT("ThayDoiNgayDang")</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="EditDate" name="EditDate" value="">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 11px; font-style: italic">Ngày đăng: @string.Format("{0:dd/MM/yyy}", Model.CreatedDate)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@ConfigTextController.GetValueCFT("HanhDong")</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @*<div class="col-sm-offset-2 col-md-12">
+                                <div class="checkbox checkbox-success checkbox-inline">
+                                    <input type="checkbox" id="AllowComment" name="AllowComment" value="1" @if (Model.AllowComment == 1) { @Html.Raw("checked")      ; }>
+                                    <label for="AllowComment"> Cho phép bình luận</label>
+                                </div>
+                            </div>*@
+                        <div class="col-sm-offset-2 col-sm-12 mt10">
+                            <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-pencil"></i> @ConfigTextController.GetValueCFT("CapNhat")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $('#EditDate').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+        $("#frmpost").validate({
+            rules:
+            {
+                Title:
+                {
+                    required: true
+                },
+                CategoryId:
+                {
+                    required: true
+                },
+                Status:
+                {
+                    required: true
+                }
+            },
+            messages:
+            {
+                Title:
+                {
+                    required: "Chưa nhập tiêu đề bài viết"
+                },
+                CategoryId:
+                {
+                    required: "Bạn chưa chọn danh mục bài viết"
+                },
+                Status:
+                {
+                    required: "Bạn chưa chọn trạng thái"
+                }
+            },
+            highlight: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-error');
+            }
+        });
+        CKEDITOR.replace("Details", {
+            language: 'vi',
+            filebrowserBrowseUrl: "/Content/Admin/assets/ckfinder/ckfinder.html",
+            filebrowserImageBrowseUrl: '/Content/Admin/assets/ckfinder/ckfinder.html?Type=Images',
+            filebrowserFlashBrowseUrl: '/Content/Admin/assets/ckfinder/ckfinder.html?Type=Flash',
+            height: 350
+        });
+        $("#Browser").click(function () {
+            var ckfinder = new CKFinder();
+            ckfinder.selectActionFunction = function (fileUrl) {
+                $("#previewthumbnail").html('<img src="' + fileUrl + '" width=150 />');
+                $("#FeautureImage").val(fileUrl);
+            }
+            ckfinder.popup();
+        });
+        $("#TinSanPham").val([@Model.TinSanPham]);
+        $("#TinSanPham").select2({ placeholder: "-- Chọn sản phẩm --", });
+    
+    })
+</script>

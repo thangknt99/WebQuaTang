@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "Danh sách tin theo chuyên mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lstmodelyte = (List<tbl_News>)TempData["Yte"];
+    var lstall = (List<tbl_News>)TempData["All"];
+    var dothtml = ".html";
+}
+@using Web.Core;
+@using Web.Model;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Web.Model.tbl_News>
+<div class="row content-space">
+    <div class="col-md-12 col-xs-12">
+        <div class="row medical_new">
+            <div class="col-md-12">
+                <div class="row" style="padding-bottom:10px;">
+                    <div class="col-md-2" style="padding:0px;background-color:#1048ff;height:37px;">
+                        <div style="margin-top:8px;">
+                            <a style="color: #fff; padding-left: 10px;font-weight: bold;font-size: 18px;">TIN Y TẾ</a>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="background:url(/assets/images/bglist2.jpg) no-repeat left;height:37px;padding:0px;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="padding-left:0px;">
+                @foreach (var item in lstmodelyte.Take(1))
+                {
+                    <div class="col-md-12">
+                        <div class="row">
+                            <img src="@item.FeautureImage" width="300" height="200" style="float:left;" />
+                            <ul class="Nopila" style="padding-left:310px;">
+                                <li><a class="title_newall" style="font-weight:bold;" href="/pages/news/@item.ID/@HelperString.RemoveMark(item.Title)@dothtml">@item.Title</a></li>
+                                <li><i>@Convert.ToDateTime(item.CreatedDate).ToString("dd/mm/yyyy")</i></li>
+                                <li><p>@HelperString.TruncateByWord(item.Description, 400)</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+                @{ var num = 0;}
+                @foreach (var item in lstmodelyte)
+                {
+                num++;
+                if (num > 1 && num < 5 && num != 1)
+                {
+                        <div class="col-md-4" style="padding-top:20px;">
+                            <img src="@item.FeautureImage" class="img-responsive" style="max-width:100%;height:125px;" />
+                           <a class="title_newall" href="/pages/news/@item.ID/@HelperString.RemoveMark(item.Title)@dothtml">@HelperString.TruncateByChar(item.Title, 60)</a><br />
+                            <i>@Convert.ToDateTime(item.CreatedDate).ToString("dd/mm/yyyy")</i>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="col-md-9" style="padding-left:0px;margin-top:30px;">
+                <ul class="Noimg_Yte">
+                    @foreach (var item in lstmodelyte.OrderBy(s => s.ID).Take(4))
+                    {
+                        <li>
+                            <a class="title_newall" href="/pages/news/@item.ID/@HelperString.RemoveMark(item.Title)@dothtml">@item.Title</a>
+                            <p>@Convert.ToDateTime(item.CreatedDate).ToString("dd/mm/yyyy")</p>
+                        </li>
+                    }
+                </ul>
+                <div class="col-md-12" style="margin-top:20px;">
+                    <div class="row" style="padding-bottom:10px;">
+                        <div class="col-md-4" style="padding:0px;background-color:#1048ff;height:37px;">
+                            <div style="margin-top:8px;">
+                                <a style="color: #fff; padding-left: 10px;font-weight: bold;font-size: 18px;">TIN HOẠT ĐỘNG</a>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="background:url(../../assets/images/bglist2.jpg) no-repeat left;height:37px;padding:0px;">
+                        </div>
+                    </div>
+                </div>
+                @foreach (var item in Model.Take(1))
+                {
+                    <div class="row" style="padding-bottom:10px;">
+                        <div class="col-md-12">
+                            <img src="@item.FeautureImage" width="250" height="180" style="float:left;" />
+                            <ul class="" style="padding-left:260px;">
+                                <li><a class="title_newall"  style="font-weight:bold;"  href="/pages/news/@item.ID/@HelperString.RemoveMark(item.Title)@dothtml">@item.Title</a></li>
+                                <li><i>@Convert.ToDateTime(item.CreatedDate).ToString("dd/mm/yyyy")</i></li>
+                                <li><p>@HelperString.TruncateByWord(item.Description, 300)</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+                @{ var i = 1;}
+                @foreach (var item in Model)
+                {
+                    i++;
+                    if (i > 2)
+                    {
+                        <div class="row" style="padding-bottom:10px;">
+                            <div class="col-md-12">
+                               <a class="title_newall" style="font-weight:bold" href="/pages/news/@item.ID/@HelperString.RemoveMark(item.Title)@dothtml">@HelperString.TruncateByChar(item.Title, 75)</a>
+                                <div style="margin-top:10px;    ">
+                                    <img src="@item.FeautureImage" width="150" height="90" style="float:left;" />
+                                    <ul style="padding-left:160px;min-height:90px;height:auto; border-bottom:1px solid #ccc;">
+                                        <li><i>@Convert.ToDateTime(item.CreatedDate).ToString("dd/mm/yyyy")</i></li>
+                                        <li><p>@HelperString.TruncateByWord(item.Description, 200)</p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="col-md-12">
+                    <div class="pagedList">
+                        @Html.PagedListPager(Model, page => Url.Action("Index",
+                     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                     {
+                         DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                         DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                         DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                         DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                         MaximumPageNumbersToDisplay = 4
+                     })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs" style="padding:0px; margin-top:30px;">
+                <div class="panel panel-primary" style="border-radius:0px;">
+                    <div class="panel-heading"style="border-radius:0px;">
+                        <h4 class="panel-title"><i class="fa fa-cog" style="color:#fff; font-size:13px;"></i> Tin mới</h4>
+                    </div>
+                    <div class="panel-body" style="padding:5px;">
+                        <ul class="new_newsti">
+                            @foreach (var item in lstall)
+                            {
+                                <li><a href="/pages/news/@item.ID/@HelperString.RemoveMark(item.Title)@dothtml">@item.Title</a><p>@Convert.ToDateTime(item.CreatedDate).ToString("dd/mm/yyyy")</p></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .content-right {
+        border: none;
+    }
+
+    .content-space {
+        background: none;
+    }
+
+    ul.pagination {
+        float: left;
+    }
+    .Noimg_Yte{
+        padding-left:13px;
+    }
+    .Noimg_Yte li {
+        list-style: disc;
+        color: #337ab7;
+    }
+
+    .Noimg_Yte a {
+        color: #000;
+    }
+
+    .new_newsti {
+        padding-left: 14px;
+    }
+
+        .new_newsti li {
+            list-style: disc;
+            color: #337ab7;
+        }
+
+        .new_newsti a {
+            color: #000000;
+            font-size:12px;
+        }
+        .title_newall{
+            font-size:13px;
+            color:#000;
+        }
+        .Nopila{
+            font-size:15px;
+        }
+        .Noimg_Yte li :hover{
+            color:#055296;
+        }
+        .new_newsti li :hover{
+            color:#055296;
+        }
+        .omg_onehe li a:hover{
+            color:#055296;
+        }
+</style>

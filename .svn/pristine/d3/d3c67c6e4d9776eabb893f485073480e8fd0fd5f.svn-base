@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Web.Model
+@model tbl_TiepNhanPAKN
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Content/Site/js/jquery.twbsPagination.min.js"></script>
+<script src="~/AppJs/tiepnhanPAhome.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.full.min.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.full.js"></script>
+<link href="~/Scripts/jquery.datetimepicker.min.css" rel="stylesheet" /> 
+
+@{
+
+    var getCodePAKN = TempData["Code"];
+}
+
+@if(getCodePAKN != null&& !getCodePAKN.Equals("PAKN.10000"))
+{
+    <p style="color:red;font-size:16px;margin:5px 5px 0px 15px">Phản ánh kiến nghị mã số <strong>@getCodePAKN</strong> của anh/chị đã được gửi thành công,anh/chị vui lòng lưu lại mã số để tra cứu kết quả giải quyết phản ánh kiến nghị</p>
+}
+
+<h4 style="text-align:center;color:#4792d3">TIẾP NHẬN PHẢN ÁNH, KIẾN NGHỊ</h4>
+<p style="text-align:center">Kiến nghị của bạn sẽ được biên tập và gửi đến cơ quan có thẩm quyền để trả lời.Xin vui lòng gõ tiếng Việt có dấu</p>
+@Html.ValidationSummary(true)
+@using (Ajax.BeginForm("Add", "TiepNhanPAHome", null,
+                             new AjaxOptions
+                             {
+                                 HttpMethod = "POST",
+                                 OnSuccess = "tiepnhanPAhome.onAddSuccess"
+                             },
+                                  new { @id = "basicForm", @class = "form-horizontal" }))
+{
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Tên <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8">
+                        @*<i class="style-fa fa"></i>*@
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control",@id="fieldname", @maxlength= "150", pattern = "[^!~@#-%&*0-9]{5,100}", placeholder = "Nhập họ tên", required = "" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Email <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8">
+                        
+                        @Html.TextBoxFor(g => g.Email, new { @class = "form-control", placeholder = "Nhập địa chỉ thư điện tử", required = "", name = "email", type = "email" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label id="labelphone" class="style-col-left control-label col-md-4">Số điện thoại</label>
+                    <div class="input-icon right col-md-5 ">
+                       <input type="text" class="form-control" maxlength="12"id="phonefield" onkeyup="return tiepnhanPAhome.validatephone(this.value);" value=""/>
+                        <p id=""></p>
+                    </div>
+                   <div id="phonenumber"></div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Địa chỉ <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8 ">
+                        
+                        @Html.TextBoxFor(g => g.Address, new { @class = "form-control", placeholder = "Nhập địa chỉ", required = "" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Phản ánh,kiến nghị về việc <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8 ">
+                        
+                        @Html.TextBoxFor(g => g.Title, new { @class = "form-control", placeholder = "Nhập tiêu đề phản ánh kiến nghị", required = "" })
+                        <p id=""></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Nội dung <span class="asterisk">(*)</span></label>
+                    <div class="input-icon right col-md-8 ">
+                       
+                        @Html.TextAreaFor(x => x.Content, new { @class = "form-control", placeholder = "Nhập nội dung phản ánh kiến nghị", required = "" })
+                        <p></p>
+                    </div>
+                </div>
+              <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">File đính kèm</label>
+                    <div style="margin-bottom:20px" class="input-icon right col-md-8 ">
+                        <div  style="float:left">
+                            @Html.Partial("_Attachment", new { Name = "FilePAKN", Multiple = false})
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4">Mã bảo mật <span class="asterisk">(*)</span></label>
+                    <div style="margin-bottom:10px" class="input-icon right col-md-8 ">
+                        <div style="float:left">
+                            <img id="reloadImageCaptcha" src="@Url.Action("GetCaptchaImage","TiepNhanPAHome")" />
+                        </div>
+                        <div style="float:left;margin-left:12px;">
+                            @*<img id="reloadCaptcha" style="width:25px;height:24px"src="~/Images/IconFile/refresh.png" />*@ 
+                            <i style="color:red" title="Thay đổi mã bảo mật" onclick="tiepnhanPAhome.refeshCaptcha()" class="fa fa-refresh" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4"></label>
+                    <div style="margin-bottom:20px" class="input-icon right col-md-8 ">
+                        <i class="style-fa fa"></i>
+                        <div style="float:left;width:45%" >
+                            <input type="text" class="form-control" required="" placeholder="Nhập mã số bảo mật" name="CaptchaText" id="captchaText" value="@ViewBag.CaptchaText">
+                        </div>
+                        <div class="input-icon right col-md-5" style="float:left;margin-left:10px"id="notification">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="style-col-left control-label col-md-4"> </label>
+                    <div class="input-icon right col-md-8 ">
+                        <input type="submit" id="submitPA" class="btn btn-danger waves-effect waves-light" value="Gửi phản ánh,kiến nghị" />
+                        <input type="reset" class="btn btn-default waves-effect waves-light" value="Nhập lại" />
+                        <p id=""></p>
+                    </div>
+                </div>
+               }
+            <div class="form-group" id="divtitleListPAKN">
+                <h3><i style="color:red" class="MR5 fa fa-comments-o" aria-hidden="true"></i> Phản ánh,kiến nghị đã trả lời</h3>
+            </div>
+            <div style="clear:both"></div>
+            <div class="form-group">
+                <div class="col-md-7" style="float:left">
+                    <input type="text" id="keyword" class="form-control keyEnter" placeholder="Tìm họ tên hoặc tiêu đề phản ánh" />
+                </div>
+                <div style="float:left">
+                    <input class="btn btn-primary waves-effect waves-light" type="button" name="buttom" id="searchBox" value="Tìm kiếm" />
+                </div>
+            </div>
+            <div style="clear:both"></div>
+            <div id="gridDataHome">
+
+        </div>
+        <div style="margin-right:15px" class="pull-right" id="paginationholder"></div>
+
+        <style>
+            #divtitleListPAKN{
+            background-color:#eeeeee;
+            height:40px;width:100%;
+            padding-left:15px
+            }
+            #divtitleListPAKN h3{
+            color:red;font-size:18px;
+            margin-top:11px;
+            text-transform: uppercase
+            }
+            .control-group {
+                width: 100%;
+            }
+
+            #codeProtec {
+                width: 39%;
+            }
+
+            .asterisk {
+                color: red;
+            }
+        </style>
+        <script type="text/javascript">
+            $('#submitPA').on('click', function () {
+                $(this).hide();
+            })
+            $('.form-control').on('keyup', function () {
+                $('#submitPA').show();
+            })
+           
+        </script>
+

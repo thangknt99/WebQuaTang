@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Model;
+
+namespace Web.Repository
+{
+    public interface IQuyTrinhXuatBanRepository
+    {
+        List<tbl_QuyTrinhXuatban> GetAll();
+        tbl_QuyTrinhXuatban Find(int id);
+        void Add(tbl_QuyTrinhXuatban obj);
+        void Edit(tbl_QuyTrinhXuatban obj);
+        void Delete(int id);
+    }
+}

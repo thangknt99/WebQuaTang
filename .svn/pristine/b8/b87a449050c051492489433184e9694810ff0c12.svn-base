@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Core;
+using Web.Model;
+
+namespace Web.Repository.Entity
+{
+    public class InstructionRepository : IInstructionRepository
+    {
+        readonly PortalNewsEntities _entities = new PortalNewsEntities();
+       
+        public bool Add(Model.tbl_Instruction obj)
+        {
+            try
+            {
+                _entities.tbl_Instruction.Add(obj);
+                _entities.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+           
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                var obj = Find(id);
+                _entities.tbl_Instruction.Remove(obj);
+                _entities.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+           
+        }
+
+        public bool Edit(Model.tbl_Instruction obj)
+        {
+            try
+            {
+                _entities.Entry(obj).State = EntityState.Modified;
+                _entities.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+          
+        }
+
+        public Model.tbl_Instruction Find(int id)
+        {
+            return _entities.tbl_Instruction.Find(id);
+        }
+
+        public List<Model.tbl_Instruction> GetAll()
+        {
+            var lstData = _entities.tbl_Instruction.ToList();
+            return lstData;
+        }
+    }
+}

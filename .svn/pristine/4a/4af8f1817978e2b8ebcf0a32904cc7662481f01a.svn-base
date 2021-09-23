@@ -1,0 +1,43 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@using Web.Areas.Admin.Controllers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title - @ConfigTextController.GetValueCFT("Title_Site")</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="/assets/js/jquery-1.11.3.min.js"></script>
+    <link href="/Content/Site/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/Scripts/jsservice.js"></script>
+</head>
+<body id="pagebody">
+    <div class="wapper">
+        <section id="body-content">
+            <div class="container">
+                <div class="row ">
+                    <div class="body-content ">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/moment-with-locales.js"></script>
+<script src="/assets/js/bootstrap-datetimepicker.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/carouFredSel5152.js"></script>
+<script src="/assets/js/script.js"></script>

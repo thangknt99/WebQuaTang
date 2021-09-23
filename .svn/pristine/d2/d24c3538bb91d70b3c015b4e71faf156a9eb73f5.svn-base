@@ -1,0 +1,164 @@
+﻿<link rel="stylesheet" href="/Content/Admin/assets/colorpicker/css/colorpicker.css" type="text/css" />
+<script type="text/javascript" src="/Content/Admin/assets/colorpicker/js/colorpicker.js"></script>
+<script src="/Content/Admin/assets/ckfinder/ckfinder.js"></script>
+@using Web.Model
+@model Web.Model.tbl_Category
+@using (Ajax.BeginForm("Edit", "Category", null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "category.onEditSuccess"
+    },
+    new { @id = "basicFormEdit", @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label class="col-md-2 control-label">Ngôn ngữ</label>
+        @{
+    var languages = (List<tbl_Languages>)TempData["Languages"];
+        }
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => x.LangCode, new SelectList(languages, "Code", "Name", Model.LangCode), new { @class = "form-control" })
+        </div>
+    </div>
+    @*<div class="form-group">
+        <label class="col-md-2 control-label">Thuộc trang</label>
+        @{
+    var lstpageElements = (List<tbl_PageElement>)TempData["PageElement"];
+        }
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => x.PageElementId, new SelectList(lstpageElements, "ID", "Name", Model.PageElementId), new { @class = "form-control" })
+        </div>
+    </div>*@
+    <div class="form-group">
+        <label class="col-md-2 control-label">Tên danh mục</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Name, new { @class = "form-control", placeholder = "Tên danh mục" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10 pull-right">
+            @Html.HiddenFor(g => g.Slug, new { @class = "form-control", @readonly = "readonly", placeholder = "Dùng để hiển thị tin theo danh mục" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Danh mục cha</label>
+        @{
+    var lstmenu = (List<tbl_Category>)TempData["Category"];
+    lstmenu.ForEach(g => g.Name = string.Concat(Enumerable.Repeat("--", g.Level)) + g.Name);
+        }
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => x.ParentID, new SelectList(lstmenu, "ID", "Name", Model.ParentID), "Chọn danh mục cha", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Mô tả</label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(g => g.Description, new { @class = "form-control", placeholder = "Mô tả", rows = 3 })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Thứ tự</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(g => g.Ordering, new { @class = "form-control", placeholder = "Thứ tự...", Value = "0" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10 pull-right">
+            <div class="checkbox checkbox-primary">
+                <input id="isShowHome" name="isShowHome" type="checkbox" @(Model.isShowHome?"checked":"") value="true">
+                <label for="isShowHome">
+                    Xuất hiện ngoài trang chủ
+                    <p><small>(Đối với các trang thành phần)</small></p>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10 pull-right">
+            <div class="checkbox checkbox-primary">
+                <input id="Active" name="Active" type="checkbox" @(Model.Active?"checked":"") value="true">
+                <label for="Active">
+                    Kích hoạt
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 pull-right pl0">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">Cập nhật</button>
+    </div>
+}
+<script>
+    // Basic Form
+    $(document).ready(function () {
+        $("#basicFormEdit").validate({
+            rules:
+        {
+            Name:
+            {
+                required: true
+            },
+            PageElementId: {
+                required: true
+            },
+            Ordering:
+            {
+                required: true
+            }
+        },
+            messages:
+            {
+                Name:
+                {
+                    required: "Chưa nhập tên danh mục"
+                },
+                PageElementId: {
+                    required: "Bạn chưa chọn trang cho danh mục"
+                },
+                Ordering:
+               {
+                   required: "Yêu cầu không để trống"
+               }
+            }
+        });
+        $("#Browser").click(function () {
+            var ckfinder = new CKFinder();
+            ckfinder.selectActionFunction = function (fileUrl) {
+                $("#previewIcon").html('<img src="' + fileUrl + '" />');
+                $("#Icon").val(fileUrl);
+            }
+            ckfinder.popup();
+        });
+        $("#basicFormEdit #Name").change(function () {
+            var slug = UnsignCharacter($(this).val()).replace(' ', '-');
+            $("#Slug").val(slug);
+        });
+        $("#basicFormEdit #LangCode").change(function () {
+            $.get("/PageElement/GetAllByLangCode?LangCode=" + $(this).val(), function (res) {
+                var html = "";
+                for (var i = 0; i < res.length; i++) {
+                    html += '<option value="' + res[i].ID + '">' + res[i].Name + '</option>';
+                }
+                $("#PageElementId").html(html);
+            });
+            $.get("/Category/GetAllByLangCode?LangCode=" + $(this).val(), function (res) {
+                var html = '<option value="">Chọn danh mục cha</option>';
+                for (var i = 0; i < res.length; i++) {
+                    var abc = "--".repeat(res[i].Level);
+                    html += '<option value="' + res[i].ID + '">' + abc +res[i].Name + '</option>';
+                }
+                $("#ParentID").html(html);
+            });
+        });
+        $("#basicFormEdit #PageElementId").change(function () {
+            var LangCode = $("#basicFormEdit #LangCode").val();
+            $.get("/Category/GetAllByLangCode?LangCode=" + LangCode + "&PageElementId=" + $(this).val(), function (res) {
+                var html = '<option value="">Chọn danh mục cha</option>';
+                for (var i = 0; i < res.length; i++) {
+                    var abc = "--".repeat(res[i].Level);
+                    html += '<option value="' + res[i].ID + '">' + abc + res[i].Name + '</option>';
+                }
+                $("#ParentID").html(html);
+            });
+        });
+    });
+</script>

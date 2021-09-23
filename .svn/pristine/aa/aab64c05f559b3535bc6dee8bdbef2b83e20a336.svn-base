@@ -1,0 +1,27 @@
+﻿using Newtonsoft.Json.Linq;
+using PublicService.Controllers;
+using System;
+using System.Configuration;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
+using Web.BaseSecurity;
+using Web.Model;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Controllers
+{
+    public class AboutPAKNController : BaseController
+    {
+        //
+        // GET: /QA/
+        readonly IAboutRepository _aboutRepository = new AboutRepository();
+
+        public ActionResult Index()
+        {
+            var lst = _aboutRepository.GetAll().Where(g=>g.Status==true).ToList();
+            return View(lst);
+        }
+    }
+}

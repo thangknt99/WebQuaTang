@@ -1,0 +1,34 @@
+﻿<script src="~/AppJs/configtext.js"></script>
+@model Web.Model.CustomModel.tbl_ConfigTextField
+@using (Ajax.BeginForm("Edit", "configtext", null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "configtext.onEditSuccess"
+    },
+    new { @id = "basicForm", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(g => g.ID)
+    @Html.HiddenFor(g => g.Field)
+    <div class="form-group">
+        <label class="col-md-2 control-label">Text</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Field, new { @class = "form-control", placeholder = "Text", @disabled = "disabled"})
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Giá trị</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Value, new { @class = "form-control", placeholder = "Giá trị" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Ghi chú</label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(g => g.Note, new { @class = "form-control", placeholder = "Ghi chú", rows = 5 })
+        </div>
+    </div>
+    <div class="col-md-10 pull-right pl0">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">Cập nhật</button>
+    </div>
+}

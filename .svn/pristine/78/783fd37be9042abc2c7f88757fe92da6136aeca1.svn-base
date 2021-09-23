@@ -1,0 +1,494 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Http.Controllers;
+using System.Web.Mvc;
+using System.Web.UI;
+using OfficeOpenXml.FormulaParsing.Excel.Functions;
+using PagedList;
+using Web.BaseSecurity;
+using Web.Core;
+using Web.Model;
+using Web.Repository;
+using Web.Repository.Entity;
+using AttributeRouting.Web.Mvc;
+using System.Configuration;
+using System.Net;
+using Newtonsoft.Json.Linq;
+using Web.Areas.Admin.Controllers;
+
+namespace Web.Controllers
+{
+    public class NewsController : BaseController
+    {
+        readonly INewsRepository _newsRepository = new NewsRepository();
+        readonly IHomeMenuRepository _categoryRepository = new HomeMenuRepository();
+        readonly IBoxNewsConfigRepository _boxNewsConfigRepository = new BoxNewsConfigRepository();
+        readonly IQuyTrinhXuatBanRepository _quyTrinhXuatBanRepository = new QuyTrinhXuatBanRepository();
+        readonly IPageElementRepository _pageElementRepository = new PageElementRepository();
+        readonly ISlideImagesRepository _slideImagesRepository = new SlideImagesRepository();
+
+        public ActionResult Index(int page = 1)
+        {
+            var modelcat = _categoryRepository.GetAll().Where(s => s.Name.Contains("Tin hoạt động")).SingleOrDefault();
+            var listmodel = _newsRepository.GetAll().Where(s => s.CategoryId == modelcat.ID).ToList();
+            int pagesize = 7;
+            var modelcatmedical = _categoryRepository.GetAll().Where(s => s.Name.Contains("Tin y tế")).SingleOrDefault();
+            var listmodelyte = _newsRepository.GetAll().Where(s => s.CategoryId == modelcatmedical.ID).OrderByDescending(s => s.ID).Take(8).ToList();
+            TempData["Yte"] = listmodelyte;
+            var listall = _newsRepository.GetAll().OrderByDescending(s => s.ID).Take(6).ToList();
+            TempData["All"] = listall;
+            return View(listmodel.ToPagedList(page, pagesize));
+        }
+        public ActionResult HomeSlide()
+        {
+            var allNews = _newsRepository.Get_News_ListData().OrderByDescending(g => g.CreatedDate).ToList();
+            var xbNews = new List<view_NEWS_LISTDATA>();
+            // lay trang thai xuat ban
+            var tblQuyTrinhXuatban = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            var ttXuatBan = 0;
+            if (tblQuyTrinhXuatban != null)
+                ttXuatBan = tblQuyTrinhXuatban.ID;
+            xbNews = allNews.Where(g => g.Status == ttXuatBan).ToList();
+            //
+            var slideNews = xbNews.Where(g => g.IsSlide == 1 && g.Status == ttXuatBan).Take(6).ToList();
+            var limit_newsright = Convert.ToInt32(ConfigTextController.GetValueCFT("limit_newsright"));
+            var rihgtSlideNews = xbNews.Where(g => g.IsNew == 1 && g.Status == ttXuatBan).Take(limit_newsright).ToList();
+            ViewBag.rightSlideNews = rihgtSlideNews;
+            return View(slideNews);
+        }
+        public ActionResult HomeNew()
+        {
+            var objNews = _newsRepository.GetAll().Where(g => g.IsNew == 1).OrderByDescending(g => g.CreatedDate).Take(8).ToList();
+            // lay trang thai xuat ban
+            var tblQuyTrinhXuatban = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            if (tblQuyTrinhXuatban != null)
+            {
+                var ttXuatBan = tblQuyTrinhXuatban.ID;
+                objNews = objNews.Where(g => g.Status == ttXuatBan).ToList();
+            }
+            //
+            return View(objNews);
+        }
+        public ActionResult HomeHot()
+        {
+            var objNews = _newsRepository.Get_News_ListData().Where(g => g.IsHot == 1).OrderByDescending(g => g.CreatedDate).Take(8).ToList();
+            // lay trang thai xuat ban
+            var tblQuyTrinhXuatban = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            if (tblQuyTrinhXuatban != null)
+            {
+                var ttXuatBan = tblQuyTrinhXuatban.ID;
+                objNews = objNews.Where(g => g.Status == ttXuatBan).ToList();
+            }
+            //
+            return View(objNews);
+        }
+        public ActionResult HomeCategory()
+        {
+            // anh giua
+            var ImgCenter = _slideImagesRepository.GetAll().Where(g => g.Status && g.Type == (int)Webconfig.SlideImages.Giua).OrderBy(g => g.ID).ToList();
+            ViewBag.ImgCenter = ImgCenter;
+            // lay trang thai xuat ban
+            var ttXuatBan = 0;
+            var tblQuyTrinhXuatban = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            if (tblQuyTrinhXuatban != null)
+            {
+                ttXuatBan = tblQuyTrinhXuatban.ID;
+            }
+            //
+            var allCate = _categoryRepository.GetAll().ToList();
+            // home 1
+            var lstHome1 = _categoryRepository.GetAll().Where(g => g.IsHome == 1 && g.Status).OrderBy(g => g.Ordering).ToList();
+            foreach (var item in lstHome1)
+            {
+                var fullCatId = Common.GetChild(allCate, item.ID);
+                var objNews = _newsRepository.Get_News_ListData().Where(g => fullCatId.Contains(g.CategoryId) && g.Status == ttXuatBan).OrderByDescending(g => g.CreatedDate).Take(4).ToList();
+                item.lstNews = objNews;
+            }
+            // home 2
+            var lstHome2 = _categoryRepository.GetAll().Where(g => g.IsHome2 && g.Status).OrderBy(g => g.Ordering).ToList();
+            foreach (var item in lstHome2)
+            {
+                var fullCatId = Common.GetChild(allCate, item.ID);
+                var objNews = _newsRepository.Get_News_ListData().Where(g => fullCatId.Contains(g.CategoryId) && g.Status == ttXuatBan).OrderByDescending(g => g.CreatedDate).Take(7).ToList();
+                item.lstNews = objNews;
+            }
+            ViewBag.lstHome2 = lstHome2;
+            // home 3
+            var lstHome3 = _categoryRepository.GetAll().Where(g => g.IsHome3 && g.Status).OrderBy(g => g.Ordering).ToList();
+            foreach (var item in lstHome3)
+            {
+                var fullCatId = Common.GetChild(allCate, item.ID);
+                var objNews = _newsRepository.Get_News_ListData().Where(g => fullCatId.Contains(g.CategoryId) && g.Status == ttXuatBan).OrderByDescending(g => g.CreatedDate).Take(12).ToList();
+                item.lstNews = objNews;
+            }
+            ViewBag.lstHome3 = lstHome3;
+            return View(lstHome1);
+        }
+
+        public ActionResult MenuCategory()
+        {
+            var Action = Request.RequestContext.RouteData.Values["action"].ToString();
+            int catid = 0;
+            if (Action == "GetAllNewsByCat")
+            {
+                if (Request.RequestContext.RouteData.Values["catid"] != null)
+                    catid = Convert.ToInt32(Request.RequestContext.RouteData.Values["catid"].ToString());
+                if (Request["catid"] != null)
+                    catid = Convert.ToInt32(Request["catid"]);
+            }
+            if (Action == "Details")
+            {
+                int id = Convert.ToInt32(Request["id"]);
+                if (Request.RequestContext.RouteData.Values["id"] != null)
+                    id = Convert.ToInt32(Request.RequestContext.RouteData.Values["id"].ToString());
+                var objNews = _newsRepository.Find(id);
+                if (objNews != null)
+                {
+                    catid = objNews.CategoryId;
+                }
+            }
+            if (catid > 0)
+            {
+                var lstCategory = _categoryRepository.GetAll().ToList();
+                var arrAllParentID = Common.GetAllParent(lstCategory, catid);
+                if (arrAllParentID.Contains(30))
+                {
+                    var lstNoiBat = _newsRepository.GetAll().Where(g => g.IsHot == 1 && g.Status == 6).Take(5).ToList();
+                    ViewBag.lstNoiBat = lstNoiBat;
+
+                    var lstXemnhieu = _newsRepository.GetAll().Where(g => g.Status == 6).OrderByDescending(g => g.ViewCount).ThenByDescending(g => g.CreatedDate).Take(5).ToList();
+                    ViewBag.lstXemnhieu = lstXemnhieu;
+                }
+                ViewBag.catid_act = 30;
+            }
+            var pid = _categoryRepository.Find(catid).ParentID;
+            if (pid == 0)
+                pid = catid;
+            var pcat = _categoryRepository.Find(pid);
+            ViewBag.pid = pid;
+            ViewBag.pname = pcat.Name;
+            var MenuCategory = _categoryRepository.GetAll().Where(g => g.ParentID == pid).ToList();
+            return View(MenuCategory);
+        }
+        public ActionResult _GetListNewsByZoneId(string zoneid, int numItems, string type)
+        {
+            var objQuyTrinh = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            var lstNews = _newsRepository.GetAllViewNews().Where(g => objQuyTrinh != null && g.Status == objQuyTrinh.ID);
+            var lang = GetLangCode();
+            var pageElementId = GetPageElementId();
+            lstNews = lstNews.Where(g => g.DisplayZone != null && g.DisplayZone.Split(',').Select(t => t.ToLower().Trim()).Contains(zoneid.ToLower()) && g.PageElementId == pageElementId || (g.MoreDisplayZone != null && g.MoreDisplayZone.Split(',').Select(t => t.ToLower().Trim()).Contains(zoneid.ToLower()))).OrderByDescending(g => g.CreatedDate).Take(numItems);
+            var objBoxNewsConfig = _boxNewsConfigRepository.Find(zoneid, pageElementId, lang);
+            if (objBoxNewsConfig != null)
+            {
+                TempData["TitleBoxNews"] = objBoxNewsConfig.Name;
+            }
+            TempData["type"] = type;
+            TempData["zoneid"] = zoneid;
+            return View(lstNews.ToList());
+        }
+
+        public ActionResult Details(int id, string zoneid)
+        {
+            var objQuyTrinh = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            var objNews = _newsRepository.Find(id);
+            if (!string.IsNullOrEmpty(objNews.Details))
+            {
+                objNews.Details = objNews.Details.Replace("cdmedia", "Content/cdyt");
+            }
+            TempData["Comment"] = _newsRepository.GetAllCMT().Where(g => g.NewsID == id && g.CommentID == null && g.Status).OrderByDescending(g => g.CreateDate).ToList();
+            ViewBag.lstReply = _newsRepository.GetAllCMT().Where(g => g.NewsID == id && g.CommentID != null && g.Status).ToList();
+            // pulic key
+            string publicKey = ConfigurationManager.AppSettings["ReCaptchaPublicKey"];
+            ViewBag.PublicKey = publicKey;
+            // dem luot view
+            objNews.ViewCount = objNews.ViewCount + 1;
+            _newsRepository.Edit(objNews);
+            //
+            if (!string.IsNullOrEmpty(zoneid))
+            {
+                var pageElementId = GetPageElementId();
+                var langCode = GetLangCode();
+                var objBoxNewsConfig = _boxNewsConfigRepository.Find(zoneid, pageElementId, langCode);
+                if (objBoxNewsConfig != null)
+                {
+                    ViewBag.LinkCat = "<li><a href='/News/GetAllNewsByZoneId?zoneid=" + objBoxNewsConfig.Code + "'>" + objBoxNewsConfig.Name + "</a> <i class='glyphicon glyphicon-menu-right'></i></li>";
+                }
+                var lstRelatedNews =
+                    _newsRepository.Get_News_ListData()
+                        .Where(
+                            g =>
+                                objQuyTrinh != null && g.Status == objQuyTrinh.ID && g.DisplayZone != null &&
+                                g.DisplayZone.ToLower().Split(',').Select(t => t.Trim()).Contains(zoneid) && g.LangCode == langCode && g.ID != id).Take(8).ToList();
+                TempData["brothermodel"] = lstRelatedNews;
+                var lstallmodelav = _newsRepository.GetAll().OrderByDescending(s => s.ID).Take(4).ToList();
+                TempData["lstallmodel"] = lstallmodelav;
+            }
+            else
+            {
+                if (objNews != null)
+                {
+                    var objCat = _categoryRepository.Find(objNews.CategoryId);
+                    var lstCatsCategories = _categoryRepository.GetAll();
+                    var lstTreeCat = new List<tbl_HomeMenu>();
+                    //FindParentTreeCatForNews(objCat, lstCatsCategories, ref lstTreeCat);
+                    var linkcat = "";
+                    RenderTreeCat(lstTreeCat.FirstOrDefault(g => g.ParentID == 0), lstTreeCat, ref linkcat);
+                    ViewBag.LinkCat = linkcat;
+                    var limit_newskhaccm = Convert.ToInt32(ConfigTextController.GetValueCFT("limit_newskhaccm"));
+                    var lstRelatedNews = _newsRepository.Get_News_ListData().Where(g => objQuyTrinh != null && g.Status == objQuyTrinh.ID && g.CategoryId == objCat.ID && g.ID != id).Take(limit_newskhaccm).ToList();
+                    TempData["brothermodel"] = lstRelatedNews;
+                    var lstallmodelav = _newsRepository.GetAll().OrderByDescending(s => s.ID).Take(4).ToList();
+                    TempData["lstallmodel"] = lstallmodelav;
+                }
+            }
+            if (objNews != null)
+            {
+                ViewBag.Title = objNews.Title;
+            }
+            if (Request["PrintView"] == "1") return View("PrintView", objNews);
+            return View(objNews);
+        }
+        public void FindParentTreeCatForNews(tbl_Category objcat, List<tbl_Category> lstCatsCategories, ref List<tbl_Category> lstCategories)
+        {
+            lstCategories.Add(objcat);
+            var parent = lstCatsCategories.FirstOrDefault(g => g.ID == objcat.ParentID);
+            if (parent != null && parent.ID != 0)
+            {
+                FindParentTreeCatForNews(parent, lstCatsCategories, ref lstCategories);
+            }
+        }
+
+        public void RenderTreeCat(tbl_HomeMenu parent, List<tbl_HomeMenu> lstCategories, ref string linkCat)
+        {
+            if (parent != null)
+            {
+                linkCat += "<li><a href='/News/GetAllNewsByCat?catid=" + parent.ID + "'>" + parent.Name + "</a> <i class='glyphicon glyphicon-menu-right'></i></li>";
+                var objChild = lstCategories.FirstOrDefault(g => g.ParentID == parent.ID);
+                if (objChild != null)
+                {
+                    RenderTreeCat(objChild, lstCategories, ref linkCat);
+                }
+            }
+        }
+        public ActionResult GetAllNewsByCat(int catid, string search)
+        {
+            var objQuyTrinh = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            var objCat = _categoryRepository.Find(catid);
+            var lstCat = new List<tbl_HomeMenu>();
+            var lstChildCat = _categoryRepository.GetAll().Where(g => g.ParentID == catid).ToList();
+            if (lstChildCat.Any())
+            {
+                lstCat.AddRange(lstChildCat);
+            }
+            lstCat.Add(objCat);
+            var arrCatId = lstCat.Select(g => g.ID.ToString());
+            if (objCat != null)
+            {
+                ViewBag.CatgoryName = objCat.Name;
+                ViewBag.CategoryId = objCat.ID;
+                ViewBag.CategoryImage = objCat.FeautureImage;
+                if (string.IsNullOrEmpty(objCat.FeautureImage))
+                {
+                    var objCatParent = _categoryRepository.Find(objCat.ParentID);
+                    if (objCatParent != null && !string.IsNullOrEmpty(objCatParent.FeautureImage))
+                    {
+                        ViewBag.CategoryImage = objCatParent.FeautureImage;
+                    }
+                }
+            }
+
+            var lstNews = _newsRepository.Get_News_ListDetail().Where(g => objQuyTrinh != null && g.Status == objQuyTrinh.ID && arrCatId.Contains(g.CategoryId.ToString()) || arrCatId.Contains(g.MoreCategoryId));
+            if (!string.IsNullOrEmpty(search))
+            {
+                lstNews =
+                    lstNews.Where(
+                        g =>
+                            HelperString.UnsignCharacter(g.Title.Trim().ToLower())
+                                .Contains(HelperString.UnsignCharacter(search.ToLower().Trim()))).ToList();
+            }
+            if (lstNews.Count() == 1)
+            {
+                return RedirectToAction("Details", "News", new { id = lstNews.FirstOrDefault().ID });
+            }
+
+            int page = !string.IsNullOrEmpty(Request["page"]) ? Convert.ToInt32(Request["page"]) : 1;
+            int limit = Convert.ToInt32(ConfigTextController.GetValueCFT("limit_news"));
+            return View(lstNews.ToPagedList(page, /*Webconfig.RowLimitFE*/limit));
+        }
+
+        public ActionResult SearchHome(string search, int tags = 0)
+        {
+            var objQuyTrinh = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            var lstNews = _newsRepository.Get_News_ListDetail().Where(g => objQuyTrinh != null && g.Status == objQuyTrinh.ID);
+            if (!string.IsNullOrEmpty(search))
+            {
+                if (tags == 1)
+                {
+                    lstNews =
+                        lstNews.Where(
+                                g =>
+                                    g.Title.Trim().ToLower().Contains(search.ToLower().Trim()) ||
+                                    (g.Tags != null && HelperString.UnsignCharacter(g.Tags.Trim().ToLower()).Contains(HelperString.UnsignCharacter(search.ToLower().Trim())))).ToList();
+                }
+                else
+                {
+                    lstNews = lstNews.Where(g =>
+                        HelperString.UnsignCharacter(g.Title.ToLower())
+                            .Contains(HelperString.UnsignCharacter(search.ToLower())) ||
+                        (g.Description != null && HelperString.UnsignCharacter(g.Description.ToLower())
+                             .Contains(HelperString.UnsignCharacter(search.ToLower()))) ||
+                        (g.Details != null && HelperString.UnsignCharacter(g.Details.ToLower())
+                             .Contains(HelperString.UnsignCharacter(search.ToLower())))
+                    ).ToList();
+                }
+            }
+            if (lstNews.Count() == 1)
+            {
+                return RedirectToAction("Details", "News", new { id = lstNews.FirstOrDefault().ID });
+            }
+
+            int page = !string.IsNullOrEmpty(Request["page"]) ? Convert.ToInt32(Request["page"]) : 1;
+            var limit = Convert.ToInt32(ConfigTextController.GetValueCFT("limit_search"));
+            return View("GetAllNewsByCat", lstNews.ToPagedList(page, limit));
+        }
+
+        public ActionResult GetAllNewsByZoneId(string zoneid, int page = 1)
+        {
+            var objQuyTrinh = _quyTrinhXuatBanRepository.GetAll().FirstOrDefault(g => g.isPublish);
+            var pageElementId = GetPageElementId();
+            var langcode = GetLangCode();
+            var lstNews =
+                _newsRepository.GetAllViewNews()
+                    .Where(g => objQuyTrinh != null && g.Status == objQuyTrinh.ID && g.DisplayZone != null && g.DisplayZone.ToLower().Split(',').Select(t => t.Trim()).Contains(zoneid) && g.PageElementId == pageElementId);
+            var objBoxNewsConfig = _boxNewsConfigRepository.Find(zoneid, pageElementId, langcode);
+            if (objBoxNewsConfig != null)
+            {
+                ViewBag.ZoneName = objBoxNewsConfig.Name;
+                ViewBag.ZoneId = zoneid;
+            }
+
+            return View(lstNews.ToPagedList(page, Webconfig.RowLimit));
+        }
+        public ActionResult Search(string keyword, int page = 1)
+        {
+            var allPage = _pageElementRepository.GetAll().ToList();
+            ViewBag.allPage = allPage.ToList();
+
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return View((new List<view_NEWS_LISTDATA>()).ToPagedList(page, Webconfig.RowLimit));
+            }
+            //var pageElementId = GetPageElementId();
+            //var lstNews = _newsRepository.Search().Where(g=>g.PageElementId == pageElementId).ToList();
+
+            var lstNews = _newsRepository.GetAll().ToList();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                lstNews =
+                    lstNews.Where(
+                        g =>
+                            (g.Title != null &&
+                            HelperString.UnsignCharacter(g.Title)
+                                .ToLower()
+                                .Trim()
+                                .Contains(HelperString.UnsignCharacter(keyword).ToLower().Trim())) ||
+                    (g.Description != null &&
+                    HelperString.UnsignCharacter(g.Description)
+                        .ToLower()
+                        .Trim()
+                        .Contains(HelperString.UnsignCharacter(keyword).ToLower().Trim())) ||
+                    (g.Tags != null &&
+                        HelperString.UnsignCharacter(g.Tags)
+                            .ToLower()
+                            .Trim()
+                            .Contains(HelperString.UnsignCharacter(keyword).ToLower().Trim())) ||
+                    (g.Details != null &&
+                        HelperString.UnsignCharacter(g.Details)
+                            .ToLower()
+                            .Trim()
+                            .Contains(HelperString.UnsignCharacter(keyword).ToLower().Trim()))
+                                ).ToList();
+            }
+            ViewBag.KeySearch = keyword;
+            return View(lstNews.ToPagedList(page, Webconfig.RowLimit));
+        }
+
+        [HttpPost]
+        public ActionResult Comment(tbl_NewsComment obj)
+        {
+            string privateKey = ConfigurationManager.AppSettings["ReCaptchaPrivateKey"];
+            var response = Request["g-recaptcha-response"];
+            string secretKey = privateKey;
+            var client = new WebClient();
+            var result = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var objCapchat = JObject.Parse(result);
+            var status = (bool)objCapchat.SelectToken("success");
+
+            if (status)
+            {
+                try
+                {
+                    obj.NewsID = Convert.ToInt32(Request["NewsID"]);
+                    obj.FullName = Request["FullName"];
+                    obj.Email = Request["Email"];
+                    obj.NoiDung = Request["NoiDung"];
+                    obj.Status = false;
+                    obj.CreateDate = DateTime.Now;
+                    _newsRepository.AddCMT(obj);
+                    var title = _newsRepository.Find(obj.NewsID).Title;
+                    var reurl = "/pages/news/" + obj.NewsID + "/" + HelperString.RemoveMark(title) + ".html?success=1";
+                    return Redirect(reurl);
+                }
+                catch (Exception)
+                {
+                    var title = _newsRepository.Find(obj.NewsID).Title;
+                    var reurl = "/pages/news/" + obj.NewsID + "/" + HelperString.RemoveMark(title) + ".html?success=0";
+                    return Redirect(reurl);
+                }
+            }
+            var titlex = _newsRepository.Find(obj.NewsID).Title;
+            return Redirect("/pages/news/" + obj.NewsID + "/" + HelperString.RemoveMark(titlex) + ".html?captcha=0");
+        }
+        [HttpPost]
+        public ActionResult ReplyComment(tbl_NewsComment obj)
+        {
+            string privateKey = ConfigurationManager.AppSettings["ReCaptchaPrivateKey"];
+            var response = Request["g-recaptcha-response"];
+            string secretKey = privateKey;
+            var client = new WebClient();
+            var result = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var objCapchat = JObject.Parse(result);
+            var status = (bool)objCapchat.SelectToken("success");
+            string publicKey = ConfigurationManager.AppSettings["ReCaptchaPublicKey"];
+            ViewBag.PublicKey = publicKey;
+            if (status)
+            {
+                try
+                {
+                    obj.CommentID = Convert.ToInt32(Request["CommentID"]);
+                    obj.NewsID = Convert.ToInt32(Request["NewsID"]);
+                    obj.FullName = Request["FullName"];
+                    obj.Email = Request["Email"];
+                    obj.NoiDung = Request["NoiDung"];
+                    obj.Status = false;
+                    obj.CreateDate = DateTime.Now;
+                    _newsRepository.AddCMT(obj);
+                    var title = _newsRepository.Find(obj.NewsID).Title;
+                    var reurl = "/pages/news/" + obj.NewsID + "/" + HelperString.RemoveMark(title) + ".html?success=1";
+                    return Redirect(reurl);
+                }
+                catch (Exception)
+                {
+                    var title = _newsRepository.Find(obj.NewsID).Title;
+                    var reurl = "/pages/news/" + obj.NewsID + "/" + HelperString.RemoveMark(title) + ".html?success=0";
+                    return Redirect(reurl);
+                }
+            }
+            var titlex = _newsRepository.Find(obj.NewsID).Title;
+            return Redirect("/pages/news/" + obj.NewsID + "/" + HelperString.RemoveMark(titlex) + ".html?captcha=0");
+        }
+
+    }
+}

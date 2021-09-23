@@ -1,0 +1,240 @@
+﻿@{
+    ViewBag.Title = "Thêm mới bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lst = (List<tbl_HomeMenu>)TempData["Category"];
+    lst.ForEach(g => g.Name = g.Name.Replace("--", ""));
+    lst.ForEach(g => g.Name = string.Concat(Enumerable.Repeat("--", g.Level)) + g.Name);
+}
+<script src="~/Content/Admin/assets/ckeditor/ckeditor.js"></script>
+<script src="~/Content/Admin/assets/ckfinder/ckfinder.js"></script>
+<script src="~/Content/Admin/assets/ckeditor/config.js"></script>
+<script src="~/AppJs/news.js"></script>
+@using Web
+@using Web.Model
+@model Web.Model.tbl_News
+@using (Html.BeginForm("Add", "News", FormMethod.Post, new { id = "frmpost", @class = "form-horizontal", role = "form" }))
+{
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Thêm mới bài viết</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Tiêu đề</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.Title, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Mô tả</label>
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(g => g.Description, new { @class = "form-control", @rows = 5 })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-12 col-xs-12 control-label">Nội dung</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(g => g.Details, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Tác giả</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.Author, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Tags</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.Tags, new { @class = "form-control", PlaceHolder = "Ngăn cách bởi dấu ;" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Từ khóa</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(g => g.KeyWords, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-plus"></i> Đăng bài viết</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Danh mục</h3>
+                </div>
+                <div class="panel-body">
+                    @*<div class="form-group">
+                            <label class="col-md-12">Ngôn ngữ</label>
+                            @{
+                                var languages = (List<tbl_Languages>)TempData["Languages"];
+                            }
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(x => x.LangCode, new SelectList(languages, "Code", "Name"), "-- Chọn ngôn ngữ --", new { @class = "form-control" })
+                            </div>
+                        </div>*@
+                    <input type="hidden" id="PageElementIdVz" name="PageElementId" value="1" />
+                    @*<div class="form-group">
+                            <label class="col-md-12">Trang quản lý</label>
+                            <div class="col-md-12">
+                                <select name="PageElementId" id="PageElementId" class="form-control">
+                                    <option value="">-- Chọn trang --</option>
+                                </select>
+                            </div>
+                        </div>*@
+                    <div class="form-group mb0">
+                        <label class="col-md-12">Danh mục bài viết</label>
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(g => g.CategoryId, new SelectList(lst, "ID", "Name"), "-- Chọn danh mục --", new { @class = "select2" })
+                        </div>
+                    </div>
+                    @if (User.UserType == 1)
+                    {
+                        <div class="form-group mb0 mt10">
+                            <label class="col-md-12">Trạng thái</label>
+                            @{ var Status = (List<tbl_QuyTrinhXuatban>)TempData["Status"]; }
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(x => x.Status, new SelectList(Status, "Id", "Name"), "-- Chọn trạng thái --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group mb0 mt10">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" id="IsSlide" name="IsSlide" value="1">
+                                <label for="IsSlide"> Tin Slide</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb0">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" id="IsNew" name="IsNew" value="1">
+                                <label for="IsNew"> Tin phải slide</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb0">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" id="IsHot" name="IsHot" value="1">
+                                <label for="IsHot"> Tin nổi bật</label>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <div class="col-md-12 boxnewsconfig" id="boxnewsconfig"></div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ảnh minh họa</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-12">Ảnh đại diện</label>
+                        <div class="col-md-12">
+                            @*@Html.Partial("_AttachmentPhotoAndCrop", new { Name = "FeautureImage", Multiple = false })*@
+                            @Html.HiddenFor(g => g.FeautureImage)
+                            <a id="Browser" class="btn btn-primary btn-custom waves-effect waves-light m-b-5"><span class="glyphicon glyphicon-paperclip"></span> Ảnh minh họa</a>
+                            <div class="mt10" id="previewthumbnail">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Hành động</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="form-group">
+                            @*<div class="col-sm-offset-2 col-md-12">
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input type="checkbox" id="AllowComment" name="AllowComment" value="1" checked>
+                                        <label for="AllowComment"> Cho phép bình luận</label>
+                                    </div>
+                                </div>*@
+                            <div class="col-sm-offset-2 col-sm-12 mt10">
+                                <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-plus"></i> Đăng bài viết</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#frmpost").validate({
+            rules:
+            {
+                Title:
+                {
+                    required: true
+                },
+                CategoryId:
+                {
+                    required: true
+                },
+                Status:
+                {
+                    required: true
+                }
+            },
+            messages:
+            {
+                Title:
+                {
+                    required: "Chưa nhập tiêu đề bài viết"
+                },
+                CategoryId:
+                {
+                    required: "Bạn chưa chọn danh mục bài viết"
+                },
+                Status:
+                {
+                    required: "Bạn chưa chọn trạng thái"
+                }
+            },
+            highlight: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-error');
+            }
+        });
+        CKEDITOR.replace("Details", {
+            language: 'vi',
+            filebrowserBrowseUrl: "/Content/Admin/assets/ckfinder/ckfinder.html",
+            filebrowserImageBrowseUrl: '/Content/Admin/assets/ckfinder/ckfinder.html?Type=Images',
+            filebrowserFlashBrowseUrl: '/Content/Admin/assets/ckfinder/ckfinder.html?Type=Flash',
+            height: 350
+        });
+        $("#Browser").click(function () {
+            var ckfinder = new CKFinder();
+            ckfinder.selectActionFunction = function (fileUrl) {
+                $("#previewthumbnail").html('<img src="' + fileUrl + '" width=150 />');
+                $("#FeautureImage").val(fileUrl);
+            }
+            ckfinder.popup();
+        });
+        $("#TinSanPham").select2({ placeholder: "-- Chọn sản phẩm --", });
+    });
+</script>

@@ -1,0 +1,145 @@
+﻿@using Web.Model
+@using Web.Model.CustomModel
+@model Web.Model.tbl_TiepNhanPAKN
+
+@{
+    var lstAction = (List<int>)HttpContext.Current.Session["Action"];
+    var lstLangs = (List<tbl_Languages>)TempData["Languages"];
+}
+
+@using (Ajax.BeginForm("Detail", "TiepNhanPAKN", null,
+                                                                new AjaxOptions
+                                                                {
+                                                                    HttpMethod = "Get",
+                                                                },
+                                                                new { @id = "basicForm", @class = "form-horizontal" }))
+{
+    <h4 style="color:#337ab7;margin:0px 0px 0px 20px;">Thông tin người phản ánh, kiến nghị</h4>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Họ tên người phản ánh:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.Name</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Email:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.Email</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Số điện thoại:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.Phone</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Địa chỉ:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.Address</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Tiêu đề phản ánh:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.Title</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Nội dung phản ánh:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.Content</p><br />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Ngày đăng phản ánh:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@string.Format("{0:dd/MM/yyyy}", Model.CreatedDate)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Mã PAKN:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.CodePAKN</p>
+        </div>
+    </div>
+    <div class="form-group">
+        @if (Model.FilePAKN != null)
+        {
+            string file = Model.FilePAKN;
+            string[] subfile = file.Split('-');
+            <label class="col-md-3 control-label">File phản ánh kiến nghị:</label>
+            <div class="col-md-9" style="margin-top:7px">
+                <a href="@Model.FilePAKN"><i class="fa fa-download"></i> @subfile[1]</a>
+            </div>
+        }
+        else
+        {
+            <label class="col-md-3 control-label">File phản ánh đính kèm:</label>
+            <div class="col-md-9" style="margin-top:7px">
+                <p>No file</p>
+            </div>
+        }
+    </div>
+    <hr style="width:95%;border-top: 1px solid #337ab7;margin-left:20px" />
+    <h4 style="color:#337ab7;margin-left:20px">Thông tin trả lời</h4>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Nội dung trả lời phản ánh:</label>
+        <div class="col-md-9" style="margin-top:7px">
+            <p>@Model.AnswerContent</p><br />
+        </div>
+    </div>
+    if (Model.Status == true)
+    {
+        <div class="form-group">
+            <label class="col-md-3 control-label">Ngày trả lời:</label>
+            <div class="col-md-9" style="margin-top:7px">
+                <p>@string.Format("{0:dd/MM/yyyy}", Model.ModifiedDate)</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label class="col-md-3 control-label">Ngày trả lời:</label>
+            <div class="col-md-9" style="margin-top:7px">
+
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        @if (Model.Attachment != null)
+        {
+            string file = Model.Attachment;
+            string[] subfile = file.Split('-');
+            <label class="col-md-3 control-label">File trả lời đính kèm:</label>
+            <div class="col-md-9" style="margin-top:7px">
+                <a href="@Model.Attachment"><i class="fa fa-download"></i> @subfile[1]</a>
+            </div>
+        }
+        else
+        {
+            <label class="col-md-3 control-label">File trả lời đính kèm:</label>
+            <div class="col-md-9" style="margin-top:7px">
+                <p>No file</p>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        @if (Model.Status == true)
+        {
+            <label class="col-md-3 control-label">Trạng thái:</label>
+            <div class="col-md-9" style="margin-top:7px">
+                <p style="color:blue">Đã trả lời</p>
+            </div>
+        }
+        else
+        {
+            <label class="col-md-3 control-label">Trạng thái:</label>
+            <div class="col-md-9" style="margin-top:7px">
+                <p style="color:red">Chưa trả lời</p>
+            </div>
+        }
+    </div>
+}

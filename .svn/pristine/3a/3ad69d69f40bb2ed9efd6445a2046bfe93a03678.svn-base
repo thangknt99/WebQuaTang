@@ -1,0 +1,1296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="vesportalModelStoreContainer" CdmEntityContainer="PortalNewsEntities">
+    <EntitySetMapping Name="GroupCusUsers">
+      <EntityTypeMapping TypeName="vesportalModel.GroupCusUser">
+        <MappingFragment StoreEntitySet="GroupCusUser">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="NameGroup" ColumnName="NameGroup" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MediaFiles">
+      <EntityTypeMapping TypeName="vesportalModel.MediaFile">
+        <MappingFragment StoreEntitySet="MediaFile">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Ext" ColumnName="Ext" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Newsvzs">
+      <EntityTypeMapping TypeName="vesportalModel.Newsvz">
+        <MappingFragment StoreEntitySet="Newsvz">
+          <ScalarProperty Name="IsRightSlide" ColumnName="IsRightSlide" />
+          <ScalarProperty Name="IsGetNewsvz" ColumnName="IsGetNewsvz" />
+          <ScalarProperty Name="AllowComment" ColumnName="AllowComment" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="IsHot" ColumnName="IsHot" />
+          <ScalarProperty Name="IsSlide" ColumnName="IsSlide" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="MoreDisplayZone" ColumnName="MoreDisplayZone" />
+          <ScalarProperty Name="MoreCategoryId" ColumnName="MoreCategoryId" />
+          <ScalarProperty Name="MorePageId" ColumnName="MorePageId" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="DisplayZone" ColumnName="DisplayZone" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="CropImage" ColumnName="CropImage" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_About">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_About">
+        <MappingFragment StoreEntitySet="tbl_About">
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_AccessOnline">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_AccessOnline">
+        <MappingFragment StoreEntitySet="tbl_AccessOnline">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Session" ColumnName="Session" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_AccessView">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_AccessView">
+        <MappingFragment StoreEntitySet="tbl_AccessView">
+          <ScalarProperty Name="ThangTruoc" ColumnName="ThangTruoc" />
+          <ScalarProperty Name="ThangNay" ColumnName="ThangNay" />
+          <ScalarProperty Name="TuanTruoc" ColumnName="TuanTruoc" />
+          <ScalarProperty Name="TuanNay" ColumnName="TuanNay" />
+          <ScalarProperty Name="HomTruoc" ColumnName="HomTruoc" />
+          <ScalarProperty Name="HomNay" ColumnName="HomNay" />
+          <ScalarProperty Name="NgayThongKe" ColumnName="NgayThongKe" />
+          <ScalarProperty Name="TongCong" ColumnName="TongCong" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_AdminMenu">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_AdminMenu">
+        <MappingFragment StoreEntitySet="tbl_AdminMenu">
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ApproveNews">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ApproveNews">
+        <MappingFragment StoreEntitySet="tbl_ApproveNews">
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BoxNewsConfig">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_BoxNewsConfig">
+        <MappingFragment StoreEntitySet="tbl_BoxNewsConfig">
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Calendar">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Calendar">
+        <MappingFragment StoreEntitySet="tbl_Calendar">
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="LangName" ColumnName="LangName" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Category">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Category">
+        <MappingFragment StoreEntitySet="tbl_Category">
+          <ScalarProperty Name="isHome2" ColumnName="isHome2" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="isHome" ColumnName="isHome" />
+          <ScalarProperty Name="isMenu" ColumnName="isMenu" />
+          <ScalarProperty Name="isNewsTab" ColumnName="isNewsTab" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="isShowHome" ColumnName="isShowHome" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Background" ColumnName="Background" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_configLuuY">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_configLuuY">
+        <MappingFragment StoreEntitySet="tbl_configLuuY">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EmailNhanYKien" ColumnName="EmailNhanYKien" />
+          <ScalarProperty Name="LuuYToGiac" ColumnName="LuuYToGiac" />
+          <ScalarProperty Name="LuuYHoiDap" ColumnName="LuuYHoiDap" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ConfigText">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ConfigText">
+        <MappingFragment StoreEntitySet="tbl_ConfigText">
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="LastModifieBy" ColumnName="LastModifieBy" />
+          <ScalarProperty Name="LastModifieDate" ColumnName="LastModifieDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Contents" ColumnName="Contents" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Contact">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Contact">
+        <MappingFragment StoreEntitySet="tbl_Contact">
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserNameOfAnswer" ColumnName="UserNameOfAnswer" />
+          <ScalarProperty Name="AnswerDate" ColumnName="AnswerDate" />
+          <ScalarProperty Name="AnswerBy" ColumnName="AnswerBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullNameOfQuestion" ColumnName="FullNameOfQuestion" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ContactInfo">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ContactInfo">
+        <MappingFragment StoreEntitySet="tbl_ContactInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CoQuanBanHanh">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_CoQuanBanHanh">
+        <MappingFragment StoreEntitySet="tbl_CoQuanBanHanh">
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CoQuanBanHanh_ZZZ">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_CoQuanBanHanh_ZZZ">
+        <MappingFragment StoreEntitySet="tbl_CoQuanBanHanh_ZZZ">
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CountAccess">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_CountAccess">
+        <MappingFragment StoreEntitySet="tbl_CountAccess">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ChucVu">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ChucVu">
+        <MappingFragment StoreEntitySet="tbl_ChucVu">
+          <ScalarProperty Name="isPublish" ColumnName="isPublish" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_DanhMucTaiLieu">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_DanhMucTaiLieu">
+        <MappingFragment StoreEntitySet="tbl_DanhMucTaiLieu">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_DMChung">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_DMChung">
+        <MappingFragment StoreEntitySet="tbl_DMChung">
+          <ScalarProperty Name="IsBanChapHanh" ColumnName="IsBanChapHanh" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="FeatureImage" ColumnName="FeatureImage" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="DiDong" ColumnName="DiDong" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="BCH" ColumnName="BCH" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_DMNhom">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_DMNhom">
+        <MappingFragment StoreEntitySet="tbl_DMNhom">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_DonVi">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_DonVi">
+        <MappingFragment StoreEntitySet="tbl_DonVi">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="TenDonVi" ColumnName="TenDonVi" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_DonViTTHC">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_DonViTTHC">
+        <MappingFragment StoreEntitySet="tbl_DonViTTHC">
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_FeedBack">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_FeedBack">
+        <MappingFragment StoreEntitySet="tbl_FeedBack">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserNameOfAnswer" ColumnName="UserNameOfAnswer" />
+          <ScalarProperty Name="AnswerDate" ColumnName="AnswerDate" />
+          <ScalarProperty Name="AnswerBy" ColumnName="AnswerBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullNameOfQuestion" ColumnName="FullNameOfQuestion" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Footer">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Footer">
+        <MappingFragment StoreEntitySet="tbl_Footer">
+          <ScalarProperty Name="Footer" ColumnName="Footer" />
+          <ScalarProperty Name="LangName" ColumnName="LangName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Gallery">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Gallery">
+        <MappingFragment StoreEntitySet="tbl_Gallery">
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_GalleryCategory">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_GalleryCategory">
+        <MappingFragment StoreEntitySet="tbl_GalleryCategory">
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_GroupUser">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_GroupUser">
+        <MappingFragment StoreEntitySet="tbl_GroupUser">
+          <ScalarProperty Name="PermissionCatNews" ColumnName="PermissionCatNews" />
+          <ScalarProperty Name="Permission" ColumnName="Permission" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ExpandNews" ColumnName="ExpandNews" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_HistoryNews">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_HistoryNews">
+        <MappingFragment StoreEntitySet="tbl_HistoryNews">
+          <ScalarProperty Name="Contents" ColumnName="Contents" />
+          <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_HomeMenu">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_HomeMenu">
+        <MappingFragment StoreEntitySet="tbl_HomeMenu">
+          <ScalarProperty Name="IsHome3" ColumnName="IsHome3" />
+          <ScalarProperty Name="IsHome2" ColumnName="IsHome2" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="IsPermAdd" ColumnName="IsPermAdd" />
+          <ScalarProperty Name="IsMenu" ColumnName="IsMenu" />
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="LinkType" ColumnName="LinkType" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="isNewsTab" ColumnName="isNewsTab" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_HomeMenu_OLD">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_HomeMenu_OLD">
+        <MappingFragment StoreEntitySet="tbl_HomeMenu_OLD">
+          <ScalarProperty Name="IsHome3" ColumnName="IsHome3" />
+          <ScalarProperty Name="IsHome2" ColumnName="IsHome2" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="IsPermAdd" ColumnName="IsPermAdd" />
+          <ScalarProperty Name="isMenu" ColumnName="isMenu" />
+          <ScalarProperty Name="isHome" ColumnName="isHome" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="LinkType" ColumnName="LinkType" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="isNewsTab" ColumnName="isNewsTab" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Languages">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Languages">
+        <MappingFragment StoreEntitySet="tbl_Languages">
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_LichCongTac">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_LichCongTac">
+        <MappingFragment StoreEntitySet="tbl_LichCongTac">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LVTCQ" ColumnName="LVTCQ" />
+          <ScalarProperty Name="allDay" ColumnName="allDay" />
+          <ScalarProperty Name="noidung" ColumnName="noidung" />
+          <ScalarProperty Name="ngayketthuc" ColumnName="ngayketthuc" />
+          <ScalarProperty Name="giobatdau" ColumnName="giobatdau" />
+          <ScalarProperty Name="ngaybatdau" ColumnName="ngaybatdau" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_LinkWebsite">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_LinkWebsite">
+        <MappingFragment StoreEntitySet="tbl_LinkWebsite">
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="LangName" ColumnName="LangName" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_LinhVucTTHC">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_LinhVucTTHC">
+        <MappingFragment StoreEntitySet="tbl_LinhVucTTHC">
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_LinhVucVanBan">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_LinhVucVanBan">
+        <MappingFragment StoreEntitySet="tbl_LinhVucVanBan">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_LoaiVanBan">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_LoaiVanBan">
+        <MappingFragment StoreEntitySet="tbl_LoaiVanBan">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Logs">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Logs">
+        <MappingFragment StoreEntitySet="tbl_Logs">
+          <ScalarProperty Name="Contents" ColumnName="Contents" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Magazine">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Magazine">
+        <MappingFragment StoreEntitySet="tbl_Magazine">
+          <ScalarProperty Name="Contents" ColumnName="Contents" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="FileAttack" ColumnName="FileAttack" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_News">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_News">
+        <MappingFragment StoreEntitySet="tbl_News">
+          <ScalarProperty Name="TinSanPham" ColumnName="TinSanPham" />
+          <ScalarProperty Name="NewMoney" ColumnName="NewMoney" />
+          <ScalarProperty Name="IsRightSlide" ColumnName="IsRightSlide" />
+          <ScalarProperty Name="IsGetNews" ColumnName="IsGetNews" />
+          <ScalarProperty Name="AllowComment" ColumnName="AllowComment" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="IsHot" ColumnName="IsHot" />
+          <ScalarProperty Name="IsSlide" ColumnName="IsSlide" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="MoreDisplayZone" ColumnName="MoreDisplayZone" />
+          <ScalarProperty Name="MoreCategoryId" ColumnName="MoreCategoryId" />
+          <ScalarProperty Name="MorePageId" ColumnName="MorePageId" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="DisplayZone" ColumnName="DisplayZone" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="CropImage" ColumnName="CropImage" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_News_ZZZ">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_News_ZZZ">
+        <MappingFragment StoreEntitySet="tbl_News_ZZZ">
+          <ScalarProperty Name="IsRightSlide" ColumnName="IsRightSlide" />
+          <ScalarProperty Name="IsGetNews" ColumnName="IsGetNews" />
+          <ScalarProperty Name="AllowComment" ColumnName="AllowComment" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="IsHot" ColumnName="IsHot" />
+          <ScalarProperty Name="IsSlide" ColumnName="IsSlide" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="MoreDisplayZone" ColumnName="MoreDisplayZone" />
+          <ScalarProperty Name="MoreCategoryId" ColumnName="MoreCategoryId" />
+          <ScalarProperty Name="MorePageId" ColumnName="MorePageId" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="DisplayZone" ColumnName="DisplayZone" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="CropImage" ColumnName="CropImage" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_NewsComment">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_NewsComment">
+        <MappingFragment StoreEntitySet="tbl_NewsComment">
+          <ScalarProperty Name="IsView" ColumnName="IsView" />
+          <ScalarProperty Name="IsNews" ColumnName="IsNews" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_NewsPaper">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_NewsPaper">
+        <MappingFragment StoreEntitySet="tbl_NewsPaper">
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_NewsPaperComment">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_NewsPaperComment">
+        <MappingFragment StoreEntitySet="tbl_NewsPaperComment">
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="NewsPaperID" ColumnName="NewsPaperID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Online">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Online">
+        <MappingFragment StoreEntitySet="tbl_Online">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="Ip" ColumnName="Ip" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_PageElement">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_PageElement">
+        <MappingFragment StoreEntitySet="tbl_PageElement">
+          <ScalarProperty Name="Footer" ColumnName="Footer" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Subdomain" ColumnName="Subdomain" />
+          <ScalarProperty Name="LangName" ColumnName="LangName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Banner" ColumnName="Banner" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Product">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Product">
+        <MappingFragment StoreEntitySet="tbl_Product">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ProductCategory">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ProductCategory">
+        <MappingFragment StoreEntitySet="tbl_ProductCategory">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ProductOverView">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ProductOverView">
+        <MappingFragment StoreEntitySet="tbl_ProductOverView">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_QALinhVuc">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_QALinhVuc">
+        <MappingFragment StoreEntitySet="tbl_QALinhVuc">
+          <ScalarProperty Name="isPublish" ColumnName="isPublish" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_QuestionAndAnswer">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_QuestionAndAnswer">
+        <MappingFragment StoreEntitySet="tbl_QuestionAndAnswer">
+          <ScalarProperty Name="LinhVucID" ColumnName="LinhVucID" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserNameOfAnswer" ColumnName="UserNameOfAnswer" />
+          <ScalarProperty Name="AnswerDate" ColumnName="AnswerDate" />
+          <ScalarProperty Name="AnswerBy" ColumnName="AnswerBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullNameOfQuestion" ColumnName="FullNameOfQuestion" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_QuyTrinhXuatban">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_QuyTrinhXuatban">
+        <MappingFragment StoreEntitySet="tbl_QuyTrinhXuatban">
+          <ScalarProperty Name="isPublish" ColumnName="isPublish" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SlideImages">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_SlideImages">
+        <MappingFragment StoreEntitySet="tbl_SlideImages">
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_TaiLieu">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_TaiLieu">
+        <MappingFragment StoreEntitySet="tbl_TaiLieu">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="ReplaceName" ColumnName="ReplaceName" />
+          <ScalarProperty Name="LinkFile" ColumnName="LinkFile" />
+          <ScalarProperty Name="NameFile" ColumnName="NameFile" />
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_TiepNhanPAKN">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_TiepNhanPAKN">
+        <MappingFragment StoreEntitySet="tbl_TiepNhanPAKN">
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CodePAKN" ColumnName="CodePAKN" />
+          <ScalarProperty Name="AnswerContent" ColumnName="AnswerContent" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ReplaceName" ColumnName="ReplaceName" />
+          <ScalarProperty Name="LinkFile" ColumnName="LinkFile" />
+          <ScalarProperty Name="NameFile" ColumnName="NameFile" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ToGiac">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ToGiac">
+        <MappingFragment StoreEntitySet="tbl_ToGiac">
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="ToiPhamID" ColumnName="ToiPhamID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_TTHC">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_TTHC">
+        <MappingFragment StoreEntitySet="tbl_TTHC">
+          <ScalarProperty Name="AllowComment" ColumnName="AllowComment" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CoSoPhapLy" ColumnName="CoSoPhapLy" />
+          <ScalarProperty Name="YeuCauDieuKien" ColumnName="YeuCauDieuKien" />
+          <ScalarProperty Name="TenMauDon" ColumnName="TenMauDon" />
+          <ScalarProperty Name="LePhi" ColumnName="LePhi" />
+          <ScalarProperty Name="KetQua" ColumnName="KetQua" />
+          <ScalarProperty Name="CoQuanThucHien" ColumnName="CoQuanThucHien" />
+          <ScalarProperty Name="DoiTuong" ColumnName="DoiTuong" />
+          <ScalarProperty Name="ThoiHan" ColumnName="ThoiHan" />
+          <ScalarProperty Name="ThanhPhanHoSo" ColumnName="ThanhPhanHoSo" />
+          <ScalarProperty Name="CachThucThucHien" ColumnName="CachThucThucHien" />
+          <ScalarProperty Name="TrinhTuThucHien" ColumnName="TrinhTuThucHien" />
+          <ScalarProperty Name="Tieude" ColumnName="Tieude" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="ThuTuc" ColumnName="ThuTuc" />
+          <ScalarProperty Name="LinhVucId" ColumnName="LinhVucId" />
+          <ScalarProperty Name="DonViId" ColumnName="DonViId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_TTHCComment">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_TTHCComment">
+        <MappingFragment StoreEntitySet="tbl_TTHCComment">
+          <ScalarProperty Name="IsView" ColumnName="IsView" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="TTHCID" ColumnName="TTHCID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ThamDoYKien">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ThamDoYKien">
+        <MappingFragment StoreEntitySet="tbl_ThamDoYKien">
+          <ScalarProperty Name="IpMay" ColumnName="IpMay" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Poll" ColumnName="Poll" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ThamDoYKien_Ip">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_ThamDoYKien_Ip">
+        <MappingFragment StoreEntitySet="tbl_ThamDoYKien_Ip">
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="PollId" ColumnName="PollId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_truyna">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_truyna">
+        <MappingFragment StoreEntitySet="tbl_truyna">
+          <ScalarProperty Name="SmallPhoto" ColumnName="SmallPhoto" />
+          <ScalarProperty Name="AttachmentTN" ColumnName="AttachmentTN" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="IsDinhNa" ColumnName="IsDinhNa" />
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
+          <ScalarProperty Name="BaoChoDonVi" ColumnName="BaoChoDonVi" />
+          <ScalarProperty Name="QuocGiaNghiTron" ColumnName="QuocGiaNghiTron" />
+          <ScalarProperty Name="HoSoTruyNaQT" ColumnName="HoSoTruyNaQT" />
+          <ScalarProperty Name="NgayTruyNaQT" ColumnName="NgayTruyNaQT" />
+          <ScalarProperty Name="DonViRaQD" ColumnName="DonViRaQD" />
+          <ScalarProperty Name="QuyetDinhTruyNa" ColumnName="QuyetDinhTruyNa" />
+          <ScalarProperty Name="PhamViTruyNa" ColumnName="PhamViTruyNa" />
+          <ScalarProperty Name="LoaiTruyNa" ColumnName="LoaiTruyNa" />
+          <ScalarProperty Name="HeLoaiToiDanh" ColumnName="HeLoaiToiDanh" />
+          <ScalarProperty Name="ToiDanh" ColumnName="ToiDanh" />
+          <ScalarProperty Name="DacDiemKhac" ColumnName="DacDiemKhac" />
+          <ScalarProperty Name="DacDiemTai" ColumnName="DacDiemTai" />
+          <ScalarProperty Name="DacDiemMat" ColumnName="DacDiemMat" />
+          <ScalarProperty Name="DacDiemMui" ColumnName="DacDiemMui" />
+          <ScalarProperty Name="LongMay" ColumnName="LongMay" />
+          <ScalarProperty Name="MaiToc" ColumnName="MaiToc" />
+          <ScalarProperty Name="MauDa" ColumnName="MauDa" />
+          <ScalarProperty Name="ChieuCao" ColumnName="ChieuCao" />
+          <ScalarProperty Name="TenMe" ColumnName="TenMe" />
+          <ScalarProperty Name="TenCha" ColumnName="TenCha" />
+          <ScalarProperty Name="DanToc" ColumnName="DanToc" />
+          <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+          <ScalarProperty Name="NoiDKTT" ColumnName="NoiDKTT" />
+          <ScalarProperty Name="HoKhauTT" ColumnName="HoKhauTT" />
+          <ScalarProperty Name="NoiSinh" ColumnName="NoiSinh" />
+          <ScalarProperty Name="NamSinh" ColumnName="NamSinh" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="TenKhac" ColumnName="TenKhac" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_User">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_User">
+        <MappingFragment StoreEntitySet="tbl_User">
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="IsBanChapHanh" ColumnName="IsBanChapHanh" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+          <ScalarProperty Name="PageNoiBo" ColumnName="PageNoiBo" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="GroupUserID" ColumnName="GroupUserID" />
+          <ScalarProperty Name="IPLogin" ColumnName="IPLogin" />
+          <ScalarProperty Name="TimeLogin" ColumnName="TimeLogin" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="ChucVuId" ColumnName="ChucVuId" />
+          <ScalarProperty Name="DonviId" ColumnName="DonviId" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_UserAdmin">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_UserAdmin">
+        <MappingFragment StoreEntitySet="tbl_UserAdmin">
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+          <ScalarProperty Name="QuyTrinhXuatBanID" ColumnName="QuyTrinhXuatBanID" />
+          <ScalarProperty Name="PageElementID" ColumnName="PageElementID" />
+          <ScalarProperty Name="GroupUserID" ColumnName="GroupUserID" />
+          <ScalarProperty Name="IPLogin" ColumnName="IPLogin" />
+          <ScalarProperty Name="TimeLogin" ColumnName="TimeLogin" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_VanBan">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_VanBan">
+        <MappingFragment StoreEntitySet="tbl_VanBan">
+          <ScalarProperty Name="ManCreate" ColumnName="ManCreate" />
+          <ScalarProperty Name="Agencies" ColumnName="Agencies" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+          <ScalarProperty Name="CateID" ColumnName="CateID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsSendSMS" ColumnName="IsSendSMS" />
+          <ScalarProperty Name="IsSendMail" ColumnName="IsSendMail" />
+          <ScalarProperty Name="IsRight" ColumnName="IsRight" />
+          <ScalarProperty Name="HetHieuLuc" ColumnName="HetHieuLuc" />
+          <ScalarProperty Name="NgayBanHanh" ColumnName="NgayBanHanh" />
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="isNoiBo" ColumnName="isNoiBo" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="TrichYeu" ColumnName="TrichYeu" />
+          <ScalarProperty Name="LinhVucVanBanId" ColumnName="LinhVucVanBanId" />
+          <ScalarProperty Name="LoaiVanBanId" ColumnName="LoaiVanBanId" />
+          <ScalarProperty Name="CoQuanBanHanhId" ColumnName="CoQuanBanHanhId" />
+          <ScalarProperty Name="NguoiKy" ColumnName="NguoiKy" />
+          <ScalarProperty Name="NgayHieuLucVARCHAR" ColumnName="NgayHieuLucVARCHAR" />
+          <ScalarProperty Name="NgayHieuLuc" ColumnName="NgayHieuLuc" />
+          <ScalarProperty Name="SoHieu" ColumnName="SoHieu" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_VanBan_ZZZ">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_VanBan_ZZZ">
+        <MappingFragment StoreEntitySet="tbl_VanBan_ZZZ">
+          <ScalarProperty Name="IsSendSMS" ColumnName="IsSendSMS" />
+          <ScalarProperty Name="IsSendMail" ColumnName="IsSendMail" />
+          <ScalarProperty Name="IsRight" ColumnName="IsRight" />
+          <ScalarProperty Name="HetHieuLuc" ColumnName="HetHieuLuc" />
+          <ScalarProperty Name="NgayBanHanh" ColumnName="NgayBanHanh" />
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="isNoiBo" ColumnName="isNoiBo" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="TrichYeu" ColumnName="TrichYeu" />
+          <ScalarProperty Name="LinhVucVanBanId" ColumnName="LinhVucVanBanId" />
+          <ScalarProperty Name="LoaiVanBanId" ColumnName="LoaiVanBanId" />
+          <ScalarProperty Name="CoQuanBanHanhId" ColumnName="CoQuanBanHanhId" />
+          <ScalarProperty Name="NguoiKy" ColumnName="NguoiKy" />
+          <ScalarProperty Name="NgayHieuLuc" ColumnName="NgayHieuLuc" />
+          <ScalarProperty Name="SoHieu" ColumnName="SoHieu" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Video">
+      <EntityTypeMapping TypeName="vesportalModel.tbl_Video">
+        <MappingFragment StoreEntitySet="tbl_Video">
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="IsHome" ColumnName="IsHome" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_Category_Languages">
+      <EntityTypeMapping TypeName="vesportalModel.view_Category_Languages">
+        <MappingFragment StoreEntitySet="view_Category_Languages">
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="LangIcon" ColumnName="LangIcon" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="LangName" ColumnName="LangName" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Background" ColumnName="Background" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Gallery_Category">
+      <EntityTypeMapping TypeName="vesportalModel.View_Gallery_Category">
+        <MappingFragment StoreEntitySet="View_Gallery_Category">
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_News">
+      <EntityTypeMapping TypeName="vesportalModel.view_News">
+        <MappingFragment StoreEntitySet="view_News">
+          <ScalarProperty Name="CropImage" ColumnName="CropImage" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="IsHot" ColumnName="IsHot" />
+          <ScalarProperty Name="IsSlide" ColumnName="IsSlide" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="MoreDisplayZone" ColumnName="MoreDisplayZone" />
+          <ScalarProperty Name="MoreCategoryId" ColumnName="MoreCategoryId" />
+          <ScalarProperty Name="MorePageId" ColumnName="MorePageId" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="DisplayZone" ColumnName="DisplayZone" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_NEWS_LISTDATA">
+      <EntityTypeMapping TypeName="vesportalModel.view_NEWS_LISTDATA">
+        <MappingFragment StoreEntitySet="view_NEWS_LISTDATA">
+          <ScalarProperty Name="NewMoney" ColumnName="NewMoney" />
+          <ScalarProperty Name="TinSanPham" ColumnName="TinSanPham" />
+          <ScalarProperty Name="IsRightSlide" ColumnName="IsRightSlide" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="AllowComment" ColumnName="AllowComment" />
+          <ScalarProperty Name="IsGetNews" ColumnName="IsGetNews" />
+          <ScalarProperty Name="MoreDisplayZone" ColumnName="MoreDisplayZone" />
+          <ScalarProperty Name="MoreCategoryId" ColumnName="MoreCategoryId" />
+          <ScalarProperty Name="MorePageId" ColumnName="MorePageId" />
+          <ScalarProperty Name="CropImage" ColumnName="CropImage" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CatImage2" ColumnName="CatImage2" />
+          <ScalarProperty Name="CatImage" ColumnName="CatImage" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="IsSlide" ColumnName="IsSlide" />
+          <ScalarProperty Name="IsHot" ColumnName="IsHot" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="DisplayZone" ColumnName="DisplayZone" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_NEWS_LISTDETAIL">
+      <EntityTypeMapping TypeName="vesportalModel.view_NEWS_LISTDETAIL">
+        <MappingFragment StoreEntitySet="view_NEWS_LISTDETAIL">
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="IsRightSlide" ColumnName="IsRightSlide" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="AllowComment" ColumnName="AllowComment" />
+          <ScalarProperty Name="IsGetNews" ColumnName="IsGetNews" />
+          <ScalarProperty Name="MoreDisplayZone" ColumnName="MoreDisplayZone" />
+          <ScalarProperty Name="MoreCategoryId" ColumnName="MoreCategoryId" />
+          <ScalarProperty Name="MorePageId" ColumnName="MorePageId" />
+          <ScalarProperty Name="CropImage" ColumnName="CropImage" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CatImage2" ColumnName="CatImage2" />
+          <ScalarProperty Name="CatImage" ColumnName="CatImage" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="IsSlide" ColumnName="IsSlide" />
+          <ScalarProperty Name="IsHot" ColumnName="IsHot" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="DisplayZone" ColumnName="DisplayZone" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LangCode" ColumnName="LangCode" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_news_search">
+      <EntityTypeMapping TypeName="vesportalModel.view_news_search">
+        <MappingFragment StoreEntitySet="view_news_search">
+          <ScalarProperty Name="CropImage" ColumnName="CropImage" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="IsHot" ColumnName="IsHot" />
+          <ScalarProperty Name="IsSlide" ColumnName="IsSlide" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="NoiBo" ColumnName="NoiBo" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FeautureImage" ColumnName="FeautureImage" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="PageElementId" ColumnName="PageElementId" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

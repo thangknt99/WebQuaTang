@@ -1,0 +1,90 @@
+    #ulNewRight{
+    margin:10px 15px 20px 30px;
+    }
+    #ulNewRight li{
+    margin-bottom:5px;
+    list-style:inherit;
+    color:#337ab7
+    }
+    #divnewPAKN div h5{
+    color:#f9ffff;
+    margin-top:0px;
+    padding:10px 0px 0px 10px
+    }
+    #divnewPAKN div{
+    height:34px;
+    background-color:#4792d3
+    }
+    #divnewPAKN{
+    height:auto;
+    border:1px solid #ccc;
+    margin:10px 0px 10px 0px
+    }
+    #divContactRight h6{
+    padding:1px 0px 0px 10px;
+    color:#84353f
+    }
+    #divContactRight h4{
+    padding:0px 1px 0px 10px;
+    font-size:15px;color:#aa1f02;
+    text-transform: uppercase;
+    font-family:Arial;
+    font-weight:bold
+    }
+    #divContactRight h4 span{
+    color:red;
+    font-size:12px;
+    font-weight:bold;
+    text-transform:none
+    }
+    .hrRight{
+    margin:1px 10px 0px 10px;
+    height:0;
+    border:0.5px inset #ebccd1;
+    }
+    #divContactRight h5{
+    padding:18px 0px 0px 10px;
+    font-size:16px;
+    font-weight:bold;
+    color:#aa1f02
+    }
+    #divContactRight h5 i{
+    color:red
+    }
+    #phoneRight{
+    color:red;
+    font-size:12px;
+    font-weight:bold
+    }
+    #divContactRight{
+    background-color:#f2dede;
+    height:180px;
+    border-radius:5px
+    }
+    #divSearchRight{
+    height:auto;
+    border:1px solid #ccc;
+    margin-top:10px
+    }
+    #divTextSearch{
+    height:34px;
+    background-color:#4792d3
+    }
+    #divTextSearch h6{
+    text-transform: uppercase;
+    color:#f9ffff;
+    margin-top:0px;
+    padding:10px 0px 0px 10px
+    }
+    #divtextRight{
+    border-radius:3px;
+    margin:9px 0px 65px 5px
+    }
+    #divtxtRight{
+    float:left;
+    width:150px
+    }
+    #divbtnsearchRight{
+    float:left;
+    margin-left:5px
+    }

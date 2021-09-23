@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Model;
+
+namespace Web.Repository
+{
+   public interface ITiepNhanPAKNRepository
+    {
+        List<tbl_TiepNhanPAKN> GetAll();
+        bool Add(tbl_TiepNhanPAKN obj);
+        tbl_TiepNhanPAKN Find(int id);
+        bool Edit(tbl_TiepNhanPAKN obj);
+        void Delete(int id);
+    }
+}

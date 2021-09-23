@@ -1,0 +1,27 @@
+﻿using Newtonsoft.Json.Linq;
+using PublicService.Controllers;
+using System;
+using System.Configuration;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
+using Web.BaseSecurity;
+using Web.Model;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Controllers
+{
+    public class InstructionHomeController : BaseController
+    {
+        //
+        // GET: /QA/
+        readonly IInstructionRepository _instructionRepository = new InstructionRepository();
+
+        public ActionResult Index()
+        {
+            var lst = _instructionRepository.GetAll().OrderBy(g => g.Ordering).ToList();
+            return View(lst);
+        }
+    }
+}

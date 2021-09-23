@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Web.Model
+@model List<tbl_About>
+<div id="divAbout" class="form-group">
+    <h3>giới thiệu về hệ thống tiếp nhận,trả lời phản ánh,kiến nghị của người dân</h3>
+</div>
+<div class="control-group" style="margin:20px 10px">
+    @foreach (var item in Model)
+    {
+        <h4></h4>
+       <div style="margin:auto">@Html.Raw(item.NoiDung)</div>
+    }
+   
+</div>
+ <style>
+  #divAbout{
+    background-color:#eeeeee;
+    height:40px;
+    width:100%;
+    padding-left:15px
+    }
+    #divAbout h3{
+    color:red;
+    font-size:16px;
+    margin-top:11px;
+    text-transform: uppercase
+    }
+ </style>

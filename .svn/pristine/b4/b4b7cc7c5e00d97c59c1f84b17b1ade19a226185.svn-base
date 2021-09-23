@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = @ViewBag.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Web.Model
+@model Web.Model.tbl_VanBan
+<div class="row content-space vanban">
+    <div class="leftmenu-responsive">
+        @{Html.RenderAction("Index", "LeftMenu");}
+    </div>
+    <!-- start right content news -->
+    <div class="col-md-9 col-xs-12">
+        <div class="breadcrumb">
+            <ul>
+                <li>
+                    <a href="/"><i class="glyphicon glyphicon-home"> </i></a> <i class="glyphicon glyphicon-menu-right
+    "></i>
+                </li>
+                <li><a href="/vanban">Văn bản</a></li>
+            </ul>
+        </div>
+        <h3>@Model.TrichYeu</h3>
+        <div class="detail_date"><i>Ngày đăng:@string.Format("{0:dd/MM/yyyy}", Model.CreatedDate)</i></div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td style="width: 30%">Số hiệu</td>
+                    <td>@Model.SoHieu</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Người ký</td>
+                    <td>@Model.NguoiKy</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Cơ quan banh hành</td>
+                    <td>@Model.CoQuanBanHanh</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Loại văn bản</td>
+                    <td>@Model.LoaiVanBan</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Lĩnh vực văn bản</td>
+                    <td>@Model.LinhVucVanBan</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Nội dung</td>
+                    <td>@Model.TrichYeu</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Ngày hiệu lực</td>
+                    <td>@string.Format("{0:dd/MM/yyyy}", Model.NgayHieuLuc)</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Tải về</td>
+                    <td><a href="@Model.Attachment"><img src="~/Content/Site/images/download.ico" width="20" title="Tải xuống" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="other-vanban">
+            @{
+                var lstVanBanKhac = (List<tbl_VanBan>)ViewBag.RelatedVB;
+                if (lstVanBanKhac.Count > 0)
+                {
+                    <h5 style="font-weight: bold;">Văn bản khác:</h5>
+                    <ul>
+                        @foreach (var tblVanBan in lstVanBanKhac)
+                        {
+                            <li>
+                                <a href="/VanBan/Details/@tblVanBan.ID">
+                                    @tblVanBan.TrichYeu
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+        </div>
+        <div class="visible-xs visible-sm">
+            <button class="btn-toggle-left toggle-button"><strong>☰ Danh mục phụ</strong> (trượt sang phải &rarr; )</button>
+        </div>
+    </div>
+</div>

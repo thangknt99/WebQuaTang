@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Tra cứu văn bản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/Admin/assets/timepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="/Content/Admin/assets/timepicker/bootstrap-datepicker.js"></script>
+<script src="/AppJs/vanban.js"></script>
+@using Web.Model
+@model tbl_VanBan
+<div class="row content-space">
+    <div class="leftmenu-responsive">
+        @{Html.RenderAction("Index", "LeftMenu");}
+    </div>
+    <!-- start right content news -->
+    <div class="col-md-9 col-xs-12">
+        @using (Ajax.BeginForm("ListData", "VanBan", null, new AjaxOptions
+{
+    HttpMethod = "Post",
+    OnSuccess = "vanban.onHomeSearchSuccess",
+}, new { @id = "frmSearch" }))
+        {            
+            <div class="row tcvb">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Trích yếu: </label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(g => g.TrichYeu, new { @class = "form-control", placeholder = "" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Số hiệu: </label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(g => g.SoHieu, new { @class = "form-control", placeholder = "" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Cơ quan ban hành: </label>
+                    @{
+            var lstCoQuanBanHanh = (List<tbl_CoQuanBanHanh>)TempData["CoQuanBanHanh"];
+                    }
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(x => x.CoQuanBanHanhId, new SelectList(lstCoQuanBanHanh, "ID", "Name"), "--- Chọn cơ quan banh hành --- ", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Lĩnh vực văn bản: </label>
+                    @{
+            var lstLinhVucVanBan = (List<tbl_LinhVucVanBan>)TempData["LinhVucVanBan"];
+                    }
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(x => x.LinhVucVanBanId, new SelectList(lstLinhVucVanBan, "ID", "Name"), "--- Chọn lĩnh vực văn bản --- ", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Loại văn bản: </label>
+                    @{
+            var lstLoaiVanBan = (List<tbl_LoaiVanBan>)TempData["LoaiVanBan"];
+                    }
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(x => x.LoaiVanBanId, new SelectList(lstLoaiVanBan, "ID", "Name"), "--- Chọn loại văn bản --- ", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Tình trạng: </label>
+                    <div class="col-md-9">
+                        <input value="true" data-val="true" data-val-required="The Status field is required." id="Status" name="Status" type="hidden">
+                        <label class="radio-inline">
+                            <input type="radio" name="conhieuluc" id="conhieuluc" class="statusvanban" value="true" checked="">Còn hiệu lực
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="conhieuluc" id="hethieuluc" class="statusvanban" value="false">Hết hiệu lực
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-3">
+                        <label>Từ ngày</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="fromdate" name="fromdate">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label>Đến ngày</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="todate" name="todate">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-3">
+                        <button id="btnSearch" type="submit" class="btn btn-primary waves-effect waves-light">Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="table-responsive" id="gridData">
+
+        </div>
+        <div class="pull-right" id="paginationholder">
+            <ul id="pagination" class="pagination"></ul>
+        </div>
+        <div class="visible-xs visible-sm">
+            <button class="btn-toggle-left toggle-button"><strong>☰ Danh mục phụ</strong> (trượt sang phải &rarr; )</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#btnSearch").click();
+        jQuery('#fromdate').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+        jQuery('#todate').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+        $(".statusvanban").click(function () {
+            $("#Status").val($(this).val());
+        });
+    });
+</script>
+<style>
+    .form-group {
+        float: left;
+        width: 100%;
+    }
+</style>

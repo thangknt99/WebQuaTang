@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using PagedList;
+using Web.BaseSecurity;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Controllers
+{
+    public class VideoController : BaseController
+    {
+        //
+        // GET: /Video/
+        readonly IVideoRepository _videoRepository = new VideoRepository();
+        readonly IGalleryRepository _galleryRepository = new GalleryRepository();
+        readonly IGalleryCategoryRepository _galleryCategoryRepository = new GalleryCategoryRepository();
+        public ActionResult Index(int id = 0,int page = 1 )
+        {
+            var pageElementId = GetPageElementId();
+            var lstVideo = _videoRepository.GetAll().Where(g=>g.Status).OrderByDescending(g=>g.ID);
+            if (lstVideo.Any())
+            {
+                var first = lstVideo.FirstOrDefault();
+                TempData["First"] = first;
+                if (id != 0)
+                {
+                    TempData["First"] = _videoRepository.Find(id);
+                }
+            }
+            return View(lstVideo.ToPagedList(page, Webconfig.RowLimit));
+        }
+        public ActionResult Right()
+        {
+            // video trang chu
+            var homeVideo = _videoRepository.GetAll().Where(g => g.Status && g.IsHome).OrderByDescending(g => g.ID).FirstOrDefault();
+            ViewBag.homeVideo = homeVideo;
+            // album hien thi trang chu
+            var objGalleryCategory = _galleryCategoryRepository.GetAll().OrderBy(g => g.Ordering).FirstOrDefault(g => g.IsHome == true);
+            if (objGalleryCategory != null)
+            {
+                int catid = objGalleryCategory.ID;
+                var lstGallery = _galleryRepository.GetAll().Where(g => g.CategoryId == catid && g.Status).ToList();
+                ViewBag.lstGallery = lstGallery;
+                ViewBag.GCName = _galleryCategoryRepository.Find(catid).Name;
+                ViewBag.GCID = catid;
+                // danh sach album
+                ViewBag.GCAll = _galleryCategoryRepository.GetAll().Where(g => g.Active == true).OrderByDescending(g => g.CreatedDate).ToList();
+                
+            }
+            return View();
+        }
+    }
+}

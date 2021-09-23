@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/Site/js/jquery.twbsPagination.min.js"></script>
+<script src="~/AppJs/tiepNhanPhanAnhKienNghi.js"></script>
+@model tbl_TiepNhanPAKN
+@using Web.Model
+@using Web
+
+     
+        <h3 class="panel-title" style="font-size:20px;color:#337ab7;margin:20px 0px 10px 20px; font-weight:bold">Chi tiết phản ánh kiến nghị</h3>
+     
+     
+        <div style="margin-left:20px"><span  style="font-size:18px;text-transform:uppercase">@Model.Name</span> - <i class="fa fa-clock-o" aria-hidden="true"> </i> @string.Format("{0: dd/MM/yyyy}",Model.CreatedDate)</div>
+        <h3 style="color:#337ab7;font-size:20px;margin-left:20px">Kiến nghị về việc: @Model.Title</h3>
+   
+   
+    <div style="border: solid 1px #ccc;padding:20px;width:95%;margin-left:20px">
+        <div class="media">
+            <div class="media-left">
+                <a href="#"><img style="width:80px"class="media-object img-thumbnail img-circle" src="~/Content/Site/images/user.png" /></a>
+            </div>
+            <div class="media-body">
+                <h4 style="text-transform: uppercase;color: #A80002;font-size: 16px;">Nội dung kiến nghị:</h4>
+                 <p class="text-justify">@Model.Content</p>
+                <hr style="box-sizing: content-box;height: 0;" />
+                @if (Model.LinkFile != null)
+                {
+                    <p><a href="@Model.LinkFile"><i class="MR5 fa fa-file-text-o" aria-hidden="true"></i></a> File đính kèm</p>
+                }
+                else
+                {
+                    <p>Không có  file</p>
+                }
+            </div>
+        </div>
+    </div>
+    <hr style="width:95%;border-top: 1px solid #337ab7;margin-left:20px" />
+<div style="border: solid 0px #ccc;padding:20px;width:95%;margin-left:20px;background-color: #d9edf7;border-color: #bce8f1;color: #31708f;border-radius:4px">
+    <div><span style="font-size:18px;text-transform:uppercase">Trả lời kiến nghị</span> - <i class="fa fa-clock-o" aria-hidden="true"> </i> @string.Format("{0: dd/MM/yyyy}", Model.ModifiedDate)</div>
+    <p>@Model.AnswerContent</p>
+    <hr style="width:100%;border-top:0.5px solid #337ab7;margin-left:5px" />
+    <p><a href="@Model.LinkFile"><i class="MR5 fa fa-file-text-o" aria-hidden="true"></i></a> File đính kèm</p>
+</div>
+<style>
+    .form-group {
+        width: 100%;
+    }
+    .colvalue{
+        margin-top:7px;
+    }
+</style>

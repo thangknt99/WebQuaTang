@@ -1,0 +1,36 @@
+﻿
+@model IEnumerable<tbl_TiepNhanPAKN>
+@using Web.Model
+@using Web
+
+@foreach (var item in Model)
+{
+    <div style="border: solid 1px #ccc;padding:20px;width:96%;margin:0px 0px 10px 15px">
+        <div class="media">
+            <div class="media-left">
+                <a href="#"><img style="width:80px" class="media-object img-thumbnail img-circle" src="~/Content/Site/images/user.png" /></a>
+            </div>
+            <div class="media-body">
+                <div><a style="color:blue" href="/phan-anh-kien-nghi/detail/@item.Id">@item.Name</a> - <i class="fa fa-clock-o" aria-hidden="true"> </i> @string.Format("{0: dd/MM/yyyy}", item.CreatedDate)</div>
+                @if (item.Title.Length > 150)
+                {
+                    <a href="/phan-anh-kien-nghi/detail/@item.Id"><span style="font-size:16px;font-family:Arial">@item.Title.Substring(0, 150)</span>...</a><br />
+                }
+                else
+                {
+                    <a href="/phan-anh-kien-nghi/detail/@item.Id"><span style="font-size:16px;font-family:Arial">@item.Title</span></a><br />
+                }
+                @if (item.Content == null || item.Content.Length > 200)
+                {
+                    <span style="font-weight:bold;font-size:14px;font-family:Arial">Nội dung kiến nghị:</span> @item.Content.Substring(0, 200)<span>...</span>
+                }
+                else
+                {
+                    <span style="font-weight:bold;font-size:14px;font-family:Arial">Nội dung kiến nghị:</span><span> file gửi đính kèm</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+}
+

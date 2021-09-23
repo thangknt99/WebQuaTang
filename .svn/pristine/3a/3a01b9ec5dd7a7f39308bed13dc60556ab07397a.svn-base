@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Core;
+using Web.Model;
+
+namespace Web.Repository.Entity
+{
+    public class AboutRepository : IAboutRepository
+    {
+        readonly PortalNewsEntities _entities = new PortalNewsEntities();
+       
+        public bool Add(Model.tbl_About obj)
+        {
+            try
+            {
+                _entities.tbl_About.Add(obj);
+                _entities.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+           
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                var obj = Find(id);
+                _entities.tbl_About.Remove(obj);
+                _entities.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+           
+        }
+
+        public bool Edit(Model.tbl_About obj)
+        {
+            try
+            {
+                _entities.Entry(obj).State = EntityState.Modified;
+                _entities.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+          
+        }
+
+        public Model.tbl_About Find(int id)
+        {
+            return _entities.tbl_About.Find(id);
+        }
+
+        public List<Model.tbl_About> GetAll()
+        {
+            var lstData = _entities.tbl_About.ToList();
+            return lstData;
+        }
+    }
+}

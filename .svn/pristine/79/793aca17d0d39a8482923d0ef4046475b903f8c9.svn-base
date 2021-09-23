@@ -1,0 +1,79 @@
+﻿@using Web.Model
+@using Web.Model.CustomModel
+@model IEnumerable<tbl_TiepNhanPAKN>
+@{
+    var lstAction = (List<int>)HttpContext.Current.Session["Action"];
+    var lstLangs = (List<tbl_Languages>)TempData["Languages"];
+}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                <input type="hidden" id="hdfID" />
+                <div class="checkbox">
+                    <input id="chkall" type="checkbox">
+                    <label for="chkall"></label>
+                </div>
+            </th>
+            <th style="text-align:center;">Họ tên </th>
+            <th style="text-align:center;">Email</th>
+            <th style="text-align:center;">Số điện thoại</th>
+            <th style="text-align:center;">Tiêu đề</th>
+            <th style="text-align:center;">File phản ánh</th>
+            <th style="text-align:center;">Ngày phản ánh</th>
+            <th style="text-align:center;">Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align: middle;">
+                    <div class="checkbox">
+                        <input type="checkbox" value="@item.Id" id="chk'@item.Id'">
+                        <label for="chk'@item.Id'"></label>
+                    </div>
+                </td>
+                <td style="vertical-align: middle;">@item.Name</td>
+                <td style="vertical-align: middle;">@item.Email</td>
+                <td style="vertical-align: middle;">@item.Phone</td>
+                <td style="vertical-align: middle;">@item.Title</td>
+                @if (item.LinkFile != null)
+                {
+                    <td style="vertical-align: middle;">
+                        <a href="@item.LinkFile"><i class="fa fa-download"></i></a>
+                        @item.ReplaceName
+                    </td>
+                }
+                else
+                {
+                    <td style="vertical-align: middle;">
+                    </td>
+                }
+                <td style="vertical-align: middle;">@string.Format("{0:dd/MM/yyyy HH:mm}",item.CreatedDate)</td>
+                <td style="vertical-align: middle;" class="text-center">@Html.Raw(item.Status == true ? "<span style='color:green'>Đã trả lời</span>" : "<span style='color:red'>Chưa trả lời</span>")</td>
+                <td style="width:150px">
+                    <div style=""class="btn-list pull-right mr5">
+                            <a href="#" class="btn btn-success btn-bordered" onclick="tiepNhanPhanAnhKienNghi.loadfrmDetail(@item.Id)">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </a>
+                            <a href="#" class="btn btn-primary btn-bordered" onclick="tiepNhanPhanAnhKienNghi.loadfrmedit(@item.Id) ">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger btn-bordered" onclick="tiepNhanPhanAnhKienNghi.ondelete(@item.Id) ">
+                                <i class="glyphicon glyphicon-trash"></i>
+                           </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    jQuery(document).ready(function() {
+        InitClickCheckAllInTable("chkall", function (res) {
+            $("#hdfID").val(res);
+        });
+    });
+</script>

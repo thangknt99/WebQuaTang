@@ -1,0 +1,268 @@
+﻿var about = function () {
+    return {
+        init: function () {
+            this.pageIndex = 1;
+            this.FirstLoad = true;
+            this.DataSearch = {};
+           
+            $(".keyEnter").keypress(function (e) {
+                if (e.which == 13) // Enter key = keycode 13
+                {
+                    about.loadData(1);
+                    return false;
+                }
+            });
+            $(".rightSearch").keypress(function (e) {
+                if (e.which == 13) // Enter key = keycode 13
+                {
+                    about.loadData(1);
+                    return false;
+                }
+            });
+            
+
+            about.loadData(1);
+        },
+       
+        loadData: function (pageindex) {
+            
+            var limit = $('#rowLimit').val();
+            $("#loading").show();
+            AjaxService.POST("/About/ListData?page=" + pageindex, { pageSize: limit }, function (res) {
+            
+                $("#gridData").html(res.viewContent);
+               
+                if (res.totalPages > 1) {
+                    $('#notification').remove()
+                    $('#paginationholder').html('');
+                    $('#paginationholder').html('<ul id="pagination" class="pagination-sm"></ul>');
+                    var firstPageClick = true;
+                    $('#pagination').twbsPagination({
+                        startPage: pageindex,
+                        first: "Đầu",
+                        last: "Cuối",
+                        next: "Tiếp",
+                        prev: "Trước",
+                        totalPages: res.totalPages,
+                        visiblePages: 5,
+                        onPageClick: function (event, page) {
+                            if (firstPageClick) {
+                                firstPageClick = false;
+                                return;
+                            }
+                            pageIndex = page;
+                            about.loadData(pageIndex);
+                        }
+                    });
+                }
+                FirstLoad = false;
+                $("#loading").hide();
+            });
+        },  
+
+        onSearchSuccess: function (res) {
+            var self = this;
+            $('#paginationholder').html('');
+            $('#paginationholder').html('<ul id="pagination" class="pagination-sm"></ul>');
+            $("#gridData").html(res.viewContent);
+            about.DataSearch = {
+                Name: $("#frmSearch #Name").val(),
+                LangCode: $("#frmSearch #LangCode").val(),
+                PageElementId: $("#frmSearch #PageElementId").val()
+            };
+            if (res.totalPages > 1) {
+                $('#pagination').twbsPagination({
+                    startPage: 1,
+                    totalPages: res.totalPages,
+                    visiblePages: 5,
+                    onPageClick: function (event, page) {
+                        about.pageIndex = page;
+                        about.loadData(page);
+                    }
+                });
+            }
+            self.FirstLoad = false;
+            $("#loading").hide();
+        },
+       
+        loadfrmDetail: function (id) {
+            modal.Render("/About/Detail/" + id, "Chi tiết hướng dẫn", "modal-lg");
+        },
+        loadfrmAdd: function () {
+            modal.Render("/About/Add", "Thêm mới bài viết giới thiệu", "modal-lg");
+        },
+        loadfrmedit: function (id) {
+            modal.Render("/About/Edit/" + id, "Cập nhật bài viết giới thiệu", "modal-lg");
+        },
+        ondelete: function (id) {
+            $("#loading").show();
+            var self = this;
+            swal({
+                title: "Bạn có chắc chắn không?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Có",
+                cancelButtonText: "không",
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    AjaxService.POST("/About/Delete", { id: id }, function (res) {
+                        self.pageIndex = 1;
+                        self.loadData(self.pageIndex);
+                        alertmsg.success(res.Messenger);
+                    });
+                }
+                $("#loading").hide();
+            });
+        },
+        onmultidelete: function () {
+            var self = this;
+            if ($("table tbody").find("input[type=checkbox]:checked").length == 0) {
+                alertmsg.error("Bạn cần chọn ít nhất một danh mục cần xóa");
+            } else {
+                $("#loading").show();
+                swal({
+                    title: "Bạn có chắc chắn không?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "không",
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        AjaxService.POST("/About/DeleteAll", { lstid: $("#hdfID").val() }, function (res) {
+                            self.pageIndex = 1;
+                            self.loadData(self.pageIndex);
+                            alertmsg.success(res.Messenger);
+                        });
+                    }
+                    $("#loading").hide();
+                });
+            }
+        },
+        initcheckall: function () {
+            var countall = $(".chkelement").length;
+            var countchecked = 0;
+            $(".chkelement").each(function () {
+                if ($(this).find($("input[type=checkbox]")).is(':checked')) {
+                    countchecked++;
+                }
+            });
+            if (countall == countchecked) {
+                $("#basicForm #chkall").prop('checked', true);
+            } else {
+                $("#basicForm #chkall").prop('checked', false);
+            }
+            $("#basicForm #chkall").click(function () {
+                if ($(this).is(':checked')) {
+                    $(".chkelement").each(function () {
+                        $(this).find($("input[type=checkbox]")).prop('checked', true);
+                    });
+                } else {
+                    $(".chkelement").each(function () {
+                        $(this).find($("input[type=checkbox]")).prop('checked', false);
+                    });
+                }
+            });
+            $(".chkelement").click(function () {
+                countchecked = 0;
+                $(".chkelement").each(function () {
+                    if ($(this).find($("input[type=checkbox]")).is(':checked')) {
+                        countchecked++;
+                    }
+                });
+                if (countall == countchecked) {
+                    $("#basicForm #chkall").prop('checked', true);
+                } else {
+                    $("#basicForm #chkall").prop('checked', false);
+                }
+            });
+        },
+        initcheckall2: function () {
+            var countall = $(".chkelement2").length;
+            var countchecked = 0;
+            $(".chkelement2").each(function () {
+                if ($(this).find($("input[type=checkbox]")).is(':checked')) {
+                    countchecked++;
+                }
+            });
+            if (countall == countchecked) {
+                $("#basicForm #chkall2").prop('checked', true);
+            } else {
+                $("#basicForm #chkall2").prop('checked', false);
+            }
+            $("#basicForm #chkall2").click(function () {
+                if ($(this).is(':checked')) {
+                    $(".chkelement2").each(function () {
+                        $(this).find($("input[type=checkbox]")).prop('checked', true);
+                    });
+                } else {
+                    $(".chkelement2").each(function () {
+                        $(this).find($("input[type=checkbox]")).prop('checked', false);
+                    });
+                }
+            });
+            $(".chkelement2").click(function () {
+                countchecked = 0;
+                $(".chkelement2").each(function () {
+                    if ($(this).find($("input[type=checkbox]")).is(':checked')) {
+                        countchecked++;
+                    }
+                });
+                if (countall == countchecked) {
+                    $("#basicForm #chkall2").prop('checked', true);
+                } else {
+                    $("#basicForm #chkall2").prop('checked', false);
+                }
+            });
+        },
+        onAddSuccess: function (res) {
+            if (res.IsSuccess == true) {
+                alertmsg.success(res.Messenger);
+                about.loadData(this.pageIndex);
+                modal.hide();
+            } else {
+                alertmsg.error(res.Messenger);
+            }
+            $("#loading").hide();
+        },
+        active: function (id) {
+            $("#loading").show();
+            var self = this;
+            swal({
+                title: "Thay đổi trạng thái?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Có",
+                cancelButtonText: "không",
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    AjaxService.POST("/Admin/About/ChangeStatus", { id: id }, function (res) {
+                        self.pageIndex = 1;
+                        self.loadData(self.pageIndex);
+                        alertmsg.success(res.Messenger);
+                    });
+                }
+                $("#loading").hide();
+            });
+        },
+        onEditSuccess: function (res) {
+            if (res.IsSuccess == true) {
+                alertmsg.success(res.Messenger);
+                about.loadData(this.pageIndex);
+                modal.hide();
+            } else {
+                alertmsg.error(res.Messenger);
+            }
+            $("#loading").hide();
+        },
+         
+    };
+}();
+$(function () {
+    about.init();
+});

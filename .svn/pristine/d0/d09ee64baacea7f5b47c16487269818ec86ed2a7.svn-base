@@ -1,0 +1,150 @@
+﻿@using Web.Model;
+@using Web.Core;
+@using Web.Areas.Admin.Controllers
+@{
+    ViewBag.Title = "";
+    var dothtml = ".html";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var menu_home = (List<tbl_HomeMenu>)TempData["MenuHome"];
+    var newinmenu = (List<tbl_News>)TempData["New"];
+}
+@{
+    Html.RenderAction("HomeSlide", "News");
+    Html.RenderAction("HomeCategory", "News");
+}
+<div class="col-md-12" style="padding-left:7.5px;padding-right:7.5px;">
+    <div class="row">
+        <div class="wrap_homecat">
+            @{ int ttvz = 0; }
+            @foreach (var item in menu_home)
+            {
+                ttvz++;
+                <div class="col-md-6 col-sm-6 col-xs-12 boxhomevz">
+                    <div class="title_panel" title="@item.Name">
+                        <a href="/pages/category/@item.ID/@HelperString.RemoveMark(@item.Name)@dothtml">@item.Name.Replace("--", "")</a>
+                    </div>
+                    @{
+                        var limit_newscm = Convert.ToInt32(ConfigTextController.GetValueCFT("limit_newscm"));
+                        var lstnew = newinmenu.Where(s => s.CategoryId == item.ID).Take(limit_newscm).ToList();
+                    }
+                    @foreach (var itemcon in lstnew.Take(1))
+                    {
+                        <div class="first_new">
+                            <a href="/pages/news/@itemcon.ID/@HelperString.RemoveMark(@itemcon.Title)@dothtml">
+                                <img src="@itemcon.FeautureImage" class="img-responsive"/>
+                                <span title="@itemcon.Title">@itemcon.Title</span>
+                            </a>
+                        </div>
+                    }
+                    <div class="newall">
+                        <ul>
+                            @{ var i = 0;}
+                            @foreach (var itemcon in lstnew)
+                            {
+                                i++;
+                                if (i > 1)
+                                {
+                                    <li><a href="/pages/news/@itemcon.ID/@HelperString.RemoveMark(@itemcon.Title)@dothtml" title="@itemcon.Title">@itemcon.Title</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+                if (ttvz % 2 == 0)
+                {
+                    <div class="clearfix"></div>
+                } 
+            }
+        </div>
+    </div>
+    
+</div>
+
+@{Html.RenderAction("Home", "VanBanFE");}
+<style>
+    .first_new span {
+        padding-top: 10px;
+        line-height: 22px;
+        height: 54px;
+        font-weight: bold;
+        overflow: hidden;
+        display: block;
+        color: #000;
+    }
+
+    .first_new a span:hover {
+        color: #f00;
+    }
+
+    .first_new img {
+        max-width: 100%;
+        height: 270px;
+    }
+
+    .first_new {
+        margin-top: 10px;
+    }
+
+    .newall {
+        margin-top: 10px;
+        background: #fff;
+        height: 185px;
+        overflow: hidden;
+        display: block;
+        text-overflow: ellipsis;
+    }
+
+        .newall a {
+            color: #000;
+        }
+
+        .newall ul li a:hover {
+            color: #f00;
+        }
+
+        .newall ul {
+            padding-left: 20px;
+        }
+
+            .newall ul li {
+                color: #f00;
+                list-style: circle;
+            }
+
+    .title_panel {
+        position: relative;
+        width: 100%;
+        height: auto;
+        font-size: 13px;
+        font-weight: bold;
+        /*font-stretch: condensed;*/
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+        box-sizing: border-box;
+        padding: 10px 0px 10px 10px;
+        background: url(/assets/images/chuyende-title-banner.png) repeat-y left top;
+        cursor: pointer;
+        text-overflow: ellipsis;
+    }
+
+    .box_categories {
+        margin-top: 20px;
+    }
+</style>
+@if (Request["success"] == "1")
+{
+    <script>alertmsg.success("Cập nhật thành công !");</script>
+}
+@if (Request["success"] == "0")
+{
+    <script>alertmsg.error("Cập nhật không thành công !");</script>
+}
+@if (Request["regsuccess"] == "1")
+{
+    <script>alertmsg.success("Đăng kí thành công,Tài khoản sẽ được xác minh và kích hoạt trong thời gian sớm nhất !");</script>
+}
+@if (Request["regsuccess"] == "0")
+{
+    <script>alertmsg.error("Đăng ký không thành công !");</script>
+}

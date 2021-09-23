@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Core;
+using Web.Model;
+
+namespace Web.Repository.Entity
+{
+    public class NewsRepository : INewsRepository
+    {
+        readonly PortalNewsEntities _entities = new PortalNewsEntities();
+        public void Add(Model.tbl_News obj)
+        {
+            _entities.tbl_News.Add(obj);
+            _entities.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var obj = Find(id);
+            _entities.tbl_News.Remove(obj);
+            _entities.SaveChanges();
+        }
+
+        public void Edit(Model.tbl_News obj)
+        {
+            _entities.Entry(obj).State = EntityState.Modified;
+            _entities.SaveChanges();
+        }
+        public void Edit(List<Model.tbl_News> lstobj)
+        {
+            foreach (var obj in lstobj)
+            {
+                _entities.Entry(obj).State = EntityState.Modified;
+            }
+            _entities.SaveChanges();
+        }
+
+        public IEnumerable<view_NEWS_LISTDATA> Get_News_ListData()
+        {
+            return _entities.view_NEWS_LISTDATA.OrderByDescending(g => g.CreatedDate);
+        }
+
+        public IEnumerable<view_NEWS_LISTDETAIL> Get_News_ListDetail()
+        {
+            return _entities.view_NEWS_LISTDETAIL.OrderByDescending(g => g.CreatedDate);
+        }
+        public IEnumerable<view_News> GetAllViewNews()
+        {
+            return _entities.view_News.OrderByDescending(g => g.CreatedDate);
+        }
+
+        public Model.tbl_News Find(int id)
+        {
+            return _entities.tbl_News.Find(id);
+        }
+
+        public IEnumerable<Model.tbl_News> GetAll()
+        {
+            return _entities.tbl_News.OrderByDescending(g => g.CreatedDate);
+        }
+
+        public IEnumerable<view_news_search> Search()
+        {
+            return _entities.view_news_search.OrderByDescending(g => g.CreatedDate);
+        }
+        #region Comment
+        public IEnumerable<Model.tbl_NewsComment> GetAllCMT()
+        {
+            return _entities.tbl_NewsComment.OrderByDescending(g => g.CreateDate);
+        }
+        public void AddCMT(Model.tbl_NewsComment obj)
+        {
+            _entities.tbl_NewsComment.Add(obj);
+            _entities.SaveChanges();
+        }
+
+        public void DeleteCMT(int id)
+        {
+            var obj = FindCMT(id);
+            _entities.tbl_NewsComment.Remove(obj);
+            _entities.SaveChanges();
+        }
+
+        public void EditCMT(Model.tbl_NewsComment obj)
+        {
+            _entities.Entry(obj).State = EntityState.Modified;
+            _entities.SaveChanges();
+        }
+        public Model.tbl_NewsComment FindCMT(int id)
+        {
+            return _entities.tbl_NewsComment.Find(id);
+        }
+        #endregion
+        
+    }
+}

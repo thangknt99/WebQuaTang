@@ -1,0 +1,312 @@
+﻿var tiepnhanPAhome = function () {
+    return {
+        init: function () {
+            this.pageIndex = 1;
+            this.FirstLoad = true;
+            this.DataSearch = {};
+           
+            $("#frmSearch #Name").change(function () {
+                $("#btnSearch").click();
+            });
+            
+            $('#searchBox').click(function () {
+                tiepnhanPAhome.loadDataHome(1);
+            });
+            $('#searchAnswer').click(function () {
+                tiepnhanPAhome.loadDataHome(1);
+            });
+            $(".keyEnter").keypress(function (e) {
+                if (e.which == 13) // Enter key = keycode 13
+                {
+                    tiepnhanPAhome.loadDataHome(1);
+                    return false;
+                }
+            });
+           
+
+            $('#search').on('click', function () {
+                $('#gridDataHome').hide();
+                var key = $('#rightSearch').val()
+                window.location.href = "/pages/search.html?keysearch=" + key;
+            });
+
+            //chuyển hướng sang trang trả lời khi tìm kiếm 
+            $(".rightSearch").keypress(function (e) {
+                if (e.which == 13)  
+                {
+                  
+                    var key = $('#rightSearch').val()
+                    window.location.href = "/pages/search.html?keysearch=" + key;
+                    return false;
+                }
+            });
+            $("#frmSearch #LangCode").change(function () {
+                $("#btnSearch").click();
+            });
+            $("#frmSearch #PageElementId").change(function () {
+                $("#btnSearch").click();
+            });
+            $('#captchaText').on("keyup", function () {
+               
+                var text = $('#captchaText').val();
+                $.ajax({
+                    url: "/TiepNhanPAHome/Checkcapcha",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        "text": text,
+                    },
+                    success: function (res) {
+                        if (res == false) {
+                            $('#captchaText').css("border", "1px solid red")
+                            $('#notification').html('<span id="nofiCode" style="color:red">Mã không chính xác</span>')
+                        } else {
+                            $('#captchaText').css("border", "1px solid #3c763d")
+                            $('#nofiCode').remove()
+                        }
+
+                    }
+
+                })
+            })
+            $("#basicForm").validate({
+                errorElement: "span",
+                errorClass: "help-block help-block-error",
+                focusInvalid: false,
+                ignore: "",
+                errorPlacement: function (error, element) {
+                    var icon = $(element).parent(".input-icon").children("i");
+                    icon.removeClass("fa-check").addClass("fa-warning");
+                    icon.attr("data-original-title", error.text()).tooltip({ 'container': ".modal-content" });
+                },
+                highlight: function (element) {
+                    $(element)
+                        .closest(".control-group").removeClass("has-success").addClass("has-error");
+                },
+                unhighlight: function () {
+                },
+                success: function (label, element) {
+                    var icon = $(element).parent(".input-icon").children("i");
+                    $(element).closest(".control-group").removeClass("has-error").addClass("has-success");
+                    icon.removeClass("fa-warning").addClass("fa-check");
+                }
+            });
+            tiepnhanPAhome.loadDataHome(1);
+            tiepnhanPAhome.refeshCaptcha();
+            tiepnhanPAhome.validatephone()
+            tiepnhanPAhome.checkname(fieldname);
+        },
+       
+    
+        loadDataHome: function (pageindex) {
+           
+            var key = $("#keyword").val()
+            var code = $('#codePAKN').val()
+            var date = $('#dateSearch').val()
+            $("#loading").show();
+            AjaxService.POST("/TiepNhanPAHome/ListData?page=" + pageindex, { keySearch: key, codePAKN: code, date: date }, function (res) {
+                 
+                $("#gridDataHome").html(res.viewContent);
+                if (res.totalPages == 0) {
+                    $("#gridDataHome").html('<p id="notification" style="text-align:center;text-size:16px;font-weight:bold;color:red">Không tìm được kết quả yêu cầu </p>');
+                }
+                if (res.totalPages > 1) {
+                    $('#paginationholder').html('');
+                    $('#paginationholder').html('<ul id="pagination" class="pagination-sm"></ul>');
+                    var firstPageClick = true;
+                    $('#pagination').twbsPagination({
+                        startPage: pageindex,
+                        first: "Đầu",
+                        last: "Cuối",
+                        next: "Tiếp",
+                        prev: "Trước",
+                        totalPages: res.totalPages,
+                        visiblePages: 5,
+                        onPageClick: function (event, page) {
+                            if (firstPageClick) {
+                                firstPageClick = false;
+                                return;
+                            }
+                            pageIndex = page;
+                            tiepnhanPAhome.loadDataHome(pageIndex);
+                        }
+                    });
+                }
+                FirstLoad = false;
+                $("#loading").hide();
+            });
+        },
+
+        onSearchSuccess: function (res) {
+            var self = this;
+            $('#paginationholder').html('');
+            $('#paginationholder').html('<ul id="pagination" class="pagination-sm"></ul>');
+            $("#gridData").html(res.viewContent);
+            tiepNhanPhanAnhKienNghi.DataSearch = {
+                Name: $("#frmSearch #Name").val(),
+                LangCode: $("#frmSearch #LangCode").val(),
+                PageElementId: $("#frmSearch #PageElementId").val()
+            };
+            if (res.totalPages > 1) {
+                $('#pagination').twbsPagination({
+                    startPage: 1,
+                    totalPages: res.totalPages,
+                    visiblePages: 5,
+                    onPageClick: function (event, page) {
+                        tiepNhanPhanAnhKienNghi.pageIndex = page;
+                        tiepNhanPhanAnhKienNghi.loadData(page);
+                    }
+                });
+            }
+            self.FirstLoad = false;
+            $("#loading").hide();
+        },
+
+        //validation field Name
+        checkname: function (fieldname) {
+            if (/^[!~@#-%&*0-9]+$/.test(fieldname)) {
+                $('#add').html('<span style="color:red" id="re">Tên không bắt đầu ký tự đặc biệt</span>')
+                $('.checkname>input').css('border', '1px solid red')
+                $('#labelname').css('color', 'red')
+
+            } else {
+                $("#re").remove();
+                $('.checkname>input').css('border', '1px solid #3c763d')
+                $('#labelname').css('color', '#3c763d')
+            }
+            if (fieldname.length>150) {
+                $('#add').html('<span style="color:red" id="re">Tên vượt quá chiều dài quy định</span>')
+            }
+        },
+        //validate field phone
+        validatephone: function () {
+            var phone = $('#phonefield').val();
+            phone = phone.replace(/[^0-9]/g, '')
+            $('#phonefield').val(phone);
+            if (phone.length < 8 &&phone.length>0) {
+                $('#phonenumber').html('<p id="removephone" style="color:red">Số điện thoại quá ngắn</p>')
+                $('#phonefield').css('border', '1px solid red')
+                $('#labelphone').css('color', 'red')
+            } else if (phone == "") {
+                $('#removephone').remove();
+                $('#phonefield').css('border', '1px solid #ccc')
+                $('#labelphone').css('color', '#333333')
+            } else {
+                $('#removephone').remove();
+                $('#phonefield').css('border', '1px solid #3c763d')
+                $('#labelphone').css('color', '#3c763d')
+            }
+        },
+        refeshCaptcha:function(){
+            var url = '/TiepNhanPAHome/GetCaptchaImage'
+            $('#reloadImageCaptcha').attr("src", url)
+        },
+        checkfieldCaptcha:function(){
+           
+        },
+        loadfrmDetail: function (id) {
+            modal.Render("/TiepNhanPAKN/Detail/" + id, "Chi tiết phản ánh kiến nghị", "modal-lg");
+        },
+        loadfrmAdd: function () {
+            modal.Render("/TiepNhanPAKN/Add", "Thêm mới phản ánh kiến nghị", "modal-lg");
+        },
+        onAddSuccess: function (res) {
+            if (res.IsSuccess == true) {
+                alertmsg.success(res.Messenger);
+                tiepnhanPAhome.loadData(this.pageIndex);
+                modal.hide();
+            } else {
+                alertmsg.error(res.Messenger);
+            }
+            $("#loading").hide();
+        },
+        loadfrmedit: function (id) {
+            modal.Render("/TiepNhanPAKN/Edit/" + id, "Cập nhật phản ánh kiến nghị", "modal-lg");
+        },
+        onEditSuccess: function (res) {
+            if (res.IsSuccess == true) {
+                alertmsg.success(res.Messenger);
+                tiepnhanPAhome.loadData(this.pageIndex);
+                modal.hide();
+            } else {
+                alertmsg.error(res.Messenger);
+            }
+            $("#loading").hide();
+        },
+        ondelete: function (id) {
+            $("#loading").show();
+            var self = this;
+            swal({
+                title: "Bạn có chắc chắn không?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Có",
+                cancelButtonText: "không",
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    AjaxService.POST("/TiepNhanPAKN/Delete", { id: id }, function (res) {
+                        self.pageIndex = 1;
+                        self.loadData(self.pageIndex);
+                        alertmsg.success(res.Messenger);
+                    });
+                }
+                $("#loading").hide();
+            });
+        },
+        onmultidelete: function () {
+            var self = this;
+            if ($("table tbody").find("input[type=checkbox]:checked").length == 0) {
+                alertmsg.error("Bạn cần chọn ít nhất một danh mục cần xóa");
+            } else {
+                $("#loading").show();
+                swal({
+                    title: "Bạn có chắc chắn không?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "không",
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        AjaxService.POST("/TiepNhanPAKN/DeleteAll", { lstid: $("#hdfID").val() }, function (res) {
+                            self.pageIndex = 1;
+                            self.loadData(self.pageIndex);
+                            alertmsg.success(res.Messenger);
+                        });
+                    }
+                    $("#loading").hide();
+                });
+            }
+        },
+
+        onupdateposittion: function () {
+            debugger;
+            var self = this;
+            $("#loading").show();
+            var arrValue = [];
+            $("table tbody tr").each(function () {
+                var id = $(this).find("#item_Id").val();
+                var ordering = $(this).find("input[type=text]").val();
+                var str = id + ":" + ordering;
+                arrValue.push(str);
+            });
+            var strValue = arrValue.join("|");
+            AjaxService.POST("/TiepNhanPAKN/UpdatePosition", { value: strValue }, function (res) {
+                if (res.IsSuccess == true) {
+                    alertmsg.success(res.Messenger);
+                    $("#gridData").html(res.ViewContent);
+                } else {
+                    alertmsg.error(res.Messenger);
+                }
+                self.loadData(self.pageIndex);
+                $("#loading").hide();
+            });
+        }
+    };
+}();
+$(function () {
+    tiepnhanPAhome.init();
+});

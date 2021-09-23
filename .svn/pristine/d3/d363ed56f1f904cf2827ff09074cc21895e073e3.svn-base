@@ -1,0 +1,67 @@
+﻿@using Web.Model
+@model Web.Model.tbl_QuyTrinhXuatban
+@using (Ajax.BeginForm("Edit", "QuyTrinhXuatBan", null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "quytrinhxuatban.onEditSuccess"
+    },
+    new { @id = "basicForm", @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label class="col-md-4 control-label">Tên quy trình xuất bản</label>
+        <div class="col-md-8">
+            @Html.TextBoxFor(g => g.Name, new { @class = "form-control", placeholder = "Tên quy trình xuất bản" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">Thứ tự</label>
+        <div class="col-md-8">
+            @Html.TextBoxFor(g => g.Ordering, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-8 col-sm-offset-4">
+            <div class="checkbox checkbox-primary">
+                <input id="isPublish" name="isPublish" type="checkbox" @(Model.isPublish?"checked":"") value="true">
+                <label for="isPublish">
+                    Publish
+                    <p><small>(Nếu là bước cuối cùng)</small></p>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-offset-2">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">Cập nhật</button>
+    </div>
+}
+<script>
+    // Basic Form
+    $(document).ready(function () {
+        $("#basicForm").validate({
+            rules:
+        {
+            Name:
+            {
+                required: true
+            },
+            Ordering:
+            {
+                required: true,
+                digits: true
+            }
+        },
+            messages:
+            {
+                Name:
+                {
+                    required: "Chưa nhập tên quy trình xuất bản"
+                },
+                Ordering: {
+                    required: "Bạn chưa nhập thứ tự",
+                    digits: "Bạn phải nhập vào một số nguyên"
+                }
+            }
+        });
+    });
+</script>

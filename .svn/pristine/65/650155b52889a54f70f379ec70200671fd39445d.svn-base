@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+@model List<Web.Model.tbl_LinkWebsite>
+@if (ViewBag.TypeLink == "slide")
+{
+    foreach (var linkwebsite in Model)
+    {
+        <div class="swiper-slide">
+            <a href="@linkwebsite.Url" class="ad-img" target="_blank"><img src="@linkwebsite.Logo" title="@linkwebsite.Name"></a>
+        </div>
+    }
+}
+else
+{
+    foreach (var linkwebsite in Model)
+    {
+        <a href="@linkwebsite.Url" class="ad-img"><img style="width: 100%;height: 85px;margin-bottom: 10px;" src="@linkwebsite.Logo" title="@linkwebsite.Name"></a>
+    }
+}

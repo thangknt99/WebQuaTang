@@ -1,0 +1,205 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Web.BaseSecurity;
+using Web.Core;
+using Web.Repository;
+using Web.Repository.Entity;
+using Web.Model;
+namespace Web.Areas.Admin.Controllers
+{
+    public class TiepNhanPAKNController : BaseController
+    {
+        //
+        // GET: /Admin/TiepNhanPAKN/
+        /// <summary>
+        /// Copy by TinTran
+        /// </summary>
+        readonly ILanguagesRepository _languagesRepository = new LanguagesRepository();
+        readonly ITiepNhanPAKNRepository _tiepnhanphananhRepository = new TiepNhanPAKNRepository();
+        readonly IUserAdminRepository _userAdminRepository = new UserAdminRepository();
+        public ActionResult Index()
+        {
+            var lstObj = _tiepnhanphananhRepository.GetAll().ToList();
+            var totalRow = lstObj.Count();
+            ViewBag.count = totalRow;
+            return View();
+        }
+        [Authorize(Roles = "Index")]
+        [HttpPost]
+        public ActionResult ListData(string LangCode, int page = 1,int pageSize= 0)
+        {
+            
+            var lstObj = _tiepnhanphananhRepository.GetAll().ToList();
+            var totalRow = lstObj.Count();
+            lstObj = lstObj.OrderByDescending(x=>x.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new
+            {
+                viewContent = RenderViewToString("~/Areas/Admin/Views/TiepNhanPAKN/_ListData.cshtml", lstObj),
+                totalPage = Math.Ceiling(((double)totalRow / pageSize))
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult Detail(int id)
+        {
+            var detail = _tiepnhanphananhRepository.Find(id);
+            return Json(RenderViewToString("~/Areas/Admin/Views/TiepNhanPAKN/_Detail.cshtml", detail), JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Add")]
+        public ActionResult Add()
+        {
+            var lstLanguage = _languagesRepository.GetAll().ToList();
+            TempData["Languages"] = lstLanguage;
+            return Json(RenderViewToString("~/Areas/Admin/Views/TiepNhanPAKN/_Create.cshtml"), JsonRequestBehavior.AllowGet);
+        }
+        //[HttpPost]
+        //public ActionResult Add(tbl_TiepNhanPAKN obj)
+        //{
+        //    try
+        //    {
+                
+        //        obj.CreatedDate = DateTime.Now;
+        //        int numfile = Convert.ToInt32(Request["NumFile"]);
+        //        for (int i = 0; i < numfile; i++)
+        //        {
+        //            string namefile = Request["namefile" + i.ToString()];
+        //            string linkfile = Request["file" + i.ToString()];
+        //            var replaceName = Request["replace_name_" + i.ToString()];
+        //            if (!string.IsNullOrEmpty(linkfile))
+        //            {
+        //                obj.NameFile = namefile;
+        //                obj.LinkFile = linkfile;
+        //                obj.ReplaceName = replaceName;
+        //            }
+        //        }
+        //        _tiepnhanphananhRepository.Add(obj);
+        //        return Json(new
+        //        {
+        //            IsSuccess = true,
+        //            Messenger = "Thêm mới thành công",
+        //        }, JsonRequestBehavior.AllowGet);
+              
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Json(new
+        //        {
+        //            IsSuccess = false,
+        //            Messenger = string.Format("Thêm mới thất bại")
+        //        }, JsonRequestBehavior.AllowGet);
+               
+        //    }
+        //}
+        public ActionResult Edit(int id)
+        {
+            var objPAKN = _tiepnhanphananhRepository.Find(id);
+            return Json(RenderViewToString("~/Areas/Admin/Views/TiepNhanPAKN/_Edit.cshtml", objPAKN), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult Edit(tbl_TiepNhanPAKN obj)
+        {
+            try
+            {
+                var objPAKN = _tiepnhanphananhRepository.Find(obj.Id);
+                objPAKN.Name = obj.Name;
+                objPAKN.Phone = obj.Phone;
+                objPAKN.Email = obj.Email;
+                objPAKN.Address = obj.Address;
+                objPAKN.Title = obj.Title;
+                objPAKN.AnswerContent = obj.AnswerContent;
+                objPAKN.Ordering = obj.Ordering;
+                objPAKN.Status = obj.Status;
+                obj.CreatedDate = objPAKN.CreatedDate;
+                obj.ModifiedDate = DateTime.Now;
+                obj.FilePAKN = objPAKN.FilePAKN;
+               
+                _tiepnhanphananhRepository.Edit(obj);
+                return Json(new
+                {
+                    IsSuccess = true,
+                    Messenger = "Cập nhật phản ánh kiến nghị thành công",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    IsSuccess = false,
+                    Messenger = string.Format("Cập nhật phản ánh kiến nghị thất bại")
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _tiepnhanphananhRepository.Delete(id);
+                return Json(new
+                {
+                    IsSuccess = true,
+                    Messenger = "Xóa phản ánh kiến nghị thành công",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    IsSuccess = false,
+                    Messenger = string.Format("Xóa phản ánh kiến nghị thất bại")
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult DeleteAll(string lstid)
+        {
+            var arrid = lstid.Split(',');
+            var count = 0;
+            foreach (var item in arrid)
+            {
+                try
+                {
+                    _tiepnhanphananhRepository.Delete(Convert.ToInt32(item));
+                    count++;
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+            return Json(new
+            {
+                Messenger = string.Format("Xóa thành công {0} menu", count),
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult UpdatePosition(string value)
+        {
+            var arrValue = value.Split('|');
+            foreach (var item in arrValue)
+            {
+                var id = item.Split(':')[0];
+                var pos = item.Split(':')[1];
+                var obj = _tiepnhanphananhRepository.Find(Convert.ToInt32(id));
+                obj.Ordering = Convert.ToInt32(pos);
+                try
+                {
+                    _tiepnhanphananhRepository.Edit(obj);
+
+                }
+                catch (Exception)
+                {
+                    return Json(new
+                    {
+                        IsSuccess = false,
+                        Messenger = string.Format("Cập nhật vị trí thất bại")
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new
+            {
+                IsSuccess = true,
+                Messenger = "Cập nhật vị trí thành công",
+            }, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

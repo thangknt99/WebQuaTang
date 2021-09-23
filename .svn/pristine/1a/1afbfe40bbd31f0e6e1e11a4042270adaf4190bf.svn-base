@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@using Web.Model
+@model List<tbl_Instruction>
+<div class="form-group" style="background-color:#eeeeee;height:40px;width:100%;padding-left:15px">
+    <h3 style="color:red;font-size:16px;margin-top:11px; text-transform: uppercase">Hướng dẫn sử dụng hệ thống tiếp nhận phản ánh kiến nghị</h3>
+</div>
+<div class="control-group" style="margin:20px 10px">
+    @{ int i = 0; }
+    @foreach (var item in Model)
+    {
+        i++;
+        <h4 style="font-family:Tahoma"> @i.@item.Title </h4>
+        <img src="@item.Image" style="width:100%;height:50%;margin-bottom:20px"/>
+      
+    }
+   
+</div>

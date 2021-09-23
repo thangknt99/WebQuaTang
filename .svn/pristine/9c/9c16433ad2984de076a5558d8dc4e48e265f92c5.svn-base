@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="form-group" style="background-color:#eeeeee;height:40px;width:100%;padding-left:15px">
+    <h3 style="color:red;font-size:16px;margin-top:11px; text-transform: uppercase">Hướng dẫn sử dụng hệ thống tiếp nhận phản ánh kiến nghị</h3>
+</div>
+<div class="control-group" style="margin:20px 10px">
+    
+</div>

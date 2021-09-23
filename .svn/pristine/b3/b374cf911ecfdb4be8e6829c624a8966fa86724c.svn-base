@@ -1,0 +1,161 @@
+﻿using SRVTextToImage;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Web.BaseSecurity;
+using Web.Core;
+using Web.Model;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Controllers
+{
+    public class TiepNhanPAHomeController : BaseController
+    {
+      
+        readonly ITiepNhanPAKNRepository _tiepnhanRepository = new TiepNhanPAKNRepository();
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ListData(string keySearch, string codePAKN, string date, string LangCode, int page = 1, int pageSize = 4)
+        {
+
+            var lstObj = _tiepnhanRepository.GetAll().Where(g => g.Status == true).ToList();
+            if (!string.IsNullOrEmpty(keySearch))
+            {
+                lstObj = lstObj.Where(g => HelperString.UnsignCharacter(g.Name).Trim().ToLower().Contains(HelperString.UnsignCharacter(keySearch).Trim().ToLower()) ||
+                HelperString.UnsignCharacter(g.Title).Trim().ToLower().Contains(HelperString.UnsignCharacter(keySearch).Trim().ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(date))
+            {
+                lstObj = lstObj.Where(g => string.Format("{0:dd/MM/yyyy}", g.CreatedDate).Contains(date)).ToList();
+
+            }
+            if (!string.IsNullOrEmpty(codePAKN))
+            {
+                lstObj = lstObj.Where(g => HelperString.UnsignCharacter(g.CodePAKN).Trim().ToLower().Contains(HelperString.UnsignCharacter(codePAKN).Trim().ToLower())).ToList();
+            }
+            var totalRow = lstObj.Count();
+            lstObj = lstObj.OrderByDescending(g => g.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new
+            {
+                Success = true,
+                viewContent = RenderViewToString("~/Views/TiepNhanPAHome/ListData.cshtml", lstObj),
+                totalPages = Math.Ceiling(((double)totalRow / pageSize))
+            }, JsonRequestBehavior.AllowGet);
+        }
+       
+        [HttpPost]
+        public ActionResult Add(tbl_TiepNhanPAKN obj, string captchaText)
+        {
+            try
+            {
+                obj.Name = obj.Name.Trim();
+                obj.Title = obj.Title.Trim();
+                obj.Address = obj.Address.Trim();
+                obj.Content = obj.Content.Trim();
+                obj.CreatedDate = DateTime.Now;
+                obj.CodePAKN = "PAKN" + "." + 10000;
+               
+                if (this.Session["CaptchaImageText"].ToString() == captchaText)
+                {
+                    _tiepnhanRepository.Add(obj);
+                    int numberCode = 10000 + obj.Id;
+                    obj.CodePAKN = "PAKN" + "." + numberCode;
+                    _tiepnhanRepository.Edit(obj);
+                    TempData["Code"] = obj.CodePAKN;
+                    return Redirect("/pages/phan-anh-kien-nghi.html?");
+                }
+                return Redirect("/pages/phan-anh-kien-nghi.html?");
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/pages/phan-anh-kien-nghi.html");
+            }
+        }
+        public ActionResult Answer()
+        {
+            return View();
+        }
+
+
+        public ActionResult SearchPAKN()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchPAKN(string keySearch, string CodePAKN, string DatePAKN, string LangCode, int page = 1, int pageSize = 5)
+        {
+
+            var lstObj = _tiepnhanRepository.GetAll().ToList();
+            if (!string.IsNullOrEmpty(keySearch))
+            {
+                lstObj = lstObj.Where(g => HelperString.UnsignCharacter(g.Name).Trim().ToLower().Contains(HelperString.UnsignCharacter(keySearch).Trim().ToLower()) ||
+                HelperString.UnsignCharacter(g.Title).Trim().ToLower().Contains(HelperString.UnsignCharacter(keySearch).Trim().ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(DatePAKN))
+            {
+                lstObj = lstObj.Where(g => string.Format("{0:dd/MM/yyyy}", g.CreatedDate).Contains(DatePAKN)).ToList();
+
+            }
+            if (!string.IsNullOrEmpty(CodePAKN))
+            {
+                lstObj = lstObj.Where(g => HelperString.UnsignCharacter(g.CodePAKN).Trim().ToLower().Contains(HelperString.UnsignCharacter(CodePAKN).Trim().ToLower())).ToList();
+            }
+            var totalRow = lstObj.Count();
+            lstObj = lstObj.OrderByDescending(g => g.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new
+            {
+                Success = true,
+                viewContent = RenderViewToString("~/Views/TiepNhanPAHome/ListDataPAKN.cshtml", lstObj),
+                totalPages = Math.Ceiling(((double)totalRow / pageSize))
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Detail(int id)
+        {
+            var detailObj = _tiepnhanRepository.Find(id);
+            return View(detailObj);
+        }
+        
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
+        public FileResult GetCaptchaImage()
+        {
+            CaptchaRandomImage cr = new CaptchaRandomImage();
+            this.Session["CaptchaImageText"] = cr.GetRandomString(5);
+            cr.GenerateImage(this.Session["CaptchaImageText"].ToString(), 220, 50, Color.Black, Color.White);
+            MemoryStream ms = new MemoryStream();
+            cr.Image.Save(ms, ImageFormat.Png);
+            ms.Seek(0, SeekOrigin.Begin);
+            return new FileStreamResult(ms, "image/png");
+
+        }
+        public void Checkcapcha()
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            bool check = false;
+            string text = Request.Params["text"];
+            if (Session["CaptchaImageText"].ToString() == text)
+                check =true;
+           Response.Write(js.Serialize(check));
+        }
+        readonly PortalNewsEntities _entities = new PortalNewsEntities();
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _entities.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

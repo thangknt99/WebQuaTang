@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using AttributeRouting.Web.Mvc;
+using Web.BaseSecurity;
+using Web.Controllers;
+using Web.Model.CustomModel;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Areas.Admin.Controllers
+{
+    public class HomeController : BaseController
+    {
+        readonly IUserAdminRepository _userRepository = new UserAdminRepository();
+        readonly INewsRepository _newsRepository = new NewsRepository();
+        readonly IQuyTrinhXuatBanRepository _quyTrinhXuatBanRepository = new QuyTrinhXuatBanRepository();
+        //
+        // GET: /Admin/Home/
+        [Authorize]
+        public ActionResult Index()
+        {
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (User.UserType == (int)EnumHelper.UserType.Binhthuong)
+            {
+                return RedirectToAction("AccessDenined", "Error");
+            }
+            // Thông tin đăng nhập User:
+            var currentUser = _userRepository.Find(User.ID);
+            ViewBag.rowUser = currentUser;
+            // List danh sach Tin bai theo trang thai
+            if (User.isAdmin == false)
+            {
+                ViewBag.lstQuyenId = currentUser.QuyTrinhXuatBanID.Split(',').ToList();
+            }
+            else
+            {
+                ViewBag.lstQuyenId = _quyTrinhXuatBanRepository.GetAll().Select(g => g.ID.ToString()).ToList();
+            }
+            ViewBag.countNhap = _newsRepository.GetAll().Count(g => g.Status == 10);
+            ViewBag.countBienTap = _newsRepository.GetAll().Count(g => g.Status == 9);
+            ViewBag.countTrinhBay = _newsRepository.GetAll().Count(g => g.Status == 11);
+            ViewBag.countSoatLoi = _newsRepository.GetAll().Count(g => g.Status == 12);
+            ViewBag.countXuatBan = _newsRepository.GetAll().Count(g => g.Status == 6);
+            return View();
+        }
+    }
+}

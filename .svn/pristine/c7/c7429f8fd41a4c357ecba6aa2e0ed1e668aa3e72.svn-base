@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+    var lstLinkWeb = (List<tbl_LinkWebsite>)ViewBag.lstLinkWeb;
+    var lstTruyNa = (List<tbl_truyna>)ViewBag.lstTruyNa;
+    var ImgRightTwo = (List<tbl_SlideImages>)ViewBag.ImgRightTwo;
+    var lstAlbum = (List<tbl_GalleryCategory>)ViewBag.GCAll;
+    var dothtml = ".html";
+}
+
+@using Web.Core
+@using Web.Model
+<link href="/Content/Admin/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+<link href="/Content/Admin/assets/fancybox/source/helpers/jquery.fancybox-buttons.css" rel="stylesheet" />
+<link href="/Content/Admin/assets/fancybox/source/helpers/jquery.fancybox-thumbs.css" rel="stylesheet" />
+<script src="/Content/Admin/assets/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+<script src="/Content/Admin/assets/fancybox/source/jquery.fancybox.js"></script>
+<script src="/Content/Admin/assets/fancybox/source/helpers/jquery.fancybox-buttons.js"></script>
+<script src="/Content/Admin/assets/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>
+<script src="/Content/Admin/assets/fancybox/source/helpers/jquery.fancybox-media.js"></script>
+@if (lstTruyNa.Any())
+{
+<div class="right_panel">
+    <div class="right_panel_title">
+        <a href="/pages/doi-tuong-truy-na.html" title="THÔNG BÁO">Đối tượng truy nã</a>
+    </div>
+    <div class="right_panel_content">
+        <div class="galary custom-gallery-home">
+            <div id="carousel-id-3" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @{int j = 0;}
+                    @foreach (var item in lstTruyNa)
+                    {
+                        var active = "";
+                        if (j == 0) { active = "active"; }
+                        <div class="item  @active">
+                            <a class="fancybox-effects-d" data-fancybox-group="thumb">
+                                <img alt="" src="@item.Photo" width="250" height="170" style="width: 250px; height: 170px !important">
+                            </a>
+                            <div class="carousel-caption" style="position: static; float: left; background: #fff; padding:5px 0; background: #fff;">
+                                <a href="/pages/doi-tuong/@item.ID/@HelperString.RemoveMark(@item.Name)@dothtml" title="@item.Name" style="text-shadow: none; color: #000;">@item.Name</a>
+                                <p style="margin-top: 0; color: #000; text-shadow: none; font-weight: normal;">Năm sinh:@item.NamSinh<br />Nơi đăng ký tạm trú: @(item.NoiDKTT ?? "Không xác định")</p>
+                            </div>
+                        </div>
+                        j++;
+                    }
+                </div>
+                <a class="left carousel-control" href="#carousel-id-3" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a class="right carousel-control" href="#carousel-id-3" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        @*<ul class="list-news person">
+                @foreach (var item in lstTruyNa)
+                {
+                    <li class="list">
+                        <div class="img-per">
+                            <a href=""><img src="@item.Photo" alt="" style="width: 66px;"></a>
+                        </div>
+                        <div class="info-per">
+                            <a href="/pages/doi-tuong/@item.ID/@HelperString.RemoveMark(@item.Name)@dothtml" title="@item.Name">@item.Name</a>
+                            <p>Năm sinh:@item.NamSinh<br />Nơi đăng ký tạm trú:@(item.NoiDKTT ?? "Không xác định")</p>
+                        </div>
+                    </li>
+                }
+            </ul>*@
+    </div>
+</div>
+    
+}
+<div class="right_panel">
+    <div class="right_panel_title">
+        <a href="#" title="THÔNG BÁO">Liên kết website</a>
+    </div>
+    <div class="right_panel_content">
+        <select name="link" id="" onchange="window.open(this.value, '_blank');">
+            <option value="">------- Lựa chọn ------</option>
+            @foreach (var item in lstLinkWeb)
+            {
+                <option value="@item.Url">@item.Name</option>
+            }
+        </select>
+    </div>
+</div>

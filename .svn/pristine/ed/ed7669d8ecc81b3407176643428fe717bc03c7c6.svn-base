@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Web.Model;
+
+namespace Web.Repository.Entity
+{
+  public class TiepNhanPAKNRepository:ITiepNhanPAKNRepository
+    {
+        readonly PortalNewsEntities _entities = new PortalNewsEntities();
+        public List<tbl_TiepNhanPAKN> GetAll()
+        {
+            return _entities.tbl_TiepNhanPAKN.ToList();
+        }
+        public tbl_TiepNhanPAKN Find(int id)
+        {
+            return _entities.tbl_TiepNhanPAKN.Find(id);
+        }
+        public bool Add(tbl_TiepNhanPAKN obj)
+        {
+            try
+            {
+                _entities.tbl_TiepNhanPAKN.Add(obj);
+                _entities.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+           
+        }
+        public bool Edit(tbl_TiepNhanPAKN obj)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    throw new ArgumentException("null");
+                }
+
+                var entry = _entities.Entry(obj);
+
+                if (entry.State == EntityState.Detached)
+                {
+                    var set = _entities.Set<tbl_TiepNhanPAKN>();
+                    var attachedEntity = set.Local.SingleOrDefault(e => e.Id == obj.Id);
+
+                    if (attachedEntity != null)
+                    {
+                        var attachedEntry = _entities.Entry(attachedEntity);
+                        attachedEntry.CurrentValues.SetValues(obj);
+                    }
+                    else
+                    {
+                        entry.State = EntityState.Modified;
+                    }
+                }
+                _entities.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public void Delete(int id)
+        {
+            var obj = Find(id);
+            _entities.tbl_TiepNhanPAKN.Remove(obj);
+            _entities.SaveChanges();
+        }
+    }
+}

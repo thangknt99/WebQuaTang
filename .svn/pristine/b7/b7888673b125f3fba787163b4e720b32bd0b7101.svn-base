@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="99ede54aaf0c414db999a3c403e720c2" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="vesportalModel.GroupCusUser" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="vesportalModel.MediaFile" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="vesportalModel.Newsvz" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_AccessOnline" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_AccessView" Width="1.5" PointX="9.75" PointY="7.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_AdminMenu" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ApproveNews" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_BoxNewsConfig" Width="1.5" PointX="2.75" PointY="11.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Calendar" Width="1.5" PointX="11.75" PointY="4.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Category" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_configLuuY" Width="1.5" PointX="11.75" PointY="8.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ConfigText" Width="1.5" PointX="9.75" PointY="11.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Contact" Width="1.5" PointX="11.75" PointY="11.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ContactInfo" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_CoQuanBanHanh" Width="1.5" PointX="6.75" PointY="12.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_CoQuanBanHanh_ZZZ" Width="1.5" PointX="13.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_CountAccess" Width="1.5" PointX="13.75" PointY="7.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ChucVu" Width="1.5" PointX="13.75" PointY="10.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_DanhMucTaiLieu" Width="1.5" PointX="13.75" PointY="13.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_DMChung" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_DMNhom" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_DonVi" Width="1.5" PointX="15.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_DonViTTHC" Width="1.5" PointX="15.75" PointY="6.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_FeedBack" Width="1.5" PointX="8.75" PointY="15.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Footer" Width="1.5" PointX="15.75" PointY="10.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Gallery" Width="1.5" PointX="15.75" PointY="14.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_GalleryCategory" Width="1.5" PointX="10.75" PointY="16.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_GroupUser" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_HistoryNews" Width="1.5" PointX="12.75" PointY="16.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_HomeMenu" Width="1.5" PointX="2.75" PointY="17.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_HomeMenu_OLD" Width="1.5" PointX="17.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Languages" Width="1.5" PointX="4.75" PointY="17.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_LichCongTac" Width="1.5" PointX="3" PointY="2.25" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_LinkWebsite" Width="1.5" PointX="17.75" PointY="8.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_LinhVucTTHC" Width="1.5" PointX="17.75" PointY="12.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_LinhVucVanBan" Width="1.5" PointX="17.75" PointY="15.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_LoaiVanBan" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Logs" Width="1.5" PointX="17.75" PointY="18.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Magazine" Width="1.5" PointX="19.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_News" Width="1.5" PointX="19.75" PointY="6.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_News_ZZZ" Width="1.5" PointX="6.75" PointY="19.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_NewsComment" Width="1.5" PointX="12.75" PointY="19.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_NewsPaper" Width="1.5" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_NewsPaperComment" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Online" Width="1.5" PointX="14.75" PointY="19.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_PageElement" Width="1.5" PointX="19.75" PointY="15.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Product" Width="1.5" PointX="8.75" PointY="20.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ProductCategory" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ProductOverView" Width="1.5" PointX="19.75" PointY="20.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_QALinhVuc" Width="1.5" PointX="21.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_QuestionAndAnswer" Width="1.5" PointX="21.75" PointY="6.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_QuyTrinhXuatban" Width="1.5" PointX="21.75" PointY="11.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_SlideImages" Width="1.5" PointX="21.75" PointY="14.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_TaiLieu" Width="1.5" PointX="16.75" PointY="21.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_TiepNhanPAKN" Width="1.5" PointX="21.75" PointY="19.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ToGiac" Width="1.5" PointX="0.75" PointY="22.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_TTHC" Width="1.5" PointX="2.75" PointY="22.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_TTHCComment" Width="1.5" PointX="23.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ThamDoYKien" Width="1.5" PointX="23.75" PointY="4.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_ThamDoYKien_Ip" Width="1.5" PointX="23.75" PointY="8.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_truyna" Width="1.5" PointX="10.75" PointY="23.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_User" Width="1.5" PointX="23.75" PointY="11.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_UserAdmin" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_VanBan" Width="1.5" PointX="12.75" PointY="23.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_VanBan_ZZZ" Width="1.5" PointX="23.75" PointY="19.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Video" Width="1.5" PointX="18.75" PointY="24.75" />
+        <EntityTypeShape EntityType="vesportalModel.view_Category_Languages" Width="1.5" PointX="20.75" PointY="24.75" />
+        <EntityTypeShape EntityType="vesportalModel.View_Gallery_Category" Width="1.5" PointX="25.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vesportalModel.view_News" Width="1.5" PointX="25.75" PointY="5.75" />
+        <EntityTypeShape EntityType="vesportalModel.view_NEWS_LISTDATA" Width="1.5" PointX="25.75" PointY="12.75" />
+        <EntityTypeShape EntityType="vesportalModel.view_NEWS_LISTDETAIL" Width="1.5" PointX="14.75" PointY="25.75" />
+        <EntityTypeShape EntityType="vesportalModel.view_news_search" Width="1.5" PointX="25.75" PointY="21.75" />
+        <AssociationConnector Association="vesportalModel.FK_tbl_LichCongTac_tbl_UserAdmin1" />
+        <AssociationConnector Association="vesportalModel.FK_tbl_NewsPaperComment_tbl_NewsPaper" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_Instruction" Width="1.5" PointX="23.375" PointY="26.75" />
+        <EntityTypeShape EntityType="vesportalModel.tbl_About" Width="1.5" PointX="25.375" PointY="26.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

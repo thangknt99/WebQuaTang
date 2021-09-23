@@ -1,0 +1,150 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Web.BaseSecurity;
+using Web.Model;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Areas.Admin.Controllers
+{
+    public class InstructionController : BaseController
+    {
+        //
+        // GET: /Admin/Instruction/
+        readonly IInstructionRepository _instructionRepository = new InstructionRepository();
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Index")]
+        [HttpPost]
+        public ActionResult ListData(string LangCode, int page = 1, int pageSize = 0)
+        {
+           
+            var lstObj = _instructionRepository.GetAll().ToList();
+            var totalRow = lstObj.Count();
+            lstObj = lstObj.OrderBy(x => x.Ordering).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new
+            {
+                viewContent = RenderViewToString("~/Areas/Admin/Views/Instruction/_ListData.cshtml", lstObj),
+                totalPage = Math.Ceiling(((double)totalRow / pageSize))
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Add")]
+        public ActionResult Add()
+        {
+            var lstLang = _instructionRepository.GetAll().ToList();
+            TempData["Languages"] = lstLang;
+            return Json(RenderViewToString("~/Areas/Admin/Views/Instruction/_Create.cshtml"), JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = "Add")]
+       
+        [HttpPost]
+        public ActionResult Add(tbl_Instruction obj)
+        {
+            try
+            {
+                _instructionRepository.Add(obj);
+               
+                return Json(new
+                {
+                    IsSuccess = true,
+                    Messenger = "Thêm mới thông tin trang thành công",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    IsSuccess = false,
+                    Messenger = string.Format("Thêm mới thông tin trang thất bại")
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var obj = _instructionRepository.Find(id);
+            return Json(RenderViewToString("~/Areas/Admin/Views/Instruction/_Edit.cshtml", obj), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult Edit(tbl_Instruction obj)
+        {
+            try
+            {
+               
+                _instructionRepository.Edit(obj);
+                return Json(new
+                {
+                    IsSuccess = true,
+                    Messenger = "Cập nhật phản ánh kiến nghị thành công",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    IsSuccess = false,
+                    Messenger = string.Format("Cập nhật phản ánh kiến nghị thất bại")
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [Authorize(Roles = "Edit")]
+        public ActionResult ChangeStatus(int id)
+        {
+            var obj = _instructionRepository.Find(id);
+            obj.Status = !obj.Status;
+            _instructionRepository.Edit(obj);
+            return Json(new
+            {
+                IsSuccess = true,
+                Messenger = "Thay đổi trạng thái thành công",
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _instructionRepository.Delete(id);
+                return Json(new
+                {
+                    IsSuccess = true,
+                    Messenger = "Xóa phản ánh kiến nghị thành công",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    IsSuccess = false,
+                    Messenger = string.Format("Xóa phản ánh kiến nghị thất bại")
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult DeleteAll(string lstid)
+        {
+            var arrid = lstid.Split(',');
+            var count = 0;
+            foreach (var item in arrid)
+            {
+                try
+                {
+                    _instructionRepository.Delete(Convert.ToInt32(item));
+                    count++;
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+            return Json(new
+            {
+                Messenger = string.Format("Xóa thành công {0} danh mục", count),
+            }, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

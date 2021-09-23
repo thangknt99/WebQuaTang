@@ -1,0 +1,156 @@
+﻿var searchPAKN = function () {
+    return {
+        init: function () {
+            this.pageIndex = 1;
+            this.FirstLoad = true;
+            this.DataSearch = {};
+          
+            $("#frmSearch #Name").change(function () {
+                $("#btnSearch").click();
+            });
+            $('#searchPAKN').on('click',function () {
+                searchPAKN.loadDataPAKN(1);
+            })
+            $('#rightSearch').on('click', function () {
+                $('#magic').val("")
+                $('#keyWord').val("")
+            });
+            $('#keyWord').on('click', function () {
+                $('#rightSearch').val("")
+                $('#magic').val("")
+            });
+            $(".keyEnter").keypress(function (e) {
+                if (e.which == 13) // Enter key = keycode 13
+                {
+                    searchPAKN.loadDataPAKN(1);
+                    return false;
+                }
+            });
+            $(".rightSearch").keypress(function (e) {
+                if (e.which == 13) // Enter key = keycode 13
+                {
+                    searchPAKN.loadDataPAKN(1);
+                    return false;
+                }
+            });
+            $("#frmSearch #LangCode").change(function () {
+                $("#btnSearch").click();
+            });
+            $("#frmSearch #PageElementId").change(function () {
+                $("#btnSearch").click();
+            });
+            searchPAKN.loadDataPAKN(1);
+        },
+       
+        loadDataPAKN: function (pageindex) {
+            
+            var code = $('#codeSearchPAKN').val()
+            var date = $('#dateSearch').val()
+            var key=""
+            var keyright = $('#rightSearch').val()
+            var keyMagic = $('#magic').val()
+            var keyword = $('#keyWord').val()
+
+            if (keyright == "" && keyword =="") {
+                key =keyMagic
+            }
+            if (keyMagic == "" && keyword == "") {
+                key=keyright
+            }
+            if (keyright =="" && keyMagic == "") {
+                key = keyword
+            }
+           
+          
+            $("#loading").show();
+            AjaxService.POST("/TiepNhanPAHome/SearchPAKN?page=" + pageindex, { keySearch: key, CodePAKN: code, DatePAKN: date }, function (res) {
+              
+                $("#gridDataPAKN").html(res.viewContent);
+                if (res.totalPages==0)
+                {
+                    $("#gridDataPAKN").html('<p id="notification" style="text-align:center;text-size:16px;font-weight:bold;color:red">Không tìm được kiến nghị yêu cầu </p>');
+                }
+                if (res.totalPages > 1) {
+                    $('#notification').remove()
+                    $('#paginationholder').html('');
+                    $('#paginationholder').html('<ul id="pagination" class="pagination-sm"></ul>');
+                    var firstPageClick = true;
+                    $('#pagination').twbsPagination({
+                        startPage: pageindex,
+                        first: "Đầu",
+                        last: "Cuối",
+                        next: "Tiếp",
+                        prev: "Trước",
+                        totalPages: res.totalPages,
+                        visiblePages: 5,
+                        onPageClick: function (event, page) {
+                            if (firstPageClick) {
+                                firstPageClick = false;
+                                return;
+                            }
+                            pageIndex = page;
+                            searchPAKN.loadDataPAKN(pageIndex);
+                        }
+                    });
+                }
+                FirstLoad = false;
+                $("#loading").hide();
+            });
+        },  
+
+        onSearchSuccess: function (res) {
+            var self = this;
+            $('#paginationholder').html('');
+            $('#paginationholder').html('<ul id="pagination" class="pagination-sm"></ul>');
+            $("#gridData").html(res.viewContent);
+            searchPAKN.DataSearch = {
+                Name: $("#frmSearch #Name").val(),
+                LangCode: $("#frmSearch #LangCode").val(),
+                PageElementId: $("#frmSearch #PageElementId").val()
+            };
+            if (res.totalPages > 1) {
+                $('#pagination').twbsPagination({
+                    startPage: 1,
+                    totalPages: res.totalPages,
+                    visiblePages: 5,
+                    onPageClick: function (event, page) {
+                        searchPAKN.pageIndex = page;
+                        searchPAKN.loadDataPAKN(page);
+                    }
+                });
+            }
+            self.FirstLoad = false;
+            $("#loading").hide();
+        },
+       
+        loadfrmDetail: function (id) {
+            modal.Render("/TiepNhanPAKN/Detail/" + id, "Chi tiết phản ánh kiến nghị", "modal-lg");
+        },
+        
+        onAddSuccess: function (res) {
+            if (res.IsSuccess == true) {
+                alertmsg.success(res.Messenger);
+                searchPAKN.loadDataPAKN(this.pageIndex);
+                modal.hide();
+            } else {
+                alertmsg.error(res.Messenger);
+            }
+            $("#loading").hide();
+        },
+        
+        onEditSuccess: function (res) {
+            if (res.IsSuccess == true) {
+                alertmsg.success(res.Messenger);
+                searchPAKN.loadDataPAKN(this.pageIndex);
+                modal.hide();
+            } else {
+                alertmsg.error(res.Messenger);
+            }
+            $("#loading").hide();
+        },
+         
+    };
+}();
+$(function () {
+    searchPAKN.init();
+});

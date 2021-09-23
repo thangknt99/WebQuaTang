@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Web.BaseSecurity;
+using Web.Model;
+using Web.Repository;
+using Web.Repository.Entity;
+
+namespace Web.Areas.Admin.Controllers
+{
+    public class AboutController : BaseController
+    {
+        //
+        // GET: /Admin/About/
+        readonly IAboutRepository _aboutRepository = new AboutRepository();
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Index")]
+
+        [HttpPost]
+        public ActionResult ListData(string LangCode, int page = 1, int pageSize = 0)
+        {
+
+            var lstObj = _aboutRepository.GetAll().ToList();
+            var totalRow = lstObj.Count();
+            lstObj = lstObj.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new
+            {
+                viewContent = RenderViewToString("~/Areas/Admin/Views/About/_ListData.cshtml", lstObj),
+                totalPage = Math.Ceiling(((double)totalRow / pageSize))
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Add")]
+        public ActionResult Add()
+        {
+             
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        [Authorize(Roles = "Add")]
+        public ActionResult Add(tbl_About obj)
+        {
+            try
+            {
+                obj.CreateDate = DateTime.Now;
+                _aboutRepository.Add(obj);
+                LogController.AddLog(string.Format("Sửa bài viết: {0}", obj.Name), User.Username);
+            }
+            catch (Exception)
+            {
+               
+            }
+            return Redirect("/Admin/About");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var obj = _aboutRepository.Find(id);
+            return View(obj);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        [Authorize(Roles = "Add")]
+        public ActionResult Edit(tbl_About obj)
+        {
+            try
+            {
+
+                _aboutRepository.Edit(obj);
+                 
+            }
+            catch (Exception)
+            {
+                
+            }
+            return Redirect("/Admin/About");
+        }
+        [Authorize(Roles = "Edit")]
+        public ActionResult ChangeStatus(int id)
+        {
+            var obj = _aboutRepository.Find(id);
+            obj.Status = !obj.Status;
+            _aboutRepository.Edit(obj);
+            return Json(new
+            {
+                IsSuccess = true,
+                Messenger = "Thay đổi trạng thái thành công",
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _aboutRepository.Delete(id);
+                return Json(new
+                {
+                    IsSuccess = true,
+                    Messenger = "Xóa bài viết thành công",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    IsSuccess = false,
+                    Messenger = string.Format("Xóa bài viết thành thất bại")
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult DeleteAll(string lstid)
+        {
+            var arrid = lstid.Split(',');
+            var count = 0;
+            foreach (var item in arrid)
+            {
+                try
+                {
+                    _aboutRepository.Delete(Convert.ToInt32(item));
+                    count++;
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+            return Json(new
+            {
+                Messenger = string.Format("Xóa thành công {0} bài viết", count),
+            }, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

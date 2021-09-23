@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+@using Web.Areas.Admin.Controllers
+<header id="header" class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 background">
+                <div class="row">
+                    <a href="/" title="">
+                        <img class="img-responsive hidden-xs" src="@ViewBag.banner" alt="banner">
+                    </a>
+                </div>
+            </div>
+            @*<div class="col-md-3 hidden-xs formsearchindex">
+                <div class="ul_local col-md-12 text-center">
+                    <ul style="text-align: center">
+                        <li><a href="/">@ConfigTextController.GetValueCFT("trangchu")</a></li>
+                        <li>|</li>
+                        <li><a href="/pages/gui-lien-he/add.html">@ConfigTextController.GetValueCFT("lienhe")</a></li>
+                        <li>|</li>
+                        <li><a href="/pages/so-do-cong.html">Sơ đồ website</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    @using (Html.BeginForm("SearchHome", "News", FormMethod.Get))
+                    {
+                        <div class="search-box">
+                            <input id="search-box-input" type="text" name="search" placeholder="@ConfigTextController.GetValueCFT("timkiem") ..." value="">
+                            <button class="submit_search" type="submit"><i class="search-box-icon fa fa-search"></i></button>
+                        </div>
+                    }
+                </div>
+            </div>*@
+        </div>
+    </div>
+</header>

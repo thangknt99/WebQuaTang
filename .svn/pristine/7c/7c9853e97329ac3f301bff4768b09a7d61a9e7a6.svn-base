@@ -1,0 +1,69 @@
+﻿@using Web.Model
+@model Web.Model.tbl_TiepNhanPAKN
+@using (Ajax.BeginForm("Add", "TiepNhanPAKN", null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "tiepNhanPhanAnhKienNghi.onAddSuccess"
+    },
+    new { @id = "basicForm", @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label class="col-md-2 control-label">Họ tên</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Name, new { @class = "form-control", placeholder = "Nhập họ tên đầy đủ " })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Email</label>
+        <div style="float:left" class="col-md-5">
+            @Html.TextBoxFor(g => g.Email, new { @class = "form-control", placeholder = "Nhập địa chỉ thư điện tử" })
+        </div>
+        <label style="margin-left:-50px" class="col-md-2 control-label">Số điện thoại</label>
+        <div style="float:left;width:30.4%;" class="col-md-4">
+            @Html.TextBoxFor(g => g.Phone, new {@id="phone",@minlength="10",@type="number", @class = "form-control", placeholder = "Nhập số điện thoại liên hệ"})
+        </div>
+    </div> 
+    <div class="form-group">
+        <label class="col-md-2 control-label">Địa chỉ</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Address, new { @class = "form-control", placeholder = "Nhập địa chỉ liên hệ" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Tiêu đề phản ánh</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Title, new { @class = "form-control", placeholder = "Nhập tiêu đề phản ánh, kiến nghị" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Nội dung trả lời</label>
+        <div style="height:80px" class="col-md-10">
+            @Html.TextAreaFor(g => g.AnswerContent, new { @class = "form-control content", placeholder = "Nội dung trả lời phản ánh, kiến nghị"})
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">File trả lời đính kèm</label>
+        <div class="col-md-10">
+            @Html.Partial("_Attachment", new { Name = "Attachment", Multiple = false})
+        </div>
+    </div>
+    <div class="form-group ">
+        <label class="col-md-2 control-label"> Kích hoạt</label>
+        <div class="col-md-10">
+            <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="Status" name="Status" checked="" value="true">
+                <label for="Status"></label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 pull-right pl0">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">Thêm mới</button>
+    </div>
+}
+<style>
+    textarea.form-control{
+        height:80px;
+    }
+</style>
+<script src="~/AppJs/tiepNhanPhanAnhKienNghi.js"></script>

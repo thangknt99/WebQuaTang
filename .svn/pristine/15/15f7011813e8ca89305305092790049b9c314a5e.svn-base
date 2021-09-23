@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+
+namespace Web
+{
+    public class RouteConfig
+    {
+        
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            //routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute("search", "pages/search.html", new { controller = "TiepNhanPAHome", action = "SearchPAKN" }, namespaces: new[] { "Web.Controllers" });
+            routes.MapRoute("answer", "pages/tra-loi.html", new { controller = "TiepNhanPAHome", action = "Answer" }, namespaces: new[] { "Web.Controllers" });
+            routes.MapRoute("about", "pages/gioi-thieu.html", new { controller = "AboutPAKN", action = "Index" }, namespaces: new[] { "Web.Controllers" });
+            routes.MapRoute("detail_kiennghi", "phan-anh-kien-nghi/detail/{id}", new { controller = "TiepNhanPAHome", action = "Detail" });
+            routes.MapRoute("phananh_kiennghi", "pages/phan-anh-kien-nghi.html", new { controller = "TiepNhanPAHome", action = "Index", id = UrlParameter.Optional, zoneid = "" }, namespaces: new[] { "Web.Controllers" });
+            routes.MapRoute("huong-dan", "pages/huong-dan.html", new { controller = "InstructionHome", action = "Index" }, namespaces: new[] { "Web.Controllers" });
+            routes.MapRoute("video_detail", "pages/video/{id}/{title}.html", new { controller = "video", action = "Index", id = UrlParameter.Optional }, namespaces: new[] { "Web.Controllers" });
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "TiepNhanPAHome", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "Web.Controllers" }
+            );
+        }
+    }
+}
